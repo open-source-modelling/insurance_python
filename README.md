@@ -31,3 +31,6 @@
 | Algorithm              | Source                              | Description                                                           |
 | ---------------------- | ----------------------------------- | --------------------------------------------------------------------- |
 | TBD                    | TBD                                 | TBD                                                                   |
+
+<b> New suggestions for algorithms are wellcome </b>
+
