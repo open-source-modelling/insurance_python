@@ -31,6 +31,7 @@
 | Algorithm              | Source                              | Description                                                           |
 | ---------------------- | ----------------------------------- | --------------------------------------------------------------------- |
 | Calibration of alpha   | [Technical-documentation]           | Calibration of the Smith & Wilson's alpha parameter                   |
+| Fractions of matrix    | TBD                                 | Heuristics for calculating transition matrices on fractions of power  |
 
 <b> New suggestions for algorithms are wellcome </b>
 
