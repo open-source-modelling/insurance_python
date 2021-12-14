@@ -30,7 +30,7 @@
 
 | Algorithm              | Source                              | Description                                                           |
 | ---------------------- | ----------------------------------- | --------------------------------------------------------------------- |
-| TBD                    | TBD                                 | TBD                                                                   |
+| Calibration of alpha   | [Technical-documentation]           | Calibration of the Smith & Wilson's alpha parameter                   |
 
 <b> New suggestions for algorithms are wellcome </b>
 
