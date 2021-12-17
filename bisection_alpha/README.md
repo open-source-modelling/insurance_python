@@ -1,4 +1,6 @@
-This repository has an implementation for a simple bisection method that finds the optimal parameter alpha for the Smith & Wilson algorithm offten used in insurance to interpolate/extrapolate rates or yields.  
+This repository has an implementation for a simple bisection method that finds the optimal parameter alpha for the Smith & Wilson algorithm offten used in insurance to interpolate/extrapolate rates or yields.
+
+The implementation is based on [Technical documentation of the Methodology to derive EIOPA's risk-free interest rate term structure](https://www.eiopa.europa.eu/sites/default/files/risk_free_interest_rate/12092019-technical_documentation.pdf) and [Wiki on Bisection method](https://en.wikipedia.org/wiki/Bisection_method)
 
 ## Problem
 Before using the Smith & Wilson algorithm, the user needs to provide the convergence speed parameter alpha. This parameter needs to be calibrated primarily so that that the extrapolated result matches the desired long term behaviour.
@@ -9,12 +11,12 @@ By transforming the minimization problem at the point of convergence into a prob
 ### Input
  - The minimum allowed value of the convergence speed parameter alpha.
  - The maximum allowed value of the convergence speed parameter alpha.
- - Maturities of bonds, observed on the market and provided as output
+ - Maturities of bonds, observed on the market and provided as output.
  - Zero-coupon rates, for which the user wishes to calibrate the algorithm. Each rate belongs to an observable zero coupon bond with a known maturity. 
  - The ultimate forward rate towards which the user wishes the resulting curve to converge.
  - Allowed difference between the given ultimate forward rate and the resulting curve. 
- - The numeric precision of the calculation. Higher the precision, more aqurate the estimation of the root
- - The maximum number of iterations allowed. This is to prevent an infinite loop in case the method does not converge to a solution         
+ - The numeric precision of the calculation. Higher the precision, more aqurate the estimation of the root.
+ - The maximum number of iterations allowed. This is to prevent an infinite loop in case the method does not converge to a solution.        
  
 ### Output
   - Optimal value of the parameter alpha if the roposedd method converged
@@ -47,5 +49,5 @@ Tau = 0.0001 # 1 basis point
 print("Example in the documentation for Galfa: "+ str(Galfa(M_Obs, r_Obs, ufr, 0.15, Tau)))
 print("Example in the documentation for BisectionAlpha: "+ str(BisectionAlpha(0.05, 0.5, M_Obs, r_Obs, ufr, Tau, Precision, 1000)))
 ```
-Note that this implementation use functions SWCalibrate and SWExtrapolate from the Smith & Wilson implementation. They are duplicated to this repository for completenes. If there are any inconsistencies, let us know.
+Note that this implementation use functions `SWCalibrate` and `SWExtrapolate` from the [Smith & Wilson implementation](https://github.com/qnity/insurance_python/tree/main/smith%26wilson). They are duplicated to this repository for completenes. If there are any inconsistencies or suggestions, raise an issue or contact us directly.
 
