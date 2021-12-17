@@ -38,3 +38,5 @@ Tau = 0.0001 # 1 basis point
 print("Example in the documentation for Galfa: "+ str(Galfa(M_Obs, r_Obs, ufr, 0.15, Tau)))
 print("Example in the documentation for BisectionAlpha: "+ str(BisectionAlpha(0.05, 0.5, M_Obs, r_Obs, ufr, Tau, Precision, 1000)))
 ```
+Note that this implementation use functions SWCalibrate and SWExtrapolate from the Smith & Wilson implementation. They are duplicated to this repository for completenes. If there are any inconsistencies, let us know.
+
