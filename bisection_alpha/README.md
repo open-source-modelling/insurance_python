@@ -1,16 +1,16 @@
-This repository has an implementation for a simple bisection method that finds the optimal parameter alpha for the Smith & Wilson algorithm offten used in insurance to interpolate/extrapolate rates or yields.
+This repository has an implementation for a simple bisection method that finds the optimal parameter α for the Smith & Wilson algorithm offten used in insurance to interpolate/extrapolate rates or yields.
 
 The implementation is based on [Technical documentation of the Methodology to derive EIOPA's risk-free interest rate term structure](https://www.eiopa.europa.eu/sites/default/files/risk_free_interest_rate/12092019-technical_documentation.pdf) and [Wiki on Bisection method](https://en.wikipedia.org/wiki/Bisection_method)
 
 ## Problem
-Before using the Smith & Wilson algorithm, the user needs to provide the convergence speed parameter alpha. This parameter needs to be calibrated primarily so that that the extrapolated result matches the desired long term behaviour.
+Before using the Smith & Wilson algorithm, the user needs to provide the convergence speed parameter α. This parameter needs to be calibrated primarily so that that the extrapolated result matches the desired long term behaviour.
 
 ## Solution
-By transforming the minimization problem at the point of convergence into a problem of finding a root of the shifted function g(alpha) - Tau, this repository implements a simple bisection algorithm to find the optimal alpha.
+By transforming the minimization problem at the point of convergence into a problem of finding a root of the shifted function g(α) - τ, this repository implements a simple bisection algorithm to find the optimal α.
 
 ### Input
- - The minimum allowed value of the convergence speed parameter alpha.
- - The maximum allowed value of the convergence speed parameter alpha.
+ - The minimum allowed value of the convergence speed parameter α.
+ - The maximum allowed value of the convergence speed parameter α.
  - Maturities of bonds, observed on the market and provided as output.
  - Zero-coupon rates, for which the user wishes to calibrate the algorithm. Each rate belongs to an observable zero coupon bond with a known maturity. 
  - The ultimate forward rate towards which the user wishes the resulting curve to converge.
@@ -19,7 +19,7 @@ By transforming the minimization problem at the point of convergence into a prob
  - The maximum number of iterations allowed. This is to prevent an infinite loop in case the method does not converge to a solution.        
  
 ### Output
-  - Optimal value of the parameter alpha if the roposedd method converged
+  - Optimal value of the parameter α (if the bisection method converged).
  
  Note that to be consistent with EIOPA's recomandations, the lower bound of the interval should be set to 0.05. 
  
