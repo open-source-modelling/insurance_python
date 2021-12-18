@@ -4,13 +4,13 @@ def SWCalibrate(r, M, ufr, alpha):
 # interpolation and extrapolation of rates.
 #
 # Arguments: 
-#    r =     n x 1 ndarray of rates, for which you wish to calibrate the algorithm. Each rate belongs to an observable zero coupon bond with a known maturity. Ex. r = [[0.0024], [0.0034]]
+#    r =     n x 1 ndarray of rates, for which you wish to calibrate the algorithm. Each rate belongs to an observable zero-coupon bond with a known maturity. Ex. r = [[0.0024], [0.0034]]
 #    M =     n x 1 ndarray of maturities of bonds, that have rates provided in input (r). Ex. u=[[1], [3]]
 #    ufr =   1 x 1 floating number, representing the ultimate forward rate. Ex. ufr = 0.042
 #    alpha = 1 x 1 floating number representing the convergence speed parameter alpha. Ex. alpha = 0.05
 #
 # Returns:
-#    n x 1 ndarray array for the calibration vector needed to interpolate and extrapolate b =[[14], [-21]]
+#    n x 1 ndarray array for the calibration vector needed to interpolate and extrapolate b = [[14], [-21]]
 #    rates
 # For more information see https://www.eiopa.europa.eu/sites/default/files/risk_free_interest_rate/12092019-technical_documentation.pdf
 
