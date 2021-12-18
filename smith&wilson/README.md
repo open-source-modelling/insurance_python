@@ -9,11 +9,11 @@ The link is for version published on 12/09/2019. See Section 7.
 
 ## Problem
 
-When analysing market expectations of future rates, a common approach is o look at fixed income instruments such as government or corporate bonds that mature in the future. In practice, the maturities observable (and liquid) on the market rarely cover all the maturities that are needed.
+When analysing market expectations of future rates, a common approach is to look at fixed income instruments such as government or corporate bonds that mature in the future. In practice, the maturities observable (and liquid) on the market rarely covers all the maturities that are needed.
 
 ## Solution
 
-This implementation takes as input the <b>avalible market information</b>, <b>parameters</b> describing the long-term behaviour of the curve and the data on <b>desired (target) maturities</b> for which the yields are needed.
+This implementation takes as input the <b>available market information</b>, <b>parameters</b> describing the long-term behaviour of the curve and the data on <b>desired (target) maturities</b> for which the yields are needed.
 
 ### Avalible market information
 - Observed yields of the zero-coupon bonds (ZCB).
@@ -30,7 +30,7 @@ Note that this implementation assumes that the yields were calculated on ZCB. Th
 
 The implementation is split in two parts: 
 
-- The avalible market data and the parameters are used to "clibrate" the algorithm. This returns a calibration vector that can be used to interpolate or extrapolate target maturities. This is done by calibrating the kernel functions. Look at the function `SWCalibrate`.
+- The available market data and the parameters are used to "clibrate" the algorithm. This returns a calibration vector that can be used to interpolate or extrapolate target maturities. This is done by calibrating the kernel functions. Look at the function `SWCalibrate`.
 - The yields for ZCB with targeted maturities are Interpolated/extrapolated. Look at the function `SWExtrapolate`.
 
 The syntax in the functions tries to be consistent with EIOPA technical specifications.
@@ -45,7 +45,7 @@ from SWCalibrate import SWCalibrate as SWCalibrate
 from SWExtrapolate import SWExtrapolate as SWExtrapolate
 
 # yields observed on the market
-r_Obs =  np.transpose(np.array([0.01, 0.02, 0.03, 0.032, 0.035, 0.04])) 
+r_Obs = np.transpose(np.array([0.01, 0.02, 0.03, 0.032, 0.035, 0.04])) 
 
 # maturities of bonds observed on the market
 M_Obs = np.transpose(np.array([1, 2, 4, 5, 6, 7]))  
@@ -57,7 +57,7 @@ ufr = 0.04
 alpha = 0.15 
 
 # targeted maturities for interpolation/extrapolation
-M_Target =  np.transpose(np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20])) 
+M_Target = np.transpose(np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20])) 
 
 # calibration vector calculation
 b = SWCalibrate(r_Obs,M_Obs, ufr, alpha) 
@@ -72,8 +72,8 @@ print(r_Target)
 
 ## About the example in main.py
 
-Example.py contains a script with an example from EIOPA's own Excel implementation tool ( Smith-Wilson Risk-Free Interest Rate Extrapolation Tool 27102015.xlsb ). In this example, the yields are avalible for ZCB maturing in 1 year, 2 years, ..., 20 years. The output is the curve for up to 65 years.
+Example.py contains a script with an example from EIOPA's own Excel implementation tool ( Smith-Wilson Risk-Free Interest Rate Extrapolation Tool 27102015.xlsb ). In this example, the yields are available for ZCB maturing in 1 year, 2 years, ..., 20 years. The output is the curve for up to 65 years.
 
 </br>
 
-If you have any suggestions for improving the code/comments etc. please let us know.
+If you have any suggestions for improving the code/comments etc., please let us know.
