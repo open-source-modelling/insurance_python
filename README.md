@@ -25,7 +25,7 @@
 [stationary-boot-calib]: https://github.com/qnity/insurance_python/tree/main/stationary-bootstrap-calibration
 [White-paper-2004]: http://public.econ.duke.edu/~ap172/Politis_White_2004.pdf
 [stationary-bootstrap]: https://github.com/qnity/insurance_python/tree/main/stationary-bootstrap
-[Politis-Romano-1994]: https://www.researchgate.net/publication/254287565_The_Stationary_Bootstrap
+[Politis-Romano-1994]: https://www.jstor.org/stable/2290993
 [calibration of alpha]: https://github.com/qnity/insurance_python/tree/main/bisection_alpha
 
 ## Algorithms planned
