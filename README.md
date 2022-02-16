@@ -38,6 +38,8 @@
 | Algorithm              | Source                              | Description                                                            |
 | ---------------------- | ----------------------------------- | ---------------------------------------------------------------------- |
 | Matrix on fraction     | TBD                                 | Heuristics for calculating transition matrices on fractions of power   |
+| G2++ with piec cons vol| TBD                                 | Calibration of a G2++ model with piecwise constant volatility          |
+
 
 
 
