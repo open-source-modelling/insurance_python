@@ -31,14 +31,14 @@
 [Wiki link]: https://en.wikipedia.org/wiki/Brownian_motion
 
 
-
-
 ## Algorithms planned
 
 | Algorithm              | Source                              | Description                                                            |
 | ---------------------- | ----------------------------------- | ---------------------------------------------------------------------- |
 | Matrix on fraction     | TBD                                 | Heuristics for calculating transition matrices on fractions of power   |
 | G2++ with piec cons vol| TBD                                 | Calibration of a G2++ model with piecwise constant volatility          |
+| Two factor Vasicek     | TBD                                 | Two factor Vasicek model for interest rate modelling                   |
+
 
 
 
