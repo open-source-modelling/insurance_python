@@ -18,7 +18,7 @@
 | [stationary-boot-calib]| [White-paper-2004]                  | Automatic calibration of the stationary bootstrap algorithm            |
 | [stationary-bootstrap] | [Politis-Romano-1994]               | Resampling procedure for weakly dependent stationary observations      |
 | [calibration of alpha] | [Technical-documentation]           | Calibration of the Smith & Wilson's alpha parameter                    |
-| [Correlated Brownian]  | [Wiki link]                         | Simple function to generate correlated Brownian motion in multiple dim.|
+| [Correlated Brownian]  | [Wiki BM]                           | Simple function to generate correlated Brownian motion in multiple dim.|
 
 [smith&wilson]: https://github.com/qnity/insurance_python/tree/main/smith%26wilson
 [Technical-documentation]: https://www.eiopa.europa.eu/sites/default/files/risk_free_interest_rate/12092019-technical_documentation.pdf
@@ -28,7 +28,7 @@
 [Politis-Romano-1994]: https://www.jstor.org/stable/2290993
 [calibration of alpha]: https://github.com/qnity/insurance_python/tree/main/bisection_alpha
 [Correlated Brownian]: https://github.com/qnity/insurance_python/tree/main/correlated_brownian_motion_python
-[Wiki link]: https://en.wikipedia.org/wiki/Brownian_motion
+[Wiki BM]: https://en.wikipedia.org/wiki/Brownian_motion
 
 
 ## Algorithms planned
