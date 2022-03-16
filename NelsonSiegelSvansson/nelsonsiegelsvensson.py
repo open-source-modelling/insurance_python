@@ -55,7 +55,8 @@ def NSSMinimize(beta0, beta1, beta2, beta3, lambda0, lambda1, TimeVec, YieldVec)
     # Returns:
     #     6 x 1 array of parameters and factors, that best fit the observed yields(Or an empty array if the optimization was not successfull).
     #
-    # LINK TO SOURCE
+    # https://docs.scipy.org/doc/scipy/reference/optimize.minimize-neldermead.html
+    # https://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method
 
 
     opt_sol = minimize(NSSGoodFit, x0=np.array([beta0, beta1, beta2, beta3, lambda0, lambda1]), args = (TimeVec, YieldVec), method="Nelder-Mead")
