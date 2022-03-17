@@ -16,7 +16,7 @@ The Nelson-Siegel-Svensson is a popular extension of the 4-parameter Nelson-Sieg
 
    - Observed yield rates (YieldVec)
    - Maturity of each observed yield (TimeVec)
-   - Initial guess for parameters (beta0, beta1, beta2,beta3, labda0 , and lambda1) 
+   - Initial guess for parameters (beta0, beta1, beta2, beta3, labda0, and lambda1) 
    - Target maturities (TimeResultVec)
 
 ### Desired output
