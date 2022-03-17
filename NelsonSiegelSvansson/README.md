@@ -8,9 +8,9 @@ Data on bond yields is usualy avalible only for a small set of maturities, while
   
 ## Solution
 A popular solution is to try to describe the yields as curve with the maturity on the x-axis and the yield on the y-axis. This curve is selected in such a way as to fit the yields, that can be observed on the market. The Nelson-Siegel-Svannson model is a curve form that is flexible enough to approximate most real world scenairos.
+The Nelson-Siegel-Svensson is a popular extension of the 4-parameter Nelson-Siegel method to 6 parameters. It is an algorithm for interpolatin/extrapolating the yield curve among other uses. The Scennson introduces two extra parameters to better fit the variety of shapes of either the instantaneous forward rate or yield curves that are observed in practice. A desirable property of the model is that it produces a smooth and well behaved forward rate curve. Another desirable property is the intuitive explanation of the parameters. beta0 is the long term interest rate and beta0+beta1 is the instantaneous short-term rate. To find the optimal value of the parameters, the Nelder-Mead simplex algorithm is used (Already implemented in the scipy package). The link to the optimization algorithm is Gao, F. and Han, L. Implementing the Nelder-Mead simplex algorithm with adaptive parameters. 2012. Computational Optimization and Applications. 51:1, pp. 259-277
 
-<FORMULA FOR NSS HER>
-  
+<FORMULA FOR NSS HERE>
 
 ### Parameters
 
