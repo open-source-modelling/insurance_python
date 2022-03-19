@@ -14,10 +14,10 @@
 
 | Algorithm              | Source                              | Description                                                            |
 | ---------------------- | ----------------------------------- | ---------------------------------------------------------------------- |
-| [smith&wilson]         | [Technical-documentation]           | Interpolation and extrapolation of missing interest rates              |
-| [stationary-boot-calib]| [White-paper-2004]                  | Automatic calibration of the stationary bootstrap algorithm            |
-| [stationary-bootstrap] | [Politis-Romano-1994]               | Resampling procedure for weakly dependent stationary observations      |
-| [calibration of alpha] | [Technical-documentation]           | Calibration of the Smith & Wilson's alpha parameter                    |
+| [Smith&wilson]         | [Technical-documentation]           | Interpolation and extrapolation of missing interest rates              |
+| [Stationary-boot-calib]| [White-paper-2004]                  | Automatic calibration of the stationary bootstrap algorithm            |
+| [Stationary-bootstrap] | [Politis-Romano-1994]               | Resampling procedure for weakly dependent stationary observations      |
+| [Calibration of alpha] | [Technical-documentation]           | Calibration of the Smith & Wilson's alpha parameter                    |
 | [Correlated Brownian]  | [Wiki BM]                           | Simple function to generate correlated Brownian motion in multiple dim.|
 | [Nel_Si_Svansson]      | [BIS whitepaper]                    | Nelson-Siegel-Svansson model for approximating the yield curve         |
 
