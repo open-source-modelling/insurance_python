@@ -30,7 +30,7 @@
 [Calibration of alpha]: https://github.com/qnity/insurance_python/tree/main/bisection_alpha
 [Correlated Brownian]: https://github.com/qnity/insurance_python/tree/main/correlated_brownian_motion_python
 [Wiki Brownian motion]: https://en.wikipedia.org/wiki/Brownian_motion
-[Nel Si Svansson]: https://github.com/qnity/insurance_matlab/tree/main/NelsonSiegelSvansson
+[Nel Si Svansson]: https://github.com/qnity/insurance_python/tree/main/NelsonSiegelSvansson
 [BIS whitepaper]: https://www.bis.org/publ/bppdf/bispap25l.pdf
 
 ## Algorithms planned
