@@ -14,13 +14,13 @@ The Nelson-Siegel-Svensson is a popular extension of the 4-parameter Nelson-Sieg
 
 ### Parameters
 
-   - Observed yield rates (YieldVec)
-   - Maturity of each observed yield (TimeVec)
-   - Initial guess for parameters (beta0, beta1, beta2, beta3, labda0, and lambda1) 
-   - Target maturities (TimeResultVec)
+   - Observed yield rates `YieldVec`
+   - Maturity of each observed yield `TimeVec`
+   - Initial guess for parameters `beta0`, `beta1`, `beta2`, `beta3`, `labda0`, and `lambda1` 
+   - Target maturities `TimeResultVec`
 
 ### Desired output
-   - Calculated yield rates for maturities of interest (TimeResultVec)
+   - Calculated yield rates for maturities of interest `TimeResultVec`
 
 ## Getting started
 The user is interested in the projected yield for government bonds with a maturity in 1,2,5,10,25,30, and 31 years. They have data on government bonds maturing in 
