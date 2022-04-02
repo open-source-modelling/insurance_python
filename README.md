@@ -40,6 +40,7 @@
 | Matrix on fraction     | TBD                                 | Heuristics for calculating transition matrices on fractions of power   |
 | G2++ with piec cons vol| TBD                                 | Calibration of a G2++ model with piecwise constant volatility          |
 | Two factor Vasicek     | TBD                                 | Two factor Vasicek model for interest rate modelling                   |
+| Carter-Lee model       | TBD                                 | Simple stochastic mortality model                                      |
 
 <b> New suggestions for algorithms are welcome </b>
 
