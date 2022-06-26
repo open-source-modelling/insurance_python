@@ -1,10 +1,11 @@
 # Black Sholes model
+Simple Black-Sholes model for simulating the price of a stock.
 
 ## Problem
-
+Modelling the stock market is a well researced field. Selecting the right model with its restrictions is a key decision.
 
 ## Solution
-
+One of the oldest and simplest models developed is the [Black-Sholes-Merton](https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model) model which assumes that the stock market can be described by the [Black-Sholes equation](https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_equation). This implementation simulates the price of a stock in time.
 
 ### Input
 Black Sholes simulation:
@@ -52,18 +53,3 @@ print(simulate_Black_Scholes(1, 100, 0.05, 0.3, 10,0.5, None))
 #           9.473684    200.767017
 #           10.000000   182.350764
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
