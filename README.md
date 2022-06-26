@@ -20,7 +20,8 @@
 | [Calibration of alpha] | [Technical-documentation]           | Calibration of the Smith & Wilson's alpha parameter                    |
 | [Correlated Brownian]  | [Wiki Brownian motion]              | Simple function to generate correlated Brownian motion in multiple dim.|
 | [Nel Si Svansson]      | [BIS whitepaper]                    | Nelson-Siegel-Svansson model for approximating the yield curve         |
-| [Black Scholes]         | [BS wiki]                          | Black&Scholes model for pricing option contracts                        |
+| [Black Scholes]        | [BS wiki]                           | Black&Scholes model for pricing option contracts                       |
+| [Vasicek One_Factor]   | [VS wiki]                           | Vasicek model for modelling the evolution of interest rates            |
 
 
 [Smith&Wilson]: https://github.com/qnity/insurance_python/tree/main/smith%26wilson
@@ -36,7 +37,8 @@
 [BIS whitepaper]: https://www.bis.org/publ/bppdf/bispap25l.pdf
 [Black Scholes]: https://github.com/qnity/insurance_python/tree/main/black%26sholes
 [BS wiki]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model
-
+[Vasicek One_Factor]: https://github.com/qnity/insurance_python/tree/main/vasicke_one_factor
+[VS wiki]: https://en.wikipedia.org/wiki/Vasicek_model
 
 ## Algorithms planned
 
