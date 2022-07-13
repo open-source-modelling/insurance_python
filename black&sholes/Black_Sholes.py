@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from typing import Any
 
-def generate_weiner_process(x0: float= 1, T: int = 1, dt: float = 0.001, rho: float = None) -> Any:
+def generate_weiner_process(x0: float= 0, T: int = 1, dt: float = 0.001, rho: float = None) -> Any:
     # GENERATE_WEINER_PROCESS calculates the sample paths of a one-dimensional Brownian motion or a two-dimensional Brownian motion with a correlation coefficient of rho.
     # The function's output are two sample paths (realisations) of such a process, recorded on increments specified by dt. 
     # W = generate_weiner_process(x0, T, dt, rho)
@@ -64,7 +64,7 @@ def generate_weiner_process(x0: float= 1, T: int = 1, dt: float = 0.001, rho: fl
 
         return [W_1, W_2]
 
-def simulate_Black_Scholes(x0: float= 1, S0: int = 100, mu: float = 0.05, sigma: float = 0.3, T: int = 52, dt: float = 0.1, rho: float = None) -> pd.DataFrame:
+def simulate_Black_Scholes(x0: float= 0, S0: int = 100, mu: float = 0.05, sigma: float = 0.3, T: int = 52, dt: float = 0.1, rho: float = None) -> pd.DataFrame:
     # SIMULATE_BLACK_SHOLES calculates a temporal series of stock prices using the Black Scholes log normal model and the generated Brownian motion
     # stock_price_simulation = simulate_Black_Scholes(x0, S0, mu, sigma, T, dt, rho)
     #
@@ -85,28 +85,28 @@ def simulate_Black_Scholes(x0: float= 1, S0: int = 100, mu: float = 0.05, sigma:
     #   import pandas as pd
     #   import numpy as np
     #   from typing import Any
-    #   simulate_Black_Scholes(1, 100, 0.05, 0.3, 10,0.5, None)   
+    #   simulate_Black_Scholes(0, 100, 0.05, 0.3, 10,0.5, None)   
     #   [out] = Time    Stock Price                
-    #           0.000000    134.985881
-    #           0.526316    130.306622
-    #           1.052632    122.687338
-    #           1.578947    103.717078
-    #           2.105263    109.418052
-    #           2.631579     88.875926
-    #           3.157895    112.805021
-    #           3.684211    119.405081
-    #           4.210526    159.967595
-    #           4.736842    160.401897
-    #           5.263158    169.804621
-    #           5.789474    167.541434
-    #           6.315789    192.277426
-    #           6.842105    193.039165
-    #           7.368421    177.318946
-    #           7.894737    182.171283
-    #           8.421053    139.995595
-    #           8.947368    189.266738
-    #           9.473684    200.767017
-    #           10.000000   182.350764    
+    #       0.000000    100.000000
+    #       0.526316    118.331770
+    #       1.052632    124.917098
+    #       1.578947    111.144199
+    #       2.105263     96.456035
+    #       2.631579    114.070441
+    #       3.157895    104.079196
+    #       3.684211    103.188868
+    #       4.210526     94.063995
+    #       4.736842     89.687491
+    #       5.263158     85.532788
+    #       5.789474     85.782690
+    #       6.315789     87.584947
+    #       6.842105     93.350451
+    #       7.368421     95.605490
+    #       7.894737     83.973386
+    #       8.421053     67.723336
+    #       8.947368     53.338441
+    #       9.473684     61.878926
+    #       10.000000    74.848335
     #
     # For more information see SOURCE
     
