@@ -9,7 +9,6 @@ One of the oldest and simplest models developed is the [Black-Sholes-Merton](htt
 
 ### Input
 Black Sholes simulation:
- - x0    ... float, the starting value of the Brownian motion
  - S0    ... integer, specifying the initial value of the underlying asset
  - mu    ... float, specifying the drift rate of the underlying asset 
  - sigma ... float, standard deviation of the underlying asset's return
@@ -30,26 +29,51 @@ import pandas as pd
 import numpy as np
 from typing import Any
 from Black_Sholes import generate_weiner_process, simulate_Black_Scholes
-print(simulate_Black_Scholes(0, 100, 0.05, 0.3, 10,0.5, None))
     #   [out] = Time    Stock Price                
-    #       0.000000    100.000000
-    #       0.526316    118.331770
-    #       1.052632    124.917098
-    #       1.578947    111.144199
-    #       2.105263     96.456035
-    #       2.631579    114.070441
-    #       3.157895    104.079196
-    #       3.684211    103.188868
-    #       4.210526     94.063995
-    #       4.736842     89.687491
-    #       5.263158     85.532788
-    #       5.789474     85.782690
-    #       6.315789     87.584947
-    #       6.842105     93.350451
-    #       7.368421     95.605490
-    #       7.894737     83.973386
-    #       8.421053     67.723336
-    #       8.947368     53.338441
-    #       9.473684     61.878926
-    #       10.000000    74.848335
+    #       0.0    100.000000
+    #       0.5    131.721286
+    #       1.0    124.924654
+    #       1.5    209.302935
+    #       2.0    222.085955
+    #       2.5    208.085678
+    #       3.0    165.550253
+    #       3.5    239.512165
+    #       4.0    176.886669
+    #       4.5    148.687363
+    #       5.0    181.235262
+    #       5.5    164.280753
+    #       6.0    172.861576
+    #       6.5    170.698562
+    #       7.0    141.613940
+    #       7.5    121.070316
+    #       8.0    116.508183
+    #       8.5    104.524616
+    #       9.0    146.124924
+    #       9.5    202.368581
+    #       10.0   262.282989
+```
+## Risk neutral pricing
+When an ESGsimulation output is presented, a standard test is applied to confirm that the scenarios are risk neutral. Black Sholes can be one such model. This test relies on the fact that in a risk-neutral framework, there is an explicit relationship between the price of an fixed income financial instrument and the expected discounted cash flows. Bellow is the martingale test for the hypothetical example from above. To pass the test, the expected discounted cash flows should equal the initial stock price of 100.
+
+``` python
+import numpy as np
+from Black_Sholes import simulate_Black_Scholes
+
+r = 0.05
+dt = 0.5
+t = 10
+S = 100
+sigma = 0.3
+bank_end = np.exp(t*r)
+nIter = 500000
+result = np.zeros(nIter)
+
+for iter in range(1,nIter):
+    out = simulate_Black_Scholes(S, r, sigma, t, dt)
+    martingale = out.values[-1] / bank_end
+    result[iter] = martingale
+
+print(np.mean(result))
+
+#   [out] = 99.8743118539787                
 ```
