@@ -2,13 +2,12 @@ import numpy as np
 import pandas as pd
 from typing import Any
 
-def generate_weiner_process(x0: float= 1, T: int = 1, dt: float = 0.001, rho: float = None) -> Any:
+def generate_weiner_process(T: int = 1, dt: float = 0.001, rho: float = None) -> Any:
     # GENERATE_WEINER_PROCESS calculates the sample paths of a one-dimensional Brownian motion or a two-dimensional Brownian motion with a correlation coefficient of rho.
     # The function's output are two sample paths (realisations) of such a process, recorded on increments specified by dt. 
     # W = generate_weiner_process(x0, T, dt, rho)
     #
     # Arguments:   
-    #   x0   =  float, the starting value of the Brownian motion
     #   T    = integer, specifying the maximum modeling time. ex. if T = 2 then modelling time will run from 0 to 2
     #   dt   = float, specifying the length of each subinterval. ex. dt=10, then there will be 10 intervals of length 0.1 between two integers of modeling time 
     #   rho  = float, specifying the correlation coefficient of the Brownian motion. ex. rho = 0.4 means that two 
@@ -40,18 +39,18 @@ def generate_weiner_process(x0: float= 1, T: int = 1, dt: float = 0.001, rho: fl
 
     if not rho: # if rho is empty, assume uncorrelated Brownian motion
 
-        W = np.ones(N) * x0 # preallocate the output array holding the sample paths with the inital point
+        W = np.zeros(N)  # preallocate the output array holding the sample paths with the inital point
 
         for iter in range(1, N): # add a random normal increment at every step
 
-            W[iter] = W[iter-1] + np.random.normal(scale = dt)
+            W[iter] = W[iter-1] + np.random.normal(scale = np.sqrt(dt))
 
         return W
 
     if rho: # if rho is defined, that means that the output will be a 2-dimensional Brownian motion
 
-        W_1 = np.ones(N) * x0 # preallocate the output array holding the sample paths with the inital point
-        W_2 = np.ones(N) * x0 # preallocate the output array holding the sample paths with the inital point
+        W_1 = np.zeros(N) # preallocate the output array holding the sample paths with the inital point
+        W_2 = np.zeros(N) # preallocate the output array holding the sample paths with the inital point
 
         for iter in range(1, N): # generate two independent BMs and entangle them with the formula from SOURCE
 
@@ -64,7 +63,7 @@ def generate_weiner_process(x0: float= 1, T: int = 1, dt: float = 0.001, rho: fl
 
         return [W_1, W_2]
 
-def simulate_Vasicek_One_Factor(x0: float = 1, r0: float = 0.1, a: float = 1.0, b: float = 0.1, sigma: float = 0.2, T: int = 52, dt = 0.1) -> pd.DataFrame:
+def simulate_Vasicek_One_Factor(r0: float = 0.1, a: float = 1.0, b: float = 0.1, sigma: float = 0.2, T: int = 52, dt = 0.1) -> pd.DataFrame:
     # SIMULATE_VASICEK_ONE_FACTOR simulates a temporal series of interest rates using the One Factor Vasicek model
     # interest_rate_simulation = simulate_Vasicek_One_Factor(x0, r0, a, b, sigma, T, dt)
     #
@@ -108,13 +107,13 @@ def simulate_Vasicek_One_Factor(x0: float = 1, r0: float = 0.1, a: float = 1.0, 
     #           8.947368        0.093998
     #           9.473684        0.245016
     #           10.000000       0.142039
-    # For more information see SOURCE
+    # For more information see https://en.wikipedia.org/wiki/Vasicek_model
     
     N = int(T / dt) # number of subintervals of length 1/dt between 0 and max modeling time T
 
     time, delta_t = np.linspace(0, T, num = N, retstep = True)
 
-    weiner_process = generate_weiner_process(x0, T, dt)
+    weiner_process = generate_weiner_process(T, dt)
 
     r = np.ones(N) * r0
 
