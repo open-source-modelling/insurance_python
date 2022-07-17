@@ -5,7 +5,7 @@ from typing import Any
 def generate_weiner_process(T: int = 1, dt: float = 0.001, rho: float = None) -> Any:
     # GENERATE_WEINER_PROCESS calculates the sample paths of a one-dimensional Brownian motion or a two-dimensional Brownian motion with a correlation coefficient of rho.
     # The function's output are two sample paths (realisations) of such a process, recorded on increments specified by dt. 
-    # W = generate_weiner_process(x0, T, dt, rho)
+    # W = generate_weiner_process(T, dt, rho)
     #
     # Arguments:   
     #   T    = integer, specifying the maximum modeling time. ex. if T = 2 then modelling time will run from 0 to 2
@@ -15,7 +15,7 @@ def generate_weiner_process(T: int = 1, dt: float = 0.001, rho: float = None) ->
     #
     # Returns:
     #   W =  N x 1 or N x 2 ndarray, where N is the number of subintervals, and the second dimension is eiter 1 or 2 depending if the function is called 
-    #        to generate a one or two dimensional Brownian motion. Each column represents a sample path of a Brownian motion starting at x0 
+    #        to generate a one or two dimensional Brownian motion. Each column represents a sample path of a Brownian motion 
     #
     # Example:
     # The user wants to generate discreete sample paths of two Brownian motions with a correlation coefficient of 0.4. 
@@ -23,14 +23,13 @@ def generate_weiner_process(T: int = 1, dt: float = 0.001, rho: float = None) ->
     #
     #   import numpy as np
     #   from typing import Any
-    #   generate_weiner_process(0, 3, 0.5, 0.4)
+    #   generate_weiner_process(3, 0.5, 0.4)
     #   [out] = [array([ 0.        , -0.07839855,  0.26515158,  1.15447737,  1.04653442,
     #           0.81159737]),
     #           array([ 0.        , -0.78942881, -0.84976461, -1.06830757, -1.21829101,
     #           -0.61179385])]
     #       
     # Ideas for improvement:
-    # Remove x0 as a necessary argument
     # Generate increments directly
     # 
     # For more information see https://en.wikipedia.org/wiki/Brownian_motion
@@ -54,8 +53,8 @@ def generate_weiner_process(T: int = 1, dt: float = 0.001, rho: float = None) ->
 
         for iter in range(1, N): # generate two independent BMs and entangle them with the formula from SOURCE
 
-            Z1 = np.random.normal(scale = dt)
-            Z2 = np.random.normal(scale = dt)
+            Z1 = np.random.normal(scale = np.sqrt(dt))
+            Z2 = np.random.normal(scale = np.sqrt(dt))
             Z3 = rho * Z1 + np.sqrt(1 - rho**2) * Z2
 
             W_1[iter] = W_1[iter-1] + Z1 # Generate first BM
@@ -65,13 +64,12 @@ def generate_weiner_process(T: int = 1, dt: float = 0.001, rho: float = None) ->
 
 def simulate_Vasicek_One_Factor(r0: float = 0.1, a: float = 1.0, b: float = 0.1, sigma: float = 0.2, T: int = 52, dt = 0.1) -> pd.DataFrame:
     # SIMULATE_VASICEK_ONE_FACTOR simulates a temporal series of interest rates using the One Factor Vasicek model
-    # interest_rate_simulation = simulate_Vasicek_One_Factor(x0, r0, a, b, sigma, T, dt)
+    # interest_rate_simulation = simulate_Vasicek_One_Factor(r0, a, b, sigma, T, dt)
     #
     # Arguments:
-    #   x0    = float, specifies the starting value of the Brownian motion
-    #   r0    = float, starting interest rate of the vasicek process 
+    #   r0    = float, starting interest rate of the Vasicek process 
     #   a     = float, speed of reversion" parameter that characterizes the velocity at which such trajectories will regroup around b in time
-    #   b     = float, long term mean level. All future trajectories of  r will evolve around a mean level b in the long run  
+    #   b     = float, long term mean level. All future trajectories of  r will evolve around mean level b in the long run  
     #   sigma = float, instantaneous volatility measures instant by instant the amplitude of randomness entering the system
     #   T     = integer, end modelling time. From 0 to T the time series runs. 
     #   dt    = float, increment of time that the proces runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,...
@@ -85,7 +83,7 @@ def simulate_Vasicek_One_Factor(r0: float = 0.1, a: float = 1.0, b: float = 0.1,
     #   import pandas as pd
     #   import numpy as np
     #
-    #   simulate_Vasicek_One_Factor(1,0.1, 1.0,0.1,0.2,10,0.5)   
+    #   simulate_Vasicek_One_Factor(0.1, 1.0,0.1,0.2,10,0.5)   
     #   [out] = Time    Stock Price                
     #           0.000000        0.100000
     #           0.526316        0.147296
@@ -107,6 +105,7 @@ def simulate_Vasicek_One_Factor(r0: float = 0.1, a: float = 1.0, b: float = 0.1,
     #           8.947368        0.093998
     #           9.473684        0.245016
     #           10.000000       0.142039
+    #
     # For more information see https://en.wikipedia.org/wiki/Vasicek_model
     
     N = int(T / dt) # number of subintervals of length 1/dt between 0 and max modeling time T
