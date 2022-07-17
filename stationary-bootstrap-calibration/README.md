@@ -1,4 +1,9 @@
-# Automatic calibration of the stationary bootstrap algorithm
+<h1 align="center" style="border-botom: none">
+  <b>
+    🐍 Automatic calibration of the stationary bootstrap algorithm 🐍     
+  </b>
+</h1>
+
 </br>
 
 ## Problem
