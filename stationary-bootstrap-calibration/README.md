@@ -15,7 +15,7 @@ Implementation of a stationary bootstrap method for weakly dependent stationary 
 The proposed methodology automatically estimates the optimal block size. As mentioned in the original paper, the methodology is based on the notion of spectral estimation via the flat-top lag-windows of Politis and Romano (1995). The proposed solution is described in the paper [Polis and White (2004)](http://public.econ.duke.edu/~ap172/Politis_White_2004.pdf) 
 
 ### Input
-- The time-series for which the calibration is necessary
+- The time-series for which the calibration is necessary `data`
 
 ### Output
 - Integer specifying the optimal block length
