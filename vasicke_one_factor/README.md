@@ -1,4 +1,9 @@
-# Vasicek One-Factor
+<h1 align="center" style="border-botom: none">
+  <b>
+    🐍 Vasicek One-Factor model 🐍     
+  </b>
+</h1>
+
 Vasicek one factor model for simulating the evolution of a credit instruments such as a government bonds.
 
 ## Problem
