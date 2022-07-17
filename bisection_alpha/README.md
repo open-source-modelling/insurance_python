@@ -1,3 +1,9 @@
+<h1 align="center" style="border-botom: none">
+  <b>
+    🐍 Bisection method that finds the optimal parameter α for the Smith & Wilson algorithm 🐍     
+  </b>
+</h1>
+
 This repository has an implementation for a simple bisection method that finds the optimal parameter α for the Smith & Wilson algorithm often used in insurance to interpolate/extrapolate rates or yields.
 
 The implementation is based on [Technical documentation of the Methodology to derive EIOPA's risk-free interest rate term structure](https://www.eiopa.europa.eu/sites/default/files/risk_free_interest_rate/12092019-technical_documentation.pdf) and [Wiki on Bisection method](https://en.wikipedia.org/wiki/Bisection_method)
