@@ -15,6 +15,7 @@ Before using the Smith & Wilson algorithm, the user needs to provide the converg
 By transforming the minimization problem at the point of convergence into a problem of finding a root of the shifted function g(α) - τ, this repository implements a simple bisection algorithm to find the optimal α.
 
 ### Input
+ - The minimum allowed value of the convergence speed parameter α.
  - The maximum allowed value of the convergence speed parameter α.
  - Maturities of bonds, observed on the market and provided as output.
  - Zero-coupon rates, for which the user wishes to calibrate the algorithm. Each rate belongs to an observable zero-coupon bond with a known maturity. 
