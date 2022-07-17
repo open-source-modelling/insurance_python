@@ -1,4 +1,9 @@
-# Smith & Wilson algorithm
+<h1 align="center" style="border-botom: none">
+  <b>
+    🐍 Smith & Wilson algorithm 🐍     
+  </b>
+</h1>
+
 </br>
 
 Popular algorithm for interpolating and extrapolating various curves such as bond yields and risk-free rates. 
