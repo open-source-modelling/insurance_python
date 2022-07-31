@@ -4,13 +4,16 @@
   </b>
 </h1>
 
-Vasicek one factor model for simulating the evolution of a credit instruments such as a government bonds.
+Vasicek one factor model for simulating the evolution of a credit instruments such as a government bonds. The Vasicek model assumes that the process evolves as an Ornstein-Uhlenbeck process. Ornstein-Uhlenbeck is a stochastic process where over time, the process tends to drift towards a long-term mean (mean reverting). 
 
 ## Problem
-When trying to simulate the credit market, there is a variety of models. The choice of the model and its limitations are a key decision. 
+When trying to simulate for example credit spreads, there is a variety of models. The choice of the model and its limitations are a key factor in deciding which model to implement. There are compeling economic arguments in favor of mean reversion.  
 
 ## Solution
-One of the simplest short rate models, the [Vasicek one factor model](https://en.wikipedia.org/wiki/Vasicek_model) assumes that the credit market can be described by a simple mean reverting stochastic process with one source of uncertainty comming from a [Brownian motion](https://en.wikipedia.org/wiki/Brownian_motion). 
+One of the simplest models, the [Vasicek one factor model](https://en.wikipedia.org/wiki/Vasicek_model) assumes that the credit market can be described by a simple mean reverting stochastic process with one source of uncertainty comming from a [Brownian motion](https://en.wikipedia.org/wiki/Brownian_motion). One limitation is that due to to normal distribution of the noise, the process allows negative spreads which might be undesirable in certain circumstances.
+
+The stochastic differential equation (SDE) of the Vasicek model is shown on the Wiki page https://en.wikipedia.org/wiki/Vasicek_model 
+
 
 ### Input
 
