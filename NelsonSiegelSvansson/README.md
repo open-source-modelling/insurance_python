@@ -17,14 +17,13 @@ The Nelson-Siegel-Svensson is a popular extension of the 4-parameter Nelson-Sieg
 
 The furmula for the yield curve (Value of the yield for a maturity at time 't') is given by the formula:
 
-![formula](https://render.githubusercontent.com/render/math?math=\color{white}\r(t)=\beta_{1}) +
-![formula](https://render.githubusercontent.com/render/math?math=\color{white}\beta_{2})
-![formula](https://render.githubusercontent.com/render/math?math=\color{white}\big(\frac{1-exp(\frac{-t}{\lambda_1})}{\frac{t}{\lambda_1}}\big)) +
-![formula](https://render.githubusercontent.com/render/math?math=\color{white}\beta_{3})
-![formula](https://render.githubusercontent.com/render/math?math=\color{white}\big(\frac{1-exp(\frac{-t}{\lambda_1})}{\frac{t}{\lambda_1}}-exp(\frac{-t}{\lambda_1})\big)) +
-![formula](https://render.githubusercontent.com/render/math?math=\color{white}\beta_{4})
-![formula](https://render.githubusercontent.com/render/math?math=\color{white}\big(\frac{1-exp(\frac{-t}{\lambda_2})}{\frac{t}{\lambda_2}}-exp(\frac{-t}{\lambda_2})\big))
-
+![formula](https://render.githubusercontent.com/render/math?math=\r(t)=\beta_{1}) +
+![formula](https://render.githubusercontent.com/render/math?math=\beta_{2})
+![formula](https://render.githubusercontent.com/render/math?math=\big(\frac{1-exp(\frac{-t}{\lambda_1})}{\frac{t}{\lambda_1}}\big)) +
+![formula](https://render.githubusercontent.com/render/math?math=\beta_{3})
+![formula](https://render.githubusercontent.com/render/math?math=\big(\frac{1-exp(\frac{-t}{\lambda_1})}{\frac{t}{\lambda_1}}-exp(\frac{-t}{\lambda_1})\big)) +
+![formula](https://render.githubusercontent.com/render/math?math=\beta_{4})
+![formula](https://render.githubusercontent.com/render/math?math=\big(\frac{1-exp(\frac{-t}{\lambda_2})}{\frac{t}{\lambda_2}}-exp(\frac{-t}{\lambda_2})\big))
 
 
 ### Parameters
