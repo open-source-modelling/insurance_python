@@ -14,6 +14,8 @@ One of the simplest models, the [Vasicek one factor model](https://en.wikipedia.
 
 The stochastic differential equation (SDE) of the Vasicek model is shown on the Wiki page https://en.wikipedia.org/wiki/Vasicek_model 
 
+Note that the parameter b in this implementation is not equal to the long-term mean as is shown on the Wiki page, but is instead equal to "long-term mean * speed of conversion".
+
 ### Input
 
   - `r0`    ... float, starting interest rate of the Vasicek process
