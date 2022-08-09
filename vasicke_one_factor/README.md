@@ -14,13 +14,11 @@ One of the simplest models, the [Vasicek one factor model](https://en.wikipedia.
 
 The stochastic differential equation (SDE) of the Vasicek model is shown on the Wiki page https://en.wikipedia.org/wiki/Vasicek_model 
 
-Note that the parameter theta in this implementation is not equal to the long-term mean as is shown on the Wiki page, but is instead equal to  the long-term mean "a" * speed of conversion.
-
 ### Input
 
   - `r0`    ... float, starting interest rate of the Vasicek process
   - `a`     ... float, speed of reversion" parameter that characterizes the velocity at which such trajectories will regroup around b in time
-  - `theta` ... float, long term mean level correction. All future trajectories of r will evolve around the mean level theta/a in the long run
+  - `lam`   ... float, long term mean level. All future trajectories of r will evolve around this mean level in the long run
   - `sigma` ... float, instantaneous volatility measures instant by instant the amplitude of randomness entering the system
   - `T`     ... integer, end modelling time. From 0 to T the time series runs.
   - `dt`    ... float, increment of time that the proces runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,...
@@ -37,10 +35,10 @@ from Vasicek_one_factor import simulate_Vasicek_One_Factor
 
 r0 = 0.1 # The starting interest rate
 a = 1.0 # speed of reversion parameter
-theta = 0.1 # long-term mean interest rate level correction
+lam = 0.1 # long-term mean interest rate level correction
 sigma = 0.2 # instantaneous volatility
 T = 52 # end modelling time
 dt = 0.1 # increments of time
 
-print(simulate_Vasicek_One_Factor(r0, a, theta, sigma, T, dt))
+print(simulate_Vasicek_One_Factor(r0, a, lam, sigma, T, dt))
 ```
