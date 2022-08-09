@@ -1,14 +1,14 @@
 import numpy as np
 import pandas as pd
 
-def simulate_Vasicek_One_Factor(r0: float = 0.1, a: float = 1.0, theta: float = 0.1, sigma: float = 0.2, T: int = 52, dt = 0.1) -> pd.DataFrame:
+def simulate_Vasicek_One_Factor(r0: float = 0.1, a: float = 1.0, lam: float = 0.1, sigma: float = 0.2, T: int = 52, dt = 0.1) -> pd.DataFrame:
     # SIMULATE_VASICEK_ONE_FACTOR simulates a temporal series of interest rates using the One Factor Vasicek model
-    # interest_rate_simulation = simulate_Vasicek_One_Factor(r0, a, b, sigma, T, dt)
+    # interest_rate_simulation = simulate_Vasicek_One_Factor(r0, a, lam, sigma, T, dt)
     #
     # Arguments:
     #   r0    = float, starting interest rate of the vasicek process 
     #   a     = float, speed of reversion" parameter that characterizes the velocity at which such trajectories will regroup around b in time
-    #   theta = float, long term mean level correction. All future trajectories will evolve around a mean level theta / a in the long run  
+    #   lam   = float, long term mean level that all future trajectories will evolve around  
     #   sigma = float, instantaneous volatility measures instant by instant the amplitude of randomness entering the system
     #   T     = integer, end modelling time. From 0 to T the time series runs. 
     #   dt    = float, increment of time that the proces runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,...
@@ -53,7 +53,7 @@ def simulate_Vasicek_One_Factor(r0: float = 0.1, a: float = 1.0, theta: float = 
     r = np.ones(N) * r0
 
     for t in range(1,N):
-        r[t] = r[t-1] * np.exp(-a*dt)+theta*(1-np.exp(-a*dt))+sigma*np.sqrt((1-np.exp(-2*a*dt))/(2*a))* np.random.normal(loc = 0,scale = 1)
+        r[t] = r[t-1] * np.exp(-a*dt)+lam*(1-np.exp(-a*dt))+sigma*np.sqrt((1-np.exp(-2*a*dt))/(2*a))* np.random.normal(loc = 0,scale = 1)
 
     dict = {'Time' : time, 'Interest Rate' : r}
 
