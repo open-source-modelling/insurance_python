@@ -1,14 +1,14 @@
 import numpy as np
 import pandas as pd
 
-def simulate_Vasicek_One_Factor(r0: float = 0.1, a: float = 1.0, b: float = 0.1, sigma: float = 0.2, T: int = 52, dt = 0.1) -> pd.DataFrame:
+def simulate_Vasicek_One_Factor(r0: float = 0.1, a: float = 1.0, theta: float = 0.1, sigma: float = 0.2, T: int = 52, dt = 0.1) -> pd.DataFrame:
     # SIMULATE_VASICEK_ONE_FACTOR simulates a temporal series of interest rates using the One Factor Vasicek model
     # interest_rate_simulation = simulate_Vasicek_One_Factor(r0, a, b, sigma, T, dt)
     #
     # Arguments:
     #   r0    = float, starting interest rate of the vasicek process 
     #   a     = float, speed of reversion" parameter that characterizes the velocity at which such trajectories will regroup around b in time
-    #   b     = float, long term mean level correction. All future trajectories of r will evolve around a mean level theta = a * b in the long run  
+    #   theta = float, long term mean level correction. All future trajectories will evolve around a mean level theta / a in the long run  
     #   sigma = float, instantaneous volatility measures instant by instant the amplitude of randomness entering the system
     #   T     = integer, end modelling time. From 0 to T the time series runs. 
     #   dt    = float, increment of time that the proces runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,...
@@ -17,7 +17,7 @@ def simulate_Vasicek_One_Factor(r0: float = 0.1, a: float = 1.0, b: float = 0.1,
     #   interest_rate_simulation = N x 2 pandas DataFrame where index is modeling time and values are a realisation of the uderlying's price
     #
     # Example:
-    #   Model the interest rate which is 10% today. The annualized instant volatility is 20%. The external analysis points out that the mean reversion parameter is 1 and the long term interest rate level is 10% therefore the mean reversion correction is b = 10%/1 = 10%. The user is interested in an interest rate projection of the next 10 years in increments of 6 months (0.5 years)
+    #   Model the interest rate which is 10% today. The annualized instant volatility is 20%. The external analysis points out that the mean reversion parameter is 1 and the long term interest rate level is 10 % therefore the mean reversion correction is theta = 10% * 1 = 10%. The user is interested in an interest rate projection of the next 10 years in increments of 6 months (0.5 years)
     #
     #   import pandas as pd
     #   import numpy as np
@@ -53,7 +53,7 @@ def simulate_Vasicek_One_Factor(r0: float = 0.1, a: float = 1.0, b: float = 0.1,
     r = np.ones(N) * r0
 
     for t in range(1,N):
-        r[t] = r[t-1] * np.exp(-a*dt)+b*(1-np.exp(-a*dt))+sigma*np.sqrt((1-np.exp(-2*a*dt))/(2*a))* np.random.normal(loc = 0,scale = 1)
+        r[t] = r[t-1] * np.exp(-a*dt)+theta*(1-np.exp(-a*dt))+sigma*np.sqrt((1-np.exp(-2*a*dt))/(2*a))* np.random.normal(loc = 0,scale = 1)
 
     dict = {'Time' : time, 'Interest Rate' : r}
 
