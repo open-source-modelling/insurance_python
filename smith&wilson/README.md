@@ -35,7 +35,7 @@ Note that this implementation assumes that the yields were calculated on ZCB. Th
 
 The implementation is split in two parts: 
 
-- The available market data and the parameters are used to "clibrate" the algorithm. This returns a calibration vector that can be used to interpolate or extrapolate target maturities. This is done by calibrating the kernel functions. Look at the function `SWCalibrate()`.
+- The available market data and the parameters are used to "calibrate" the algorithm. This returns a calibration vector that can be used to interpolate or extrapolate target maturities. This is done by calibrating the kernel functions. Look at the function `SWCalibrate()`.
 - The yields for ZCB with targeted maturities are Interpolated/extrapolated. Look at the function `SWExtrapolate()`.
 
 The syntax in the functions tries to be consistent with EIOPA technical specifications.
@@ -78,6 +78,9 @@ print(r_Target)
 ## About the example in main.py
 
 Example.py contains a script with an example from EIOPA's own Excel implementation tool ( Smith-Wilson Risk-Free Interest Rate Extrapolation Tool 27102015.xlsb ). In this example, the yields are available for ZCB maturing in 1 year, 2 years, ..., 20 years. The output is the curve for up to 65 years.
+
+###Note:
+To extrapolate the curve, it is enough to know the additional parameters(alpha, ufr), the maturities used for calibration and the vector b*Q. If this is the case, it is not difficult to modify the function `SWExtrapolate()` to take as input Qb instead of b. An example of this is the monthly risk free rate published by turopean Insurance and Occupational Pensions Authority (https://www.eiopa.europa.eu/tools-and-data/)
 
 </br>
 
