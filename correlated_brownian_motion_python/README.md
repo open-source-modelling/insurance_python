@@ -1,12 +1,4 @@
-# Sampled increments from two or more correlated Brownian motions (BM)
-
-</br>
-
-Functions generates a matrix of increments from a multidimensional Brownian motion with a given vector of means and a Variance-Covariance matrix.
-
-## Problem
-
-Offten when using for example multifactor models, the model requires correlated sources of noise. A popular choice is to use a multidimensional Brownian<h1 align="center" style="border-botom: none">
+<h1 align="center" style="border-botom: none">
   <b>
     🐍 Sampled increments from two or more correlated Brownian motions (BM) 🐍     
   </b>
