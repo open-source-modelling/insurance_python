@@ -54,6 +54,6 @@
 | G2++ with piec cons vol| TBD                                 | Calibration of a G2++ model with piecwise constant volatility          |
 | Carter-Lee model       | TBD                                 | Simple stochastic mortality model                                      |
 
-<b> New suggestions for algorithms are welcome </b>
+<b> New suggestions for algorithms are welcome. </b>
 
-<b>If anybody is interested in publishing an algorithm they implemented, or help with the project, contact us and we will make it happen </b>
+<b> If anybody is interested in publishing an algorithm they implemented, or help with the project, contact us and we will make it happen. </b>
