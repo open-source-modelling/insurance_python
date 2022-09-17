@@ -26,8 +26,8 @@
 | [EIOPA SW Recalc]      | [EIOPA RFR website]                 | Calculation of the risk free rate from the monthly EIOPA publication   |
 
 
-[EIOPA RFR website](https://www.eiopa.europa.eu/tools-and-data/risk-free-interest-rate-term-structures_en)
-[EIOPA SW Recalc]: https://github.com/qnity/insurance_python/tree/main/EIOPA_smith_wilson_test
+[EIOPA RFR website]:(https://www.eiopa.europa.eu/tools-and-data/risk-free-interest-rate-term-structures_en)
+[EIOPA SW Recalc]: (https://github.com/qnity/insurance_python/tree/main/EIOPA_smith_wilson_test)
 
 [Smith&Wilson]: https://github.com/qnity/insurance_python/tree/main/smith%26wilson
 [Technical-documentation]: https://www.eiopa.europa.eu/sites/default/files/risk_free_interest_rate/12092019-technical_documentation.pdf
