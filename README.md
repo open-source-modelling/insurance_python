@@ -41,7 +41,7 @@
 [BIS whitepaper]: https://www.bis.org/publ/bppdf/bispap25l.pdf
 [Black&Scholes]: https://github.com/qnity/insurance_python/tree/main/black%26sholes
 [Wiki Black&Sholes]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model
-[Vasicek one factor]: https://github.com/qnity/insurance_python/tree/main/vasicke_one_factor
+[Vasicek one factor]: https://github.com/qnity/insurance_python/tree/main/vasicek_one_factor
 [Wiki Vasicek]: https://en.wikipedia.org/wiki/Vasicek_model
 [Vasicek two factor]: https://github.com/qnity/insurance_python/tree/main/vasicek_two_factor
 
