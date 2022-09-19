@@ -34,14 +34,14 @@ The furmula for the yield curve (Value of the yield for a maturity at time 't') 
 
 ### Parameters
 
-   - Observed yield rates `YieldVec`
-   - Maturity of each observed yield `TimeVec`
-   - Initial guess for parameters `beta0`, `beta1`, `beta2`, `beta3`, `labda0`, and `lambda1` 
-   - Target maturities `TimeResultVec`
+   - Observed yield rates `YieldVec`.
+   - Maturity of each observed yield `TimeVec`.
+   - Initial guess for parameters `beta0`, `beta1`, `beta2`, `beta3`, `labda0`, and `lambda1`.
+   - Target maturities `TimeResultVec`.
 
 ### Desired output
 
-   - Calculated yield rates for maturities of interest `TimeResultVec`
+   - Calculated yield rates for maturities of interest `TimeResultVec`.
 
 ## Getting started
 
