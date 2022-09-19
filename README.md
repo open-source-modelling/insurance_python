@@ -45,7 +45,6 @@
 [Wiki Vasicek]: https://en.wikipedia.org/wiki/Vasicek_model
 [Vasicek two factor]: https://github.com/qnity/insurance_python/tree/main/vasicek_two_factor
 
-
 ## Algorithms planned
 
 | Algorithm              | Source                              | Description                                                            |
