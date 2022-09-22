@@ -17,7 +17,6 @@ def SWCalibrate(r, M, ufr, alpha):
     import numpy as np
     from SWHeart import SWHeart as SWHeart
 
-
     C = np.identity(M.size)
     p = (1+r) **(-M)  # Transform rates to implied market prices of a ZCB bond
     d = np.exp(-np.log(1+ufr) * M)    # Calculate vector d described in paragraph 138
