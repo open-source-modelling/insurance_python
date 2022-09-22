@@ -1,6 +1,6 @@
 import numpy as np 
 
-def CorBrownian(mu,E, sampleSize):
+def CorBrownian(mu, E, sampleSize):
     # Algorithm generates samples of increments from a correlated Brownian motion with a given mean and Variance-Covariance matrix (E). 
     # The algorithm uses the fact that if you have n independent brownian motions, the samples given by "mu+ C*Z" are distributed as N(mu,E), where mu is the vector of means and C is the square root of the Variance-Covariance matrix.
     # For calculating the square root of the VarCovar matrix, the Cholesky decomposition is implemented.
@@ -43,15 +43,15 @@ def CorBrownian(mu,E, sampleSize):
             for j in range(0, i+1):
                 sum = 0
                 for k in range(0, j):
-                    sum = sum+ L[i,k]*L[j,k]
+                    sum = sum+ L[i, k]*L[j, k]
                 if (i==j):
-                    L[i,j] = np.sqrt(X[i,i]-sum)
+                    L[i, j] = np.sqrt(X[i, i]-sum)
                 else:
-                    L[i,j] = 1.0/L[j,j] * (X[i,j]-sum)
+                    L[i, j] = 1.0/L[j, j] * (X[i, j]-sum)
         return L
 
     dim = E.shape[0]                                         # Guess the number of Brownian motions (dimension) from the size of the Var-Covar matrix
-    Z = np.random.default_rng().normal(0,1,(sampleSize,dim)) # Generate independent increments of a simpleSize dimensional Brownian motion
+    Z = np.random.default_rng().normal(0,1,(sampleSize, dim)) # Generate independent increments of a simpleSize dimensional Brownian motion
     Y = np.zeros((sampleSize, dim))                          # Predefine the final output
     L = Cholesky(E)                                          # Calculate the square root of the Var-Covar matrix
 
