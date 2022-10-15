@@ -12,21 +12,22 @@
 
 ## Algorithms avalible
 
-| Algorithm               | Source                              | Description                                                                 |
-| ----------------------  | ----------------------------------- | ----------------------------------------------------------------------      |
-| [Smith&Wilson]          | [Technical-documentation]           | Interpolation and extrapolation of missing interest rates                   |
-| [Stationary-boot-calib] | [Whitepaper-2004]                   | Automatic calibration of the stationary bootstrap algorithm                 |
-| [Stationary-bootstrap]  | [Politis-Romano-1994]               | Resampling procedure for weakly dependent stationary observations           |
-| [Calibration-of-alpha]  | [Technical-documentation]           | Calibration of the Smith & Wilson's alpha parameter                         |
-| [Correlated Brownian]   | [Wiki Brownian motion]              | Simple function to generate correlated Brownian motion in multiple dim.     |
-| [Nel-Si-Svansson]       | [BIS whitepaper]                    | Nelson-Siegel-Svansson model for approximating the yield curve              |
-| [Black&Scholes]         | [Wiki Black&Sholes]                 | Black&Scholes model for pricing option contracts                            |
-| [Vasicek one factor]    | [Wiki Vasicek]                      | Vasicek model for modelling the evolution of interest rates                 |
-| [Vasicek two factor]    | [Wiki Vasicek]                      | Vasicek model for modelling the evolution of a pair of interest rates       |
-| [EIOPA SW Recalc]       | [EIOPA RFR website]                 | Calculation of the risk free rate from the monthly EIOPA publication        |
-| Metropolis Hastings ESG | Original work by OSM                | Bayesian maximum likelihood of a Black Sholes stochastic scenario generator |
+| Algorithm                | Source                              | Description                                                                 |
+| -------------------------| ----------------------------------- | ----------------------------------------------------------------------      |
+| [Smith&Wilson]           | [Technical-documentation]           | Interpolation and extrapolation of missing interest rates                   |
+| [Stationary-boot-calib]  | [Whitepaper-2004]                   | Automatic calibration of the stationary bootstrap algorithm                 |
+| [Stationary-bootstrap]   | [Politis-Romano-1994]               | Resampling procedure for weakly dependent stationary observations           |
+| [Calibration-of-alpha]   | [Technical-documentation]           | Calibration of the Smith & Wilson's alpha parameter                         |
+| [Correlated Brownian]    | [Wiki Brownian motion]              | Simple function to generate correlated Brownian motion in multiple dim.     |
+| [Nel-Si-Svansson]        | [BIS whitepaper]                    | Nelson-Siegel-Svansson model for approximating the yield curve              |
+| [Black&Scholes]          | [Wiki Black&Sholes]                 | Black&Scholes model for pricing option contracts                            |
+| [Vasicek one factor]     | [Wiki Vasicek]                      | Vasicek model for modelling the evolution of interest rates                 |
+| [Vasicek two factor]     | [Wiki Vasicek]                      | Vasicek model for modelling the evolution of a pair of interest rates       |
+| [EIOPA SW Recalc]        | [EIOPA RFR website]                 | Calculation of the risk free rate from the monthly EIOPA publication        |
+| [Metropolis Hastings ESG]| Original work by OSM                | Bayesian maximum likelihood of a Black Sholes stochastic scenario generator |
 
 
+[Metropolis Hastings ESG]:https://github.com/qnity/insurance_python/tree/main/Metropolis_Hastings_Black_Sholes_ESG
 [EIOPA RFR website]: https://www.eiopa.europa.eu/tools-and-data/risk-free-interest-rate-term-structures_en
 [EIOPA SW Recalc]: https://github.com/qnity/insurance_python/tree/main/EIOPA_smith_wilson_test
 [Smith&Wilson]: https://github.com/qnity/insurance_python/tree/main/smith%26wilson
