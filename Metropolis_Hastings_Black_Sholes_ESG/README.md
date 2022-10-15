@@ -1,5 +1,10 @@
-Still in draft form.
+<h1 align="center" style="border-botom: none">
+  <b>
+  🐍 Bayesian validation of the Economic Scenario Generator using Black-Sholes-Merton model 🐍
+ </b>
+</h1>
 
+</br>
 
 Economic Scenario Generators simulate potential future paths of financial indicators such as interest rates, indices and spreads. Most of them do this by assuming that the economy behaves according to a certain stochastic process and present multiple sample paths of this process.
 
