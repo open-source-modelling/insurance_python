@@ -3,7 +3,7 @@ import pandas as pd
 
 def simulate_Black_Scholes(S0, mu, sigma, T, dt) -> pd.DataFrame:
     # SIMULATE_BLACK_SHOLES calculates a temporal series of stock prices using the Black Scholes log normal model and the generated Brownian motion
-    # stock_price_simulation = simulate_Black_Scholes(S0, mu, sigma, T, dt, rho)
+    # stock_price_simulation = simulate_Black_Scholes(S0, mu, sigma, T, dt)
     #
     # Arguments:
     #   S0    = integer, specifying the initial value of the underlying asset
@@ -11,7 +11,6 @@ def simulate_Black_Scholes(S0, mu, sigma, T, dt) -> pd.DataFrame:
     #   sigma = float, standard deviation of the underlying asset's return
     #   T     = integer, specifying the maximum modeling time. ex. if T = 2 then modelling time will run from 0 to 2
     #   dt    = float, specifying the length of each subinterval. ex. dt=10, then there will be 10 intervals of length 0.1 between two integers of modeling time 
-    #   rho   = float, specifying the correlation coefficient of the Brownian motion. ex. rho = 0.4 means that two 
     #
     # Returns:
     #   stock_price_simulation = N x 2 pandas DataFrame where index is modeling time and values are a realisation of the uderlying's price
