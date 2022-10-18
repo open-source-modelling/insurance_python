@@ -1,4 +1,3 @@
-
 # The Nelson-Siegel-Svensson is a popular extension of the 4-parameter Nelson-Siegel method to 6 parameters. It is an algorithm for interpolatin/extrapolating the yield curve among other uses.
 # The Scennson introduces two extra parameters to better fit the variety of shapes of either the instantaneous forward rate or yield curves that are observed in practice.
 # A desirable property of the model is that it produces a smooth and well behaved forward rate curve.
@@ -28,7 +27,6 @@ TimeResultVec = np.array([1,2,5,10,25,30,31]) # Maturities for yields that we ar
 
 ## Implementation
 OptiParam = NSSMinimize(beta0, beta1, beta2, beta3, lambda0, lambda1, TimeVec, YieldVec) # The Nelder-Mead simplex algorithem is used to find the parameters that result in a curve with the minimum residuals compared to the market data.
-
 
 # Print the yield curve with optimal parameter to compare with the data provided
 print(NelsonSiegelSvansson(TimeResultVec, OptiParam[0], OptiParam[1], OptiParam[2], OptiParam[3], OptiParam[4], OptiParam[5]))
