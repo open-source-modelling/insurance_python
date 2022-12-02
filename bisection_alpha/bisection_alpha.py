@@ -4,12 +4,12 @@ from SWExtrapolate import SWExtrapolate as SWExtrapolate
 
 def Galfa(M_Obs: np.ndarray, r_Obs: np.ndarray, ufr, alpha, Tau):
     """
-    Calculates the gap at the convergence point between the alowable tolerance Tau and the curve extrapolated using the Smith-Wilson algorithm.
+    Calculates the gap at the convergence point between the allowable tolerance Tau and the curve extrapolated using the Smith-Wilson algorithm.
     interpolation and extrapolation of rates.
     
     Args:
         M_Obs = n x 1 ndarray of maturities of bonds, that have rates provided in input (r). Ex. u=[[1], [3]]
-        r_Obs = n x 1 ndarray of rates, for which you wish to calibrate the algorithm. Each rate belongs to an observable zero coupon bond with a known maturity. Ex. r = [[0.0024], [0.0034]]
+        r_Obs = n x 1 ndarray of rates, for which you wish to calibrate the algorithm. Each rate belongs to an observable Zero-Coupon Bond with a known maturity. Ex. r = [[0.0024], [0.0034]]
         ufr =   1 x 1 floating number, representing the ultimate forward rate. Ex. ufr = 0.042
         alpha = 1 x 1 floating number representing the convergence speed parameter alpha. Ex. alpha = 0.05
         Tau =   1 x 1 floating number representing the allowed difference between ufr and actual curve. Ex. Tau = 0.00001
@@ -42,7 +42,7 @@ def Galfa(M_Obs: np.ndarray, r_Obs: np.ndarray, ufr, alpha, Tau):
     Q = np.diag(d) @ C                            # Matrix Q described in paragraph 139
     b = SWCalibrate(r_Obs, M_Obs, ufr, alpha)     # Calculate the calibration vector b using the equation from paragraph 149
     K = (1+alpha * M_Obs @ Q@ b) / (np.sinh(alpha * M_Obs.transpose())@ Q@ b) # Calculate kappa as defined in the paragraph 155
-    return( alpha/np.abs(1 - K*np.exp(alpha*T))-Tau) # Size of the gap at the convergence point between the alowable tolerance Tau and the actual curve. Defined in paragraph 158
+    return( alpha/np.abs(1 - K*np.exp(alpha*T))-Tau) # Size of the gap at the convergence point between the allowable tolerance Tau and the actual curve. Defined in paragraph 158
 
 def BisectionAlpha(xStart, xEnd, M_Obs, r_Obs, ufr, Tau, Precision, maxIter):
     """
@@ -52,10 +52,10 @@ def BisectionAlpha(xStart, xEnd, M_Obs, r_Obs, ufr, Tau, Precision, maxIter):
         xStart =    1 x 1 floating number representing the minimum allowed value of the convergence speed parameter alpha. Ex. alpha = 0.05
         xEnd =      1 x 1 floating number representing the maximum allowed value of the convergence speed parameter alpha. Ex. alpha = 0.8
         M_Obs =     n x 1 ndarray of maturities of bonds, that have rates provided in input (r). Ex. u=[[1], [3]]
-        r_Obs =     n x 1 ndarray of rates, for which you wish to calibrate the algorithm. Each rate belongs to an observable zero coupon bond with a known maturity. Ex. r = [[0.0024], [0.0034]]
+        r_Obs =     n x 1 ndarray of rates, for which you wish to calibrate the algorithm. Each rate belongs to an observable Zero-Coupon Bond with a known maturity. Ex. r = [[0.0024], [0.0034]]
         ufr  =      1 x 1 floating number, representing the ultimate forward rate. Ex. ufr = 0.042
         Tau =       1 x 1 floating number representing the allowed difference between ufr and actual curve. Ex. Tau = 0.00001
-        Precision = 1 x 1 floating number representing the precision of the calculation. Higher the precision, more aqurate the estimation of the root
+        Precision = 1 x 1 floating number representing the precision of the calculation. Higher the precision, more accurate the estimation of the root
         maxIter =   1 x 1 positive integer representing the maximum number of iterations allowed. This is to prevent an infinite loop in case the method does not converge to a solution         
     
     Returns:
@@ -84,17 +84,17 @@ def BisectionAlpha(xStart, xEnd, M_Obs, r_Obs, ufr, Tau, Precision, maxIter):
     yStart = Galfa(M_Obs, r_Obs, ufr, xStart, Tau) # Check if the initial point is a solution
     yEnd = Galfa(M_Obs, r_Obs, ufr, xEnd, Tau) # Check if the final point is a solution
     if np.abs(yStart) < Precision:
-        return xStart # If initial point already satisifes the conditions return start point
+        return xStart # If initial point already satisfies the conditions return start point
     if np.abs(yEnd) < Precision:
-        return xEnd # If final point already satisifes the conditions return end point
+        return xEnd # If final point already satisfies the conditions return end point
     iIter = 0
     while iIter <= maxIter:
-        xMid = (xEnd+xStart)/2 # calculate mid point 
+        xMid = (xEnd+xStart)/2 # calculate mid-point 
         yMid = Galfa(M_Obs, r_Obs, ufr, xMid, Tau) # What is the solution at midpoint
 
         if (yMid == 0 or (xEnd-xStart)/2 < Precision): # Solution found
             return xMid
-        else: # Solution not fund
+        else: # Solution not found
             iIter += 1
             if np.sign(yMid) == np.sign(yStart): # If the start point and the middle point have the same sign, then the root must be in the second half of the interval   
                 xStart = xMid
