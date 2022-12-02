@@ -20,16 +20,18 @@ When analysing market expectations of future rates, a common approach is to look
 
 This implementation takes as input the <b>available market information</b>, <b>parameters</b> describing the long-term behaviour of the curve and the data on <b>desired (target) maturities</b> for which the yields are needed.
 
-### Avalible market information
-- Observed yields of the zero-coupon bonds (ZCB).
-- Maturity of the observed ZCB.
+### Available market information
+
+- Observed yields of the Zero-Coupon Bonds (ZCB)
+- Maturity of the observed ZCB
 
 ### Parameters
-- Ultimate froward rate `ufr` represents the rate to which the rate curve will converge as time increases.
-- Convergence speed parameter α controls the speed at which the curve converges towards the ufr parameter from the last liquid point (last data point avalible in the market information input).
+
+- Ultimate froward rate `ufr` represents the rate to which the rate curve will converge as time increases
+- Convergence speed parameter α controls the speed at which the curve converges towards the ufr parameter from the last liquid point (last data point available in the market information input)
 
 ### Desired output
-- List of maturities for which the SW algorithm will calculate the yields.
+- List of maturities for which the SW algorithm will calculate the yields
 
 Note that this implementation assumes that the yields were calculated on ZCB. This assumption can be easily relaxed in future releases.
 
@@ -77,12 +79,12 @@ print(r_Target)
 
 ## About the example in main.py
 
-Example.py contains a script with an example from EIOPA's own Excel implementation tool ( Smith-Wilson Risk-Free Interest Rate Extrapolation Tool 27102015.xlsb ). In this example, the yields are available for ZCB maturing in 1 year, 2 years, ..., 20 years. The output is the curve for up to 65 years.
+Example.py contains a script with an example from EIOPA's own Excel implementation tool (Smith-Wilson Risk-Free Interest Rate Extrapolation Tool 27102015.xlsb ). In this example, the yields are available for ZCB maturing in 1 year, 2 years, ..., 20 years. The output is the curve for up to 65 years.
 
 ###Note:
-To extrapolate the curve, it is enough to know the additional parameters(alpha, ufr), the maturities used for calibration and the vector b*Q. If this is the case, it is not difficult to modify the function `SWExtrapolate()` to take as input Qb instead of b. To see an example of this, see the Jupyter Notebook at https://github.com/qnity/insurance_python/tree/main/EIOPA_smith_wilson_test .
+To extrapolate the curve, it is enough to know the additional parameters (alpha and ufr), the maturities used for calibration and the vector b*Q. If this is the case, it is not difficult to modify the function `SWExtrapolate()` to take as input Qb instead of b. To see an example of this, see the Jupyter Notebook at https://github.com/qnity/insurance_python/tree/main/EIOPA_smith_wilson_test .
 
-An example of this format is the monthly risk free rate published by turopean Insurance and Occupational Pensions Authority (https://www.eiopa.europa.eu/tools-and-data/).
+An example of this format is the monthly risk-free rate published by the European Insurance and Occupational Pensions Authority (https://www.eiopa.europa.eu/tools-and-data/).
 
 </br>
 
