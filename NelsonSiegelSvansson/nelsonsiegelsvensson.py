@@ -15,7 +15,7 @@ def NelsonSiegelSvansson(T, beta0, beta1, beta2, beta3, lambda0, lambda1):
     #    lambda1 = 1 x 1 floating number, representing the second shape parameter lambda of the NSS parametrisation 
     # 
     # Returns:
-    #     n x 1 ndarray of interpolated/extrapolarted points coresponding to maturities inside T. Where n is the length of the vector T.
+    #     n x 1 ndarray of interpolated/extrapolated points corresponding to maturities inside T. Where n is the length of the vector T.
     # 
     #     LINK TO SOURCE
     alpha1 = (1-np.exp(-T/lambda0)) / (T/lambda0)
@@ -64,27 +64,3 @@ def NSSMinimize(beta0, beta1, beta2, beta3, lambda0, lambda1, TimeVec, YieldVec)
         return opt_sol.x
     else:
         return []
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
