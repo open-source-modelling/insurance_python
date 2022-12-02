@@ -8,7 +8,7 @@ Black Sholes model is one of oldest models for simulating the stock market.
 
 ## Problem
 
-Modelling the stock market is a well researced field. There are numerous models each with their advantages and drawbacks.
+Modelling the stock market is a well-researched field. There are numerous models each with their advantages and drawbacks.
 
 ## Solution
 
@@ -20,18 +20,18 @@ Black Sholes simulation:
  - `S0`    ... integer, specifying the initial value of the underlying asset.
  - `mu`    ... float, specifying the drift rate of the underlying asset.
  - `sigma` ... float, standard deviation of the underlying asset's return.
- - `T`     ... integer, specifying the maximum modeling time. ex. if T = 2 then modelling time will run from 0 to 2.
- - `dt`    ... float, specifying the length of each subinterval. ex. dt=10, then there will be 10 intervals of length 0.1 between two integers of modeling time.
- - `rho`  ... float, specifying the correlation coefficient of the Brownian motion. ex. rho = 0.4 means that two Brownian motions have a correlation coefficient of 0.4.
+ - `T`     ... integer, specifying the maximum modelling time. ex. if T = 2 then modelling time will run from 0 to 2.
+ - `dt`    ... float, specifying the length of each subinterval. ex. dt=10, then there will be 10 intervals of length 0.1 between two integers of modelling time.
+ - `rho`   ... float, specifying the correlation coefficient of the Brownian motion. ex. rho = 0.4 means that two Brownian motions have a correlation coefficient of 0.4.
 
 ### Output
 
 Return:
- - `stock_price_simulation` ... N x 2 pandas DataFrame where index is modeling time and values are a realisation of the uderlying's price.
+ - `stock_price_simulation` ... N x 2 pandas DataFrame where index is modelling time and values are a realisation of the underlying’s price.
 
 ## Getting started
 
-Model the price of a stock whitch is worth today 100. The market has a future annualized risk free rate of 5% and an annualized volatility of 30%. The user is interested in a price projection for the next 10 years in increments of 6 months (0.5 years)
+Model the price of a stock which is worth today 100. The market has a future annualized risk-free rate of 5% and an annualized volatility of 30%. The user is interested in a price projection for the next 10 years in increments of 6 months (0.5 years)
 
 ``` python
 import pandas as pd
@@ -64,7 +64,9 @@ print(simulate_Black_Scholes(100, 0.05, 0.3, 10, 0.5))
     #       10.0   262.282989
 ```
 ## Risk neutral pricing
-When an ESG simulation output is presented, a standard test is applied to confirm that the scenarios are risk neutral. Black Sholes can be one such model. This test relies on the fact that in a risk-neutral framework, there is an explicit relationship between the price of an fixed income financial instrument and the expected discounted cash flows. Bellow is the martingale test for the hypothetical example from above. To pass the test, the expected discounted cash flows should equal the initial stock price of 100.
+When an ESG simulation output is presented, a standard test is applied to confirm that the scenarios are risk neutral. Black Sholes can be one such model. This test relies on the fact that in a risk-neutral framework, there is an explicit relationship between the price of a fixed income financial instrument and the expected discounted cash flows. 
+
+Below is the Martingale test for the hypothetical example from above. To pass the test, the expected discounted cash flows should equal the initial stock price of 100.
 
 ``` python
 import numpy as np
