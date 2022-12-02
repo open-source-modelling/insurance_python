@@ -18,6 +18,6 @@ The target maturities (`T_Obs`), the additional parameters (`UFR` and `alpha`) a
 ## Smith&Wilson algorithm
 
 The implementation of the SW algorithm is a slight modification to the original OSM implementation. The original implementation can be found in different languages on the OSM's GitHub repository:
--  [Python](https://github.com/qnity/insurance_python/tree/main/smith%26wilson).
--  [Matlab](https://github.com/qnity/insurance_matlab/tree/main/smith%26wilson).
--  [JavaScript](https://github.com/qnity/insurance_javascript/tree/main/smith-wilson).
+-  [Python](https://github.com/qnity/insurance_python/tree/main/smith%26wilson)
+-  [Matlab](https://github.com/qnity/insurance_matlab/tree/main/smith%26wilson)
+-  [JavaScript](https://github.com/qnity/insurance_javascript/tree/main/smith-wilson)
