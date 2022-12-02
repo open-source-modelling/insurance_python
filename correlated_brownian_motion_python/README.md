@@ -10,18 +10,18 @@ Popular algorithm for generating a matrix of increments from a multidimensional 
 
 ## Problem
 
-Offten when using multifactor models, the model requires correlated sources of noise. A popular choice is to use a multidimensional Brownian motion.
+Often when using multifactor models, the model requires correlated sources of noise. A popular choice is to use a multidimensional Brownian motion.
 
 ## Solution
 
-The proposed algorithm uses two propoerties of BM:
--  Increments of a BM are normaly distributed.
--  assuming n independent BM's whose increments are generated from a standard normal distribution (denoted N(0,1)), a derived proces 
+The proposed algorithm uses two properties of BM:
+-  Increments of a BM are normally distributed.
+-  assuming n independent BM's whose increments are generated from a standard normal distribution (denoted N(0,1)), a derived process 
 Y = μ + L\*z has its increments distributed as N(μ, E) where μ is the vector of means and L is the square root of the Variance-Covariance matrix (denoted E in the code).
 
 ### Inputs
 
-- Vecor of means for each BM `mu`.
+- Vector of means for each BM `mu`.
 - Variance-Covariance matrix whose diagonal elements describe the volatility of each BM and the off-diagonal elements describe the covariance `E`.
 - Number of samples needed `sampleSize`.
 
@@ -31,7 +31,7 @@ Y = μ + L\*z has its increments distributed as N(μ, E) where μ is the vector 
 
 ## Getting started
 
-The user is interested in generating samples from 2 Brownian motions with a correlation of 0.8. Additionaly, the first BM has a mean of 1 and a variance of 1.5. The second BM has a mean of 0 and a variance of 2. The user is interested in 100 samples.
+The user is interested in generating samples from 2 Brownian motions with a correlation of 0.8. Additionally, the first BM has a mean of 1 and a variance of 1.5. The second BM has a mean of 0 and a variance of 2. The user is interested in 100 samples.
 
 ```bash
 import numpy as np
