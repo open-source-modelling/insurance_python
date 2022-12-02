@@ -27,7 +27,7 @@ By transforming the minimization problem at the point of convergence into a prob
 ### Output
   - Optimal value of the parameter α (if the bisection method converged).
  
- Note that to be consistent with EIOPA's recommandations, the lower bound of the interval should be set to 0.05. 
+ Note that to be consistent with EIOPA's recommendations, the lower bound of the interval should be set to 0.05. 
  
 ## Getting started
 ```python
