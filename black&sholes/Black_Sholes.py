@@ -9,14 +9,14 @@ def simulate_Black_Scholes(S0, mu, sigma, T, dt) -> pd.DataFrame:
     #   S0    = integer, specifying the initial value of the underlying asset
     #   mu    = float, specifying the drift rate of the underlying asset 
     #   sigma = float, standard deviation of the underlying asset's return
-    #   T     = integer, specifying the maximum modeling time. ex. if T = 2 then modelling time will run from 0 to 2
-    #   dt    = float, specifying the length of each subinterval. ex. dt=10, then there will be 10 intervals of length 0.1 between two integers of modeling time 
+    #   T     = integer, specifying the maximum modelling time. ex. if T = 2 then modelling time will run from 0 to 2
+    #   dt    = float, specifying the length of each subinterval. ex. dt=10, then there will be 10 intervals of length 0.1 between two integers of modelling time 
     #
     # Returns:
-    #   stock_price_simulation = N x 2 pandas DataFrame where index is modeling time and values are a realisation of the uderlying's price
+    #   stock_price_simulation = N x 2 pandas DataFrame where index is modelling time and values are a realisation of the underlying’s price
     #
     # Example:
-    #   Model the price of a stock whitch is worth today 100. The market has a future annualized risk free rate of 5% and an annualized volatility of 30%. The user is interested in a price projection for the next 10 years in increments of 6 months (0.5 years)
+    #   Model the price of a stock which is worth today 100. The market has a future annualized risk-free rate of 5% and an annualized volatility of 30%. The user is interested in a price projection for the next 10 years in increments of 6 months (0.5 years)
     #   import pandas as pd
     #   import numpy as np
     #   simulate_Black_Scholes(100, 0.05, 0.3, 10, 0.5)   
