@@ -18,8 +18,8 @@ def SWExtrapolate(M_Target, M_Obs, b, ufr, alpha):
     import numpy as np
     from SWHeart import SWHeart as SWHeart
     C = np.identity(M_Obs.size)
-    d = np.exp(-np.log(1+ufr) * M_Obs)                                                # Calculate vector d described in paragraph 138
-    Q = np.diag(d) @ C                                                             # Matrix Q described in paragraph 139
-    H = SWHeart(M_Target, M_Obs, alpha)                                          # Heart of the Wilson function from paragraph 132
+    d = np.exp(-np.log(1+ufr) * M_Obs)   # Calculate vector d described in paragraph 138
+    Q = np.diag(d) @ C                   # Matrix Q described in paragraph 139
+    H = SWHeart(M_Target, M_Obs, alpha)  # Heart of the Wilson function from paragraph 132
     p = np.exp(-np.log(1+ufr)* M_Target) + np.diag(np.exp(-np.log(1+ufr) * M_Target)) @ H @ Q @ b # Discount pricing function for targeted maturities from paragraph 147
     return p ** (-1/ M_Target) -1 # Convert obtained prices to rates and return prices
