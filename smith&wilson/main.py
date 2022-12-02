@@ -31,7 +31,7 @@ b = SWCalibrate(r_Obs,M_Obs, ufr, alpha) # The calibration of the kernel functio
 # is done by the function Calibrate_b.
 
 r_Target = SWExtrapolate(M_Target,M_Obs, b, ufr, alpha) # The interpolation/extrapolation of targeted 
-# maturitites is done by the function ExtrapolateSW. 
+# maturities is done by the function ExtrapolateSW. 
 print("The interpolated/extrapolated rates are:")
 print(r_Target)
 
