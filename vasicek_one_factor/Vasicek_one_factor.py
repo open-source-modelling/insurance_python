@@ -11,13 +11,13 @@ def simulate_Vasicek_One_Factor(r0: float = 0.1, a: float = 1.0, lam: float = 0.
     #   lam   = float, long term mean level that all future trajectories will evolve around  
     #   sigma = float, instantaneous volatility measures instant by instant the amplitude of randomness entering the system
     #   T     = integer, end modelling time. From 0 to T the time series runs. 
-    #   dt    = float, increment of time that the proces runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,...
+    #   dt    = float, increment of time that the process runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,...
     #
     # Returns:
-    #   interest_rate_simulation = N x 2 pandas DataFrame where index is modeling time and values are a realisation of the uderlying's price
+    #   interest_rate_simulation = N x 2 Pandas DataFrame where index is modelling time and values are a realisation of the underlying's price
     #
     # Example:
-    #   Model the interest rate which is 10% today. The annualized instant volatility is 20%. The external analysis points out that the mean reversion parameter is 1 and the long term interest rate level is 10 % therefore the mean reversion correction is theta = 10% * 1 = 10%. The user is interested in an interest rate projection of the next 10 years in increments of 6 months (0.5 years)
+    #   Model the interest rate which is 10% today. The annualized instant volatility is 20%. The external analysis points out that the mean reversion parameter is 1 and the long-term interest rate level is 10 % therefore the mean reversion correction is theta = 10% * 1 = 10%. The user is interested in an interest rate projection of the next 10 years in increments of 6 months (0.5 years)
     #
     #   import pandas as pd
     #   import numpy as np
@@ -46,7 +46,7 @@ def simulate_Vasicek_One_Factor(r0: float = 0.1, a: float = 1.0, lam: float = 0.
     #           10.000000       0.217147
     # For more information see https://en.wikipedia.org/wiki/Vasicek_model
     
-    N = int(T / dt) # number of subintervals of length 1/dt between 0 and max modeling time T
+    N = int(T / dt) # number of subintervals of length 1/dt between 0 and max modelling time T
 
     time, delta_t = np.linspace(0, T, num = N, retstep = True)
 
