@@ -9,11 +9,11 @@ Vasicek one factor model for simulating the evolution of a credit instruments su
 
 ## Problem
 
-When trying to simulate for example credit spreads, there is a variety of models. The choice of the model and its limitations are a key factor in deciding which model to implement. There are compeling economic arguments in favor of mean reversion.  
+When trying to simulate for example credit spreads, there is a variety of models. The choice of the model and its limitations are a key factor in deciding which model to implement. There are compelling economic arguments in favour of mean reversion.  
 
 ## Solution
 
-One of the simplest models, the [Vasicek one factor model](https://en.wikipedia.org/wiki/Vasicek_model) assumes that the credit market can be described by a simple mean reverting stochastic process with one source of uncertainty comming from a [Brownian motion](https://en.wikipedia.org/wiki/Brownian_motion). One limitation is that due to to normal distribution of the noise, the process allows negative spreads which might be undesirable in certain circumstances.
+One of the simplest models, the [Vasicek one factor model](https://en.wikipedia.org/wiki/Vasicek_model) assumes that the credit market can be described by a simple mean reverting stochastic process with one source of uncertainty coming from a [Brownian motion](https://en.wikipedia.org/wiki/Brownian_motion). One limitation is that due to normal distribution of the noise, the process allows negative spreads which might be undesirable in certain circumstances.
 
 The stochastic differential equation (SDE) of the Vasicek model is shown on the Wiki page https://en.wikipedia.org/wiki/Vasicek_model#.
 
@@ -24,7 +24,7 @@ The stochastic differential equation (SDE) of the Vasicek model is shown on the 
   - `lam`   ... float, long term mean level. All future trajectories of r will evolve around this mean level in the long run.
   - `sigma` ... float, instantaneous volatility measures instant by instant the amplitude of randomness entering the system.
   - `T`     ... integer, end modelling time. From 0 to T the time series runs.
-  - `dt`    ... float, increment of time that the proces runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,...
+  - `dt`    ... float, increment of time that the process runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,...
 
 ### Output
 
