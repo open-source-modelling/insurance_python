@@ -13,7 +13,7 @@ In this example, we look at the EIOPA risk free rate publication from August 202
 The publication can be found [EIOPA RFR website](https://www.eiopa.europa.eu/tools-and-data/risk-free-interest-rate-term-structures_en).
 
 The observed maturities `M_Obs` and the calibrated vector `Qb` can be found in the Excel sheet *EIOPA_RFR_20220831_Qb_SW.xlsx*.
-The target maturities (`T_Obs`), the additional parameters (`UFR` and `alpha`) and the given curve can be found in the Excel *EIOPA_RFR_20220831_Term_Structures.xlsx*, sheet *RFR_spot_no_VA*.
+The target maturities (`T_Obs`), the additional parameters (`UFR` and `alpha`).
 
 ## Smith&Wilson algorithm
 
