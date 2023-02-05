@@ -25,8 +25,11 @@
 | [Vasicek two factor]     | [Wiki Vasicek]                      | Vasicek model for modelling the evolution of a pair of interest rates       |
 | [EIOPA SW Recalc]        | [EIOPA RFR website]                 | Calculation of the risk free rate from the monthly EIOPA publication        |
 | [Metropolis Hastings ESG]| Original work by OSM                | Bayesian maximum likelihood of a Black Sholes stochastic scenario generator |
+| [1F Hull White]          | [Wiki Hull White]                   | One factor Hull White model of short rates                                  |
 
 
+[Wiki Hull White]:https://en.wikipedia.org/wiki/Hull%E2%80%93White_model
+[1F Hull White]:https://github.com/qnity/insurance_python/tree/main/hull_white_one_factor
 [Metropolis Hastings ESG]:https://github.com/qnity/insurance_python/tree/main/Metropolis_Hastings_Black_Sholes_ESG
 [EIOPA RFR website]: https://www.eiopa.europa.eu/tools-and-data/risk-free-interest-rate-term-structures_en
 [EIOPA SW Recalc]: https://github.com/qnity/insurance_python/tree/main/EIOPA_smith_wilson_test
