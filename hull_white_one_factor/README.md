@@ -6,7 +6,7 @@
 
 
 ## Problem
-Modelling interest rate evolution is common task in financial modelling. Some common use cases are derivative valuation and risk management. This is usually done using different time structure models that describe the evolution of the future interest rates (The modelling can describe the evolution of different quantities. mainly the choice is between future rates and short rates.).
+Modelling interest rate evolution simulation is common task in financial modelling. Some common use cases are derivative valuation and risk management. This is usually done using different time structure models that describe the evolution of the future interest rates (The modelling can describe the evolution of different quantities. mainly the choice is between future rates and short rates.).
 
 ## Solution
 A popular choice of model in practice is the Hull-White model. This is an extension of the Vasicek model, that can completely replicate the initial term structure. This allows to construct no-arbitrage curves using current market structure of interest rates. This is achived by allowing the reversion-level parameter theta which is constant in the classical Vasicek model to vary in time with the observable future rates. The one factor version presented in this repository models the short rate using the dynamics described in the [Wiki](https://en.wikipedia.org/wiki/Hull%E2%80%93White_model)
