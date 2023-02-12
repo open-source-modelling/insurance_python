@@ -10,7 +10,7 @@
   Collection of useful models that actuaries can use to speed up their tasks. 
 </p>
 
-## Algorithms avalible
+## Algorithms available
 
 | Algorithm                | Source                              | Description                                                                 |
 | -------------------------| ----------------------------------- | ----------------------------------------------------------------------      |
@@ -23,7 +23,7 @@
 | [Black&Scholes]          | [Wiki Black&Sholes]                 | Black&Scholes model for pricing option contracts                            |
 | [Vasicek one factor]     | [Wiki Vasicek]                      | Vasicek model for modelling the evolution of interest rates                 |
 | [Vasicek two factor]     | [Wiki Vasicek]                      | Vasicek model for modelling the evolution of a pair of interest rates       |
-| [EIOPA SW Recalc]        | [EIOPA RFR website]                 | Calculation of the risk free rate from the monthly EIOPA publication        |
+| [EIOPA SW Recalc]        | [EIOPA RFR website]                 | Calculation of the risk-free rate from the monthly EIOPA publication        |
 | [Metropolis Hastings ESG]| Original work by OSM                | Bayesian maximum likelihood of a Black Sholes stochastic scenario generator |
 | [1F Hull White]          | [Wiki Hull White]                   | One factor Hull White model of short rates                                  |
 
@@ -55,7 +55,7 @@
 | Algorithm              | Source                              | Description                                                            |
 | ---------------------- | ----------------------------------- | ---------------------------------------------------------------------- |
 | Matrix on fraction     | TBD                                 | Heuristics for calculating transition matrices on fractions of power   |
-| G2++ with piec cons vol| TBD                                 | Calibration of a G2++ model with piecwise constant volatility          |
+| G2++ with piec cons vol| TBD                                 | Calibration of a G2++ model with piecewise constant volatility          |
 | Carter-Lee model       | TBD                                 | Simple stochastic mortality model                                      |
 | Metropolis-Hastings    | TBD                                 | Sampling of probability distributions                                  |
 
