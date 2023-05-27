@@ -10,6 +10,14 @@
   Collection of useful models that actuaries can use to speed up their tasks. 
 </p>
 
+
+<div align="center">
+  <a href="https://github.com/qnity" target="_blank">
+    <picture>
+      <img src="images/OSM_logo.jpeg" width=280 alt="Logo"/>
+    </picture>
+  </a>
+</div>
 ## Algorithms available
 
 | Algorithm                | Source                              | Description                                                                 |
