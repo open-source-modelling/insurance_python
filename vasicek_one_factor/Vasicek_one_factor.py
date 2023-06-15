@@ -46,7 +46,7 @@ def simulate_Vasicek_One_Factor(r0: float = 0.1, a: float = 1.0, lam: float = 0.
     #           10.000000       0.217147
     # For more information see https://en.wikipedia.org/wiki/Vasicek_model
     
-    N = int(T / dt) # number of subintervals of length 1/dt between 0 and max modelling time T
+    N = int(T / dt) + 1 # number of end-points of subintervals of length 1/dt between 0 and max modelling time T
 
     time, delta_t = np.linspace(0, T, num = N, retstep = True)
 
