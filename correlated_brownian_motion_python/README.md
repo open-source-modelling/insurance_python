@@ -35,6 +35,7 @@ The user is interested in generating samples from 2 Brownian motions with a corr
 
 ```bash
 import numpy as np
+from CorBM import *
 
 mu = [1,0]
 VarCovar = np.matrix('1.5, 0.8; 0.8, 2')
