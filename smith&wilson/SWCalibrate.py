@@ -1,20 +1,21 @@
 def SWCalibrate(r, M, ufr, alpha):
-# SWCALIBRATE Calculate the calibration vector using a Smith-Wilson algorithm
-# b = SWCalibrate(r, T, ufr, alpha) calculates the vector b used for
-# interpolation and extrapolation of rates.
-#
-# Arguments: 
-#    r =     n x 1 ndarray of rates, for which you wish to calibrate the algorithm. Each rate belongs to an observable zero-coupon bond with a known maturity. Ex. r = [[0.0024], [0.0034]]
-#    M =     n x 1 ndarray of maturities of bonds, that have rates provided in input (r). Ex. u = [[1], [3]]
-#    ufr =   1 x 1 floating number, representing the ultimate forward rate. Ex. ufr = 0.042
-#    alpha = 1 x 1 floating number representing the convergence speed parameter alpha. Ex. alpha = 0.05
-#
-# Returns:
-#    n x 1 ndarray array for the calibration vector needed to interpolate and extrapolate b = [[14], [-21]]
-#    rates
-# For more information see https://www.eiopa.europa.eu/sites/default/files/risk_free_interest_rate/12092019-technical_documentation.pdf
+   """
+    Calculate the calibration vector using the Smith-Wilson algorithm.
 
-    import numpy as np
+    Calculates the calibration vector `b` used for interpolation and extrapolation of rates.
+
+    Arguments:
+        r: n x 1 ndarray of rates for which you wish to calibrate the algorithm. Each rate belongs to an observable zero-coupon bond with a known maturity. Example: r = np.array([[0.0024], [0.0034]])
+        M: n x 1 ndarray of maturities of bonds that have rates provided in the input `r`. Example: M = np.array([[1], [3]])
+        ufr: Floating number representing the ultimate forward rate. Example: ufr = 0.042
+        alpha: Floating number representing the convergence speed parameter alpha. Example: alpha = 0.05
+
+    Returns:
+        n x 1 ndarray representing the calibration vector needed for interpolation and extrapolation. Example: b = np.array([[14], [-21]])
+
+    For more information, refer to the documentation at:
+    https://www.eiopa.europa.eu/sites/default/files/risk_free_interest_rate/12092019-technical_documentation.pdf
+    """
     from SWHeart import SWHeart as SWHeart
 
     C = np.identity(M.size)
