@@ -1,5 +1,5 @@
 def SWExtrapolate(M_Target, M_Obs, b, ufr, alpha):
-  """
+   """
     Interpolate or extrapolate rates for targeted maturities using the Smith-Wilson algorithm.
 
     Calculates the rates for maturities specified in `M_Target` using the calibration vector `b` obtained
@@ -19,11 +19,11 @@ def SWExtrapolate(M_Target, M_Obs, b, ufr, alpha):
     For more information, refer to the documentation at:
     https://www.eiopa.europa.eu/sites/default/files/risk_free_interest_rate/12092019-technical_documentation.pdf
     """
-    
-    from SWHeart import SWHeart as SWHeart
-    C = np.identity(M_Obs.size)
-    d = np.exp(-np.log(1+ufr) * M_Obs)   # Calculate vector d described in paragraph 138
-    Q = np.diag(d) @ C                   # Matrix Q described in paragraph 139
-    H = SWHeart(M_Target, M_Obs, alpha)  # Heart of the Wilson function from paragraph 132
-    p = np.exp(-np.log(1+ufr)* M_Target) + np.diag(np.exp(-np.log(1+ufr) * M_Target)) @ H @ Q @ b # Discount pricing function for targeted maturities from paragraph 147
-    return p ** (-1/ M_Target) -1 # Convert obtained prices to rates and return prices
+   import numpy as np 
+   from SWHeart import SWHeart as SWHeart
+   C = np.identity(M_Obs.size)
+   d = np.exp(-np.log(1+ufr) * M_Obs)   # Calculate vector d described in paragraph 138
+   Q = np.diag(d) @ C                   # Matrix Q described in paragraph 139
+   H = SWHeart(M_Target, M_Obs, alpha)  # Heart of the Wilson function from paragraph 132
+   p = np.exp(-np.log(1+ufr)* M_Target) + np.diag(np.exp(-np.log(1+ufr) * M_Target)) @ H @ Q @ b # Discount pricing function for targeted maturities from paragraph 147
+   return p ** (-1/ M_Target) -1 # Convert obtained prices to rates and return prices

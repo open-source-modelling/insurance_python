@@ -17,7 +17,11 @@ def SWHeart(u, v, alpha):
         For more information, see:
         https://www.eiopa.europa.eu/sites/default/files/risk_free_interest_rate/12092019-technical_documentation.pdf
         """
+    
+    import numpy as np
    
     u_Mat = np.tile(u, [v.size, 1]).transpose()
     v_Mat = np.tile(v, [u.size, 1])
-    return 0.5 * (alpha * (u_Mat + v_Mat) + np.exp(-alpha * (u_Mat + v_Mat)) - alpha * np.absolute(u_Mat-v_Mat) - np.exp(-alpha * np.absolute(u_Mat-v_Mat))); # Heart of the Wilson function from paragraph 132
+    
+    # Return the heart of the Wilson function from paragraph 132
+    return 0.5 * (alpha * (u_Mat + v_Mat) + np.exp(-alpha * (u_Mat + v_Mat)) - alpha * np.absolute(u_Mat-v_Mat) - np.exp(-alpha * np.absolute(u_Mat-v_Mat)))

@@ -1,5 +1,5 @@
 def SWCalibrate(r, M, ufr, alpha):
-   """
+    """
     Calculate the calibration vector using the Smith-Wilson algorithm.
 
     Calculates the calibration vector `b` used for interpolation and extrapolation of rates.
@@ -16,13 +16,15 @@ def SWCalibrate(r, M, ufr, alpha):
     For more information, refer to the documentation at:
     https://www.eiopa.europa.eu/sites/default/files/risk_free_interest_rate/12092019-technical_documentation.pdf
     """
+
+    import numpy as np
     from SWHeart import SWHeart as SWHeart
 
     C = np.identity(M.size)
-    p = (1+r) **(-M)               # Transform rates to implied market prices of a ZCB bond
-    d = np.exp(-np.log(1+ufr) * M) # Calculate vector d described in paragraph 138
-    Q = np.diag(d) @ C             # Matrix Q described in paragraph 139
-    q = C.transpose() @ d          # Vector q described in paragraph 139
-    H = SWHeart(M, M, alpha)       # Heart of the Wilson function from paragraph 132
+    p = (1+r) **(-M)  # Transform rates to implied market prices of a ZCB bond
+    d = np.exp(-np.log(1+ufr) * M)    # Calculate vector d described in paragraph 138
+    Q = np.diag(d) @ C                  # Matrix Q described in paragraph 139
+    q = C.transpose() @ d                         # Vector q described in paragraph 139
+    H = SWHeart(M, M, alpha) # Heart of the Wilson function from paragraph 132
 
     return np.linalg.inv(Q.transpose() @ H @ Q) @ (p-q)          # Calibration vector b from paragraph 149
