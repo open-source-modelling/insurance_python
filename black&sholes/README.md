@@ -37,7 +37,7 @@ Model the price of a stock which is worth today 100. The market has a future ann
 import pandas as pd
 import numpy as np
 from typing import Any
-from Black_Sholes import generate_weiner_process, simulate_Black_Scholes
+from Black_Sholes import simulate_Black_Scholes
 print(simulate_Black_Scholes(100, 0.05, 0.3, 10, 0.5))
 
     #   [out] = Time    Stock Price                
