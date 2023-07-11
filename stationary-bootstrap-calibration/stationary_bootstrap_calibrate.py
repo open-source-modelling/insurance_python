@@ -1,6 +1,5 @@
 import numpy as np
 
-
 def OptimalLength(data: np.ndarray):
     """
     Function calculates the optimal parameter value when using a stationary bootstraping algorithm.
@@ -36,6 +35,7 @@ def OptimalLength(data: np.ndarray):
 
     Implemented by Gregor Fabjan from Qnity Consultants on 12/11/2021.
     """
+    
     n = data.shape[0]
     kn = max(5,np.sqrt(np.log10(n)))
     mmax = int(np.ceil(np.sqrt(n))+kn)
@@ -196,6 +196,7 @@ def lam(x: np.ndarray)-> np.ndarray:
     
     Implemented by Gregor Fabjan from Qnity Consultants on 12/11/2021.
     """
+    
     nrow = x.shape[0]
     out = np.zeros(nrow)
     for row in range(nrow):
