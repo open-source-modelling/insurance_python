@@ -23,13 +23,13 @@
 
 | Algorithm                | Source                              | Description                                                                 |
 | -------------------------| ----------------------------------- | ----------------------------------------------------------------------      |
-| [Smith&Wilson]           | [Technical-documentation]           | Interpolation and extrapolation of missing interest rates                   |
-| [Stationary-boot-calib]  | [Whitepaper-2004]                   | Automatic calibration of the stationary bootstrap algorithm                 |
-| [Stationary-bootstrap]   | [Politis-Romano-1994]               | Resampling procedure for weakly dependent stationary observations           |
-| [Calibration-of-alpha]   | [Technical-documentation]           | Calibration of the Smith & Wilson's alpha parameter                         |
+| [Smith_Wilson]           | [Technical-documentation]           | Interpolation and extrapolation of missing interest rates                   |
+| [Stationary_boot_calib]  | [Whitepaper-2004]                   | Automatic calibration of the stationary bootstrap algorithm                 |
+| [Stationary_bootstrap]   | [Politis-Romano-1994]               | Resampling procedure for weakly dependent stationary observations           |
+| [Calibration_of_alpha]   | [Technical-documentation]           | Calibration of the Smith & Wilson's alpha parameter                         |
 | [Correlated Brownian]    | [Wiki Brownian motion]              | Simple function to generate correlated Brownian motion in multiple dim.     |
-| [Nel-Si-Svansson]        | [BIS whitepaper]                    | Nelson-Siegel-Svansson model for approximating the yield curve              |
-| [Black&Scholes]          | [Wiki Black&Sholes]                 | Black&Scholes model for pricing option contracts                            |
+| [Nel_Si_Svansson]        | [BIS whitepaper]                    | Nelson-Siegel-Svansson model for approximating the yield curve              |
+| [Black_Scholes]          | [Wiki Black&Sholes]                 | Black&Scholes model for pricing option contracts                            |
 | [Vasicek one factor]     | [Wiki Vasicek]                      | Vasicek model for modelling the evolution of interest rates                 |
 | [Vasicek two factor]     | [Wiki Vasicek]                      | Vasicek model for modelling the evolution of a pair of interest rates       |
 | [1F Hull White]          | [Wiki Hull White]                   | One factor Hull White model of short rates                                  |
@@ -37,18 +37,18 @@
 
 [Wiki Hull White]:https://en.wikipedia.org/wiki/Hull%E2%80%93White_model
 [1F Hull White]:https://github.com/qnity/insurance_python/tree/main/hull_white_one_factor
-[Smith&Wilson]: https://github.com/qnity/insurance_python/tree/main/smith%26wilson
+[Smith_Wilson]: https://github.com/qnity/insurance_python/tree/main/smith_wilson
 [Technical-documentation]: https://www.eiopa.europa.eu/sites/default/files/risk_free_interest_rate/12092019-technical_documentation.pdf
-[Stationary-boot-calib]: https://github.com/qnity/insurance_python/tree/main/stationary-bootstrap-calibration
+[Stationary_boot_calib]: https://github.com/qnity/insurance_python/tree/main/stationary_bootstrap_calibration
 [Whitepaper-2004]: http://public.econ.duke.edu/~ap172/Politis_White_2004.pdf
-[Stationary-bootstrap]: https://github.com/qnity/insurance_python/tree/main/stationary-bootstrap
+[Stationary_bootstrap]: https://github.com/qnity/insurance_python/tree/main/stationary_bootstrap
 [Politis-Romano-1994]: https://www.jstor.org/stable/2290993
-[Calibration-of-alpha]: https://github.com/qnity/insurance_python/tree/main/bisection_alpha
+[Calibration_of_alpha]: https://github.com/qnity/insurance_python/tree/main/bisection_alpha
 [Correlated Brownian]: https://github.com/qnity/insurance_python/tree/main/correlated_brownian_motion_python
 [Wiki Brownian motion]: https://en.wikipedia.org/wiki/Brownian_motion
-[Nel-Si-Svansson]: https://github.com/qnity/insurance_python/tree/main/NelsonSiegelSvansson
+[Nel_Si_Svansson]: https://github.com/qnity/insurance_python/tree/main/nelson_siegel_svansson
 [BIS whitepaper]: https://www.bis.org/publ/bppdf/bispap25l.pdf
-[Black&Scholes]: https://github.com/qnity/insurance_python/tree/main/black%26sholes
+[Black_Scholes]: https://github.com/qnity/insurance_python/tree/main/black_sholes
 [Wiki Black&Sholes]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model
 [Vasicek one factor]: https://github.com/qnity/insurance_python/tree/main/vasicek_one_factor
 [Wiki Vasicek]: https://en.wikipedia.org/wiki/Vasicek_model
