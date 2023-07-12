@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://github.com/qnity" target="_blank">
+  <a href="https://github.com/open-source-modelling" target="_blank">
     <picture>
       <img src="images/OSM_logo.jpeg" width=280 alt="Logo"/>
     </picture>
