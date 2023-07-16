@@ -2,7 +2,7 @@
 
 """ Smith & Wilson is a widely used algorithm that can do both interpolation and 
  extrapolation of rates at the same time. This implementation is based on the 
- Technical documentation of the _Methodology to derive EIOPA's risk-free interest 
+ Technical documentation published by EIOPA and used to derive the risk-free interest 
  rate term structure (Version published on 12/09/2019).
 """
 ## This example
