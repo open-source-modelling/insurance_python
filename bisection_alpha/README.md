@@ -55,5 +55,5 @@ Tau = 0.0001 # 1 basis point
 print("Example in the documentation for Galfa: "+ str(Galfa(M_Obs, r_Obs, ufr, 0.15, Tau)))
 print("Example in the documentation for BisectionAlpha: "+ str(BisectionAlpha(0.05, 0.5, M_Obs, r_Obs, ufr, Tau, Precision, 1000)))
 ```
-Note that this implementation use functions `SWCalibrate` and `SWExtrapolate` from the [Smith & Wilson implementation](https://github.com/qnity/insurance_python/tree/main/smith%26wilson). They are duplicated to this repository for completeness. If there are any inconsistencies or suggestions, raise an issue or contact us directly.
+Note that this implementation use functions `SWCalibrate` and `SWExtrapolate` from the [Smith & Wilson implementation](https://github.com/open-source-modelling/insurance_python/tree/main/smith%26wilson). They are duplicated to this repository for completeness. If there are any inconsistencies or suggestions, raise an issue or contact us directly.
 
