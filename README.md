@@ -46,7 +46,7 @@
 [Stationary_bootstrap]: https://github.com/open-source-modelling/insurance_python/tree/main/stationary_bootstrap
 [Politis-Romano-1994]: https://www.jstor.org/stable/2290993
 [Calibration_of_alpha]: https://github.com/open-source-modelling/insurance_python/tree/main/bisection_alpha
-[Correlated Brownian]: https://github.com/open-source-modelling/insurance_python/tree/main/correlated_brownian_motion_python
+[Correlated Brownian]: https://github.com/open-source-modelling/insurance_python/tree/main/correlated_brownian_motion
 [Wiki Brownian motion]: https://en.wikipedia.org/wiki/Brownian_motion
 [Nel_Si_Svansson]: https://github.com/open-source-modelling/insurance_python/tree/main/nelson_siegel_svansson
 [BIS whitepaper]: https://www.bis.org/publ/bppdf/bispap25l.pdf
