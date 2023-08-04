@@ -13,14 +13,14 @@ A popular choice of model in practice is the Hull-White model. This is an extens
 
 ### Input
 The inputs to the Hull-White model are the following:
- - `r0`    = float, starting interest rate of the Hull White process 
- - `a` = float, speed of reversion parameter that is related to the velocity at which such trajectories will regroup around the forward rate theta
- - `sigma` = float, instantaneous volatility measures instant by instant the amplitude of randomness entering the system
- - `t`   = array of floats representing times at which the output is generated. 
- - `f`     = array of floats, representing the instantaneous forward rates at times from input t.
+ - `r0` (float): starting interest rate of the Hull-White process. 
+ - `a` (float): speed of reversion parameter that is related to the velocity at which such trajectories will regroup around the forward rate theta.
+ - `sigma` (float): instantaneous volatility measures instant by instant the amplitude of randomness entering the system.
+ - `t` (array of floats): representing times at which the output is generated.
+ - `f` (array of floats): representing the instantaneous forward rates at times from input t.
 
 ### Output
- - interest_rate_simulation = N x 2 pandas DataFrame where index is modelling time and values are a realisation of the spot rate increments
+ -  N x 2 Pandas DataFrame where index is modelling time and values are a realisation of the spot rate increments.
 
 ## Getting started
 
