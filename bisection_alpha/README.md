@@ -37,14 +37,15 @@ from SWExtrapolate import SWExtrapolate as SWExtrapolate
 from bisection_alpha import Galfa as Galfa
 from bisection_alpha import BisectionAlpha as BisectionAlpha
 
-# maturities of bonds observed on the market
+# Maturities of bonds observed on the market
 M_Obs = np.transpose(np.array([1, 2, 4, 5, 6, 7]))
 
-# yields observed on the market
+# Yields observed on the market
 r_Obs = np.transpose(np.array([0.01, 0.02, 0.03, 0.032, 0.035, 0.04]))
 
-# ultimate forward rate
+# Ultimate forward rate
 ufr = 0.04
+
 # Numeric precision of the optimisation
 Precision = 0.0000000001
 
