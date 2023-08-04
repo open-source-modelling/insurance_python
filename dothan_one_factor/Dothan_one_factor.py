@@ -5,15 +5,15 @@ def simulate_Dothan_One_Factor(r0: float = 0.1, a: float = 1.0, sigma: float = 0
     """ Simulates a temporal series of interest rates using the One Factor Dothan model
      interest_rate_simulation = simulate_Dothan_One_Factor(r0, a, lam, sigma, T, dt)
     
-     Arguments:
-       r0    = float, starting interest rate of the driftless geometric Brownian process 
-       a     = float, market price of risk
-       sigma = float, instantaneous volatility measures instant by instant the amplitude of randomness entering the system
-       T     = integer, end modelling time. From 0 to T the time series runs. 
-       dt    = float, increment of time that the process runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,...
+     Args:
+       r0 (float): starting interest rate of the driftless geometric Brownian process 
+       a  (float): market price of risk
+       sigma (float): instantaneous volatility measures instant by instant the amplitude of randomness entering the system
+       T (integer): end modelling time. From 0 to T the time series runs. 
+       dt (float): increment of time that the process runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,...
     
      Returns:
-       interest_rate_simulation = N x 2 Pandas DataFrame where index is modelling time and values are a realisation of the underlying's price
+       N x 2 DataFrame where index is modelling time and values are a realisation of the underlying's price
     
      Example:
        Model the interest rate which is 10% today. The annualized instant volatility is 20%. The market price of risk is 1. The user is interested in an interest rate projection of the next 10 years in increments of 6 months (0.5 years)
