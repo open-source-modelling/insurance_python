@@ -19,15 +19,15 @@ The stochastic differential equation (SDE) of the Dothan model is shown on the W
 
 ### Input
 
-  - `r0`    ... float, starting interest rate of the Vasicek process.
-  - `a`     ... float, market price of risk.
-  - `sigma` ... float, instantaneous volatility measures instant by instant the amplitude of randomness entering the system.
-  - `T`     ... integer, end modelling time. From 0 to T the time series runs.
-  - `dt`    ... float, increment of time that the process runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,...
+  - `r0` (float): starting interest rate of the Vasicek process.
+  - `a` (float): market price of risk.
+  - `sigma` (float): instantaneous volatility measures instant by instant the amplitude of randomness entering the system.
+  - `T` (integer): end modelling time. From 0 to T the time series runs.
+  - `dt` (float): increment of time that the process runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,...
 
 ### Output
 
- - `interest_rate_simulation` N x 2 DataFrame with a sample path as values and modelling time as index.
+ - N x 2 Pandas DataFrame with a sample path as values and modelling time as index.
 
 ## Getting started
 
