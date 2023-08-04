@@ -6,15 +6,15 @@ def simulate_Hull_White_One_Factor(r0 , a, sigma, t, f):
      Form of the model is dr_{t} = [theta[t] - alpha * r_{t-1}] dt + sigma * dW_{t} 
      interest_rate_simulation = simulate_Hull_White_One_Factor(r0, alpha, sigma, t, f)
     
-     Arguments:
-       r0    = float, starting interest rate of the Hull White process 
-       a = float, speed of reversion parameter that is related to the velocity at which such trajectories will regroup around the forward rate theta
-       sigma = float, instantaneous volatility measures instant by instant the amplitude of randomness entering the system
-       t     = array of floats representing times at which the output is generated. 
-       f     = array of floats, representing the instantaneous forward rates at times from input t.
+     Args:
+       r0 (float): starting interest rate of the Hull White process.
+       a (float): speed of reversion parameter that is related to the velocity at which such trajectories will regroup around the forward rate theta.
+       sigma (float): instantaneous volatility measures instant by instant the amplitude of randomness entering the system.
+       t (array of floats): representing times at which the output is generated. 
+       f (array of floats): representing the instantaneous forward rates at times from input t.
     
      Returns:
-       interest_rate_simulation = N x 2 pandas DataFrame where index is modeling time and values are a realisation of the spot rate increments
+       N x 2 Pandas DataFrame where index is modeling time and values are a realisation of the spot rate increments.
     
      Example:
        Model the interest rate which is 2% today. The annualized instant volatility is 20%. The external analysis points out that the parameter alpha is 0.04 and the forward rates are equal to 3% in all maturities. 
