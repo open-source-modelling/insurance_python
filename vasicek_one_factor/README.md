@@ -19,16 +19,16 @@ The stochastic differential equation (SDE) of the Vasicek model is shown on the 
 
 ### Input
 
-  - `r0`    ... float, starting interest rate of the Vasicek process.
-  - `a`     ... float, speed of reversion" parameter that characterizes the velocity at which such trajectories will regroup around b in time.
-  - `lam`   ... float, long term mean level. All future trajectories of r will evolve around this mean level in the long run.
-  - `sigma` ... float, instantaneous volatility measures instant by instant the amplitude of randomness entering the system.
-  - `T`     ... integer, end modelling time. From 0 to T the time series runs.
-  - `dt`    ... float, increment of time that the process runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,...
+  - `r0` (float): starting interest rate of the Vasicek process.
+  - `a` (float): speed of reversion" parameter that characterizes the velocity at which such trajectories will regroup around b in time.
+  - `lam` (float): long term mean level. All future trajectories of r will evolve around this mean level in the long run.
+  - `sigma` (float): instantaneous volatility measures instant by instant the amplitude of randomness entering the system.
+  - `T` (integer): end modelling time. From 0 to T the time series runs.
+  - `dt` (float): increment of time that the process runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,...
 
 ### Output
 
- - `interest_rate_simulation` N x 2 DataFrame with a sample path as values and modelling time as index.
+ -  N x 2 Pandas DataFrame with a sample path as values and modelling time as index.
 
 ## Getting started
 
@@ -38,11 +38,11 @@ import pandas as pd
 from Vasicek_one_factor import simulate_Vasicek_One_Factor
 
 r0 = 0.1 # The starting interest rate
-a = 1.0 # speed of reversion parameter
-lam = 0.1 # long-term mean interest rate level correction
-sigma = 0.2 # instantaneous volatility
-T = 52 # end modelling time
-dt = 0.1 # increments of time
+a = 1.0 # Speed of reversion parameter
+lam = 0.1 # Long-term mean interest rate level correction
+sigma = 0.2 # Instantaneous volatility
+T = 52 # End modelling time
+dt = 0.1 # Increments of time
 
 print(simulate_Vasicek_One_Factor(r0, a, lam, sigma, T, dt))
 ```
