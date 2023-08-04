@@ -17,12 +17,12 @@ Stationary bootstrap is a block-resampling technique that relaxes the assumption
 The algorithm works by randomly selecting a starting point in the time-series and at each step it either increases the block size by one or selects a new block with a new starting point. This choice happens with a fixed probability governed by the parametrisation.
 
 ### Input
- - A time-series that you want to bootstrap
- - The parameter m describing the average duration of the blocks in the sample
- - The length of the output sample
+ - A time-series that you want to bootstrap.
+ - The parameter m describing the average duration of the blocks in the sample.
+ - The length of the output sample.
  
  ### Output
-  - Vector of bootstrapped values of specified length
+  - Vector of bootstrapped values of specified length.
 
 ## Getting started
 
