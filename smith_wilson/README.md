@@ -22,16 +22,16 @@ This implementation takes as input the <b>available market information</b>, <b>p
 
 ### Available market information
 
-- Observed yields of the Zero-Coupon Bonds (ZCB)
-- Maturity of the observed ZCB
+- Observed yields of the Zero-Coupon Bonds (ZCB).
+- Maturity of the observed ZCB.
 
 ### Parameters
 
-- Ultimate froward rate `ufr` represents the rate to which the rate curve will converge as time increases
-- Convergence speed parameter α controls the speed at which the curve converges towards the ufr parameter from the last liquid point (last data point available in the market information input)
+- Ultimate froward rate `ufr` represents the rate to which the rate curve will converge as time increases.
+- Convergence speed parameter α controls the speed at which the curve converges towards the ufr parameter from the last liquid point (last data point available in the market information input).
 
 ### Desired output
-- List of maturities for which the SW algorithm will calculate the yields
+- List of maturities for which the SW algorithm will calculate the yields.
 
 Note that this implementation assumes that the yields were calculated on ZCB. This assumption can be easily relaxed in future releases.
 
@@ -51,28 +51,28 @@ import numpy as np
 from SWCalibrate import SWCalibrate as SWCalibrate
 from SWExtrapolate import SWExtrapolate as SWExtrapolate
 
-# yields observed on the market
+# Yields observed on the market
 r_Obs = np.transpose(np.array([0.01, 0.02, 0.03, 0.032, 0.035, 0.04])) 
 
-# maturities of bonds observed on the market
+# Maturities of bonds observed on the market
 M_Obs = np.transpose(np.array([1, 2, 4, 5, 6, 7]))  
 
-# ultimate forward rate
+# Ultimate forward rate
 ufr = 0.04 
 
-# convergence speed parameter
+# Convergence speed parameter
 alpha = 0.15 
 
-# targeted maturities for interpolation/extrapolation
+# Targeted maturities for interpolation/extrapolation
 M_Target = np.transpose(np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20])) 
 
-# calibration vector calculation
+# Calibration vector calculation
 b = SWCalibrate(r_Obs,M_Obs, ufr, alpha) 
 
-# calculation of target yields
+# Calculation of target yields
 r_Target = SWExtrapolate(M_Target,M_Obs, b, ufr, alpha)
 
-# display target yields
+# Display target yields
 print("The interpolated/extrapolated rates are:") 
 print(r_Target)
 ```
