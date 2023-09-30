@@ -22,7 +22,7 @@
 ## Algorithms available
 
 | Algorithm                | Source                              | Description                                                                   |
-| -------------------------| ----------------------------------- | ----------------------------------------------------------------------======= |
+| -------------------------| ----------------------------------- | ----------------------------------------------------------------------------- |
 | [Smith_Wilson]           | [Technical-documentation]           | Interpolation and extrapolation of missing interest rates.                    |
 | [Stationary_boot_calib]  | [Whitepaper-2004]                   | Automatic calibration of the stationary bootstrap algorithm.                  |
 | [Stationary_bootstrap]   | [Politis-Romano-1994]               | Resampling procedure for weakly dependent stationary observations.            |
