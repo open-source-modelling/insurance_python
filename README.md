@@ -21,19 +21,19 @@
 
 ## Algorithms available
 
-| Algorithm                | Source                              | Description                                                                 |
-| -------------------------| ----------------------------------- | ----------------------------------------------------------------------      |
-| [Smith_Wilson]           | [Technical-documentation]           | Interpolation and extrapolation of missing interest rates                   |
-| [Stationary_boot_calib]  | [Whitepaper-2004]                   | Automatic calibration of the stationary bootstrap algorithm                 |
-| [Stationary_bootstrap]   | [Politis-Romano-1994]               | Resampling procedure for weakly dependent stationary observations           |
-| [Calibration_of_alpha]   | [Technical-documentation]           | Calibration of the Smith & Wilson's alpha parameter                         |
-| [Correlated Brownian]    | [Wiki Brownian motion]              | Simple function to generate correlated Brownian motion in multiple dim.     |
-| [Nel_Si_Svansson]        | [BIS whitepaper]                    | Nelson-Siegel-Svansson model for approximating the yield curve              |
-| [Black_Scholes]          | [Wiki Black&Sholes]                 | Black&Scholes model for pricing option contracts                            |
-| [Vasicek one factor]     | [Wiki Vasicek]                      | Vasicek model for modelling the evolution of interest rates                 |
-| [Vasicek two factor]     | [Wiki Vasicek]                      | Vasicek model for modelling the evolution of a pair of interest rates       |
-| [1F Hull White]          | [Wiki Hull White]                   | One factor Hull White model of short rates                                  |
-| [Dothan one factor]      | [Quant Exchange]                    | One factor Dothan model of short rates                                      |
+| Algorithm                | Source                              | Description                                                                   |
+| -------------------------| ----------------------------------- | ----------------------------------------------------------------------======= |
+| [Smith_Wilson]           | [Technical-documentation]           | Interpolation and extrapolation of missing interest rates.                    |
+| [Stationary_boot_calib]  | [Whitepaper-2004]                   | Automatic calibration of the stationary bootstrap algorithm.                  |
+| [Stationary_bootstrap]   | [Politis-Romano-1994]               | Resampling procedure for weakly dependent stationary observations.            |
+| [Calibration_of_alpha]   | [Technical-documentation]           | Calibration of the Smith & Wilson's alpha parameter.                          |
+| [Correlated Brownian]    | [Wiki Brownian motion]              | Simple function to generate correlated Brownian motion in multiple dimensions.|
+| [Nel_Si_Svansson]        | [BIS whitepaper]                    | Nelson-Siegel-Svansson model for approximating the yield curve.               |
+| [Black_Scholes]          | [Wiki Black&Sholes]                 | Black&Scholes model for pricing option contracts.                             |
+| [Vasicek one factor]     | [Wiki Vasicek]                      | Vasicek model for modelling the evolution of interest rates.                  |
+| [Vasicek two factor]     | [Wiki Vasicek]                      | Vasicek model for modelling the evolution of a pair of interest rates.        |
+| [1F Hull White]          | [Wiki Hull White]                   | One factor Hull White model of short rates.                                   |
+| [Dothan one factor]      | [Quant Exchange]                    | One factor Dothan model of short rates.                                       |
 
 [Quant Exchange]:https://quant.stackexchange.com/questions/16017/for-the-dothan-model-eqbt-infty
 [Dothan one factor]:https://github.com/open-source-modelling/insurance_python/tree/main/dothan_one_factor
