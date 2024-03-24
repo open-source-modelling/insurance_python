@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-def simulate_Hull_White_One_Factor(r0: float , a: float, sigma: float, t, f):
+def simulate_Hull_White_One_Factor(r0: float , a: float, sigma: float, t, f) ->pd.DataFrame:
     """ Simulates a temporal series of interest rates using the One Factor Hull-White model
      Form of the model is dr_{t} = [theta[t] - alpha * r_{t-1}] dt + sigma * dW_{t} 
      interest_rate_simulation = simulate_Hull_White_One_Factor(r0, alpha, sigma, t, f)
