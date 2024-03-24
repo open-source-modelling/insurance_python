@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.optimize import minimize
 
-def NelsonSiegelSvansson(T, beta0, beta1, beta2, beta3, lambda0, lambda1):
+def NelsonSiegelSvansson(T, beta0: float, beta1: float, beta2: float, beta3: float, lambda0: float, lambda1: float):
     """
     NelsonSiegelSvansson calculates the interpolated/extrapolated curve at points in the array "T" using the Nelson-Siegel-Svannson algorithm,
     parameterized with parameters beta0, beta1, beta2, beta3, lambda0, lambda1. It returns a numpy ndarray of points.
@@ -26,7 +26,7 @@ def NelsonSiegelSvansson(T, beta0, beta1, beta2, beta3, lambda0, lambda1):
 
     return beta0 + beta1*alpha1 + beta2*alpha2 + beta3*alpha3
 
-def NSSGoodFit(params, TimeVec, YieldVec):
+def NSSGoodFit(params: list, TimeVec, YieldVec):
     """
     NSSGoodFit calculates the residuals between the yield predicted by the NSS algorithm with the specified parameterization and the market observed ones.
     
@@ -43,7 +43,7 @@ def NSSGoodFit(params, TimeVec, YieldVec):
 
     return np.sum((NelsonSiegelSvansson(TimeVec, params[0], params[1], params[2], params[3], params[4], params[5])-YieldVec)**2)
 
-def NSSMinimize(beta0, beta1, beta2, beta3, lambda0, lambda1, TimeVec, YieldVec):
+def NSSMinimize(beta0: float, beta1: float, beta2: float, beta3: float, lambda0: float, lambda1: float, TimeVec, YieldVec) -> list:
     """
     NSSMinimize uses the built-in minimize function from the Python's scipy package. The function sets up the parameters and the function NSSGoodFit as to make it
     compatible with the way minimize requires its arguments. If the optimization does not converge, the output is an empty array.
