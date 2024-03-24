@@ -27,7 +27,7 @@ The inputs to the Hull-White model are the following:
 ```python
 import numpy as np
 import pandas as pd
-from Hull_White_one_factor import simulate_Hull_White_One_Factor
+from simulate_Hull_White_One_Factor import simulate_Hull_White_One_Factor
 
 time = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 forwards = np.array([0.03, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03])
