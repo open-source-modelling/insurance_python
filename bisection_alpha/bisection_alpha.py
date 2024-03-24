@@ -2,7 +2,7 @@ import numpy as np
 from SWCalibrate import SWCalibrate as SWCalibrate
 from SWExtrapolate import SWExtrapolate as SWExtrapolate
 
-def Galfa(M_Obs: np.ndarray, r_Obs: np.ndarray, ufr, alpha, Tau):
+def Galfa(M_Obs: np.ndarray, r_Obs: np.ndarray, ufr: float, alpha: float, Tau: float)->float:
     """
     Calculates the gap at the convergence point between the allowable tolerance Tau and the curve extrapolated using the Smith-Wilson algorithm.
     interpolation and extrapolation of rates.
@@ -44,7 +44,7 @@ def Galfa(M_Obs: np.ndarray, r_Obs: np.ndarray, ufr, alpha, Tau):
     K = (1+alpha * M_Obs @ Q@ b) / (np.sinh(alpha * M_Obs.transpose())@ Q@ b) # Calculate kappa as defined in the paragraph 155
     return( alpha/np.abs(1 - K*np.exp(alpha*T))-Tau) # Size of the gap at the convergence point between the allowable tolerance Tau and the actual curve. Defined in paragraph 158
 
-def BisectionAlpha(xStart, xEnd, M_Obs, r_Obs, ufr, Tau, Precision, maxIter):
+def BisectionAlpha(xStart: float, xEnd: float, M_Obs: np.ndarray, r_Obs: np.ndarray, ufr: float, Tau: float, Precision: float, maxIter: int)->float:
     """
     Bisection root finding algorithm for finding the root of a function. The function here is the allowed difference between the ultimate forward rate and the extrapolated curve using Smith & Wilson.
 
