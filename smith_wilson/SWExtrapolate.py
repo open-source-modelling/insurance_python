@@ -1,4 +1,4 @@
-def SWExtrapolate(M_Target, M_Obs, b, ufr, alpha):
+def SWExtrapolate(M_Target, M_Obs, b, ufr: float, alpha: float):
    """
     Interpolate or extrapolate rates for targeted maturities using the Smith-Wilson algorithm.
 

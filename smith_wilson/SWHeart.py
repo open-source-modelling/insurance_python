@@ -1,4 +1,4 @@
-def SWHeart(u, v, alpha):
+def SWHeart(u, v, alpha: float):
     """
         Calculate the heart of the Wilson function.
 

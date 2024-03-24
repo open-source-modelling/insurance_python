@@ -1,4 +1,4 @@
-def SWCalibrate(r, M, ufr, alpha):
+def SWCalibrate(r, M, ufr: float, alpha: float):
     """
     Calculate the calibration vector using the Smith-Wilson algorithm.
 
