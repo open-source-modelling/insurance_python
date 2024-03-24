@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-def simulate_Black_Scholes(S0, mu, sigma, T, dt) -> pd.DataFrame:
+def simulate_Black_Scholes(S0: int, mu: float, sigma: float, T: int, dt: int) -> pd.DataFrame:
     """Simulate a temporal series of stock prices using the Black-Scholes log-normal model and generated Brownian motion.
 
     Args:
