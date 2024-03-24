@@ -1,6 +1,6 @@
 import numpy as np 
 
-def CorBrownian(mu, E, sampleSize):
+def CorBrownian(mu:np.ndarray, E: np.ndarray, sampleSize: int) ->np.ndarray:
     """
     Algorithm generates samples of increments from a correlated Brownian motion with a given mean and Variance-Covariance matrix (E). 
     The algorithm uses the fact that if you have n independent brownian motions, the samples given by "mu+ C*Z" are distributed as N(mu,E), where mu is the vector of means and C is the square root of the Variance-Covariance matrix.
@@ -29,7 +29,7 @@ def CorBrownian(mu, E, sampleSize):
            [ 1.52038489  1.76274556]]
     """
  
-    def Cholesky(X):
+    def Cholesky(X:np.ndarray) ->np.ndarray:
         """
         Cholesky–Banachiewicz algorithm decomposes a Hermitian matrix into a product of a lower triangular matrix and its conjugate transpose.
 
