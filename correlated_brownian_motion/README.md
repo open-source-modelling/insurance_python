@@ -33,7 +33,7 @@ Y = μ + L\*z has its increments distributed as N(μ, E) where μ is the vector 
 
 The user is interested in generating samples from 2 Brownian motions with a correlation of 0.8. Additionally, the first BM has a mean of 1 and a variance of 1.5. The second BM has a mean of 0 and a variance of 2. The user is interested in 480 samples.
 
-```bash
+```python
 import numpy as np
 from CorBM import *
 
