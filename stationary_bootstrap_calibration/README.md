@@ -23,7 +23,7 @@ The proposed methodology automatically estimates the optimal block size. As ment
 ## Getting started
 Given a time series with values 0.4, 0.2, 0.1, 0.4, 0.3, 0.1, 0.3, 0.4, 0.2, 0.5, 0.1, and 0.2 the user desires to use the stationary bootstrap algorithm for resampling. The objective is to automatically retrieve the "optimal" value of the parameter needed for stationary bootstrap algorithm. 
 
-```bash
+```python
 
 import numpy as np
 
