@@ -1,6 +1,6 @@
 import numpy as np
 
-def OptimalLength(data: np.ndarray):
+def OptimalLength(data: np.ndarray) ->float:
     """
     Function calculates the optimal parameter value when using a stationary bootstraping algorithm.
     The method is based on the 2004 paper by Politis & White:
@@ -12,16 +12,21 @@ def OptimalLength(data: np.ndarray):
     
     Warning! The minimal size of the time series is 9 elements.
 
+
+    Parameters
+    ----------
+        data ... ndarray array containing the time-series that we wish to bootstrap. 
+            Ex. np.array([-1,0.2,0.3,0.7,0.5,0.1,0.4,0.3,0.5])
+
+    Returns
+    -------
+       Bstar ... optimal value of the parameter m Ex. 1
+
     Example of use:
     >>> import numpy as np
     >>> data = np.array([0.4,0.2,0.1,0.4,0.3,0.1,0.3,0.4,0.2,0.5,0.1,0.2])
     >>> OptimalLength(data)
       Out[0]:  4.0
-    Args:
-       data ... ndarray array containing the time-series that we wish to bootstrap. 
-           Ex. np.array([-1,0.2,0.3,0.7,0.5,0.1,0.4,0.3,0.5])
-    Returns:
-       Bstar ... optimal value of the parameter m Ex. 1
 
     Original Matlab version written by:
     James P. LeSage, Dept of Economics
@@ -42,13 +47,13 @@ def OptimalLength(data: np.ndarray):
     bmax = np.ceil(min(3*np.sqrt(n),n/3))
     c = 2
 
-    temp = mlag(data,mmax)
-    temp = np.delete(temp,range(mmax),0)
-    corcoef= np.zeros(mmax)
-    for iCor in range(0,mmax):
-       corcoef[iCor] = np.corrcoef(data[mmax:len(data)],temp[:,iCor])[0,1] 
+    temp = mlag(data, mmax)
+    temp = np.delete(temp,range(mmax), 0) # Remove first rows where there are 0`s
+    corcoef = np.zeros(mmax)
+    for iCor in range(0, mmax):
+       corcoef[iCor] = np.corrcoef(data[mmax:],temp[:,iCor])[0,1] 
 
-    temp2 =np.transpose(mlag(corcoef,kn))
+    temp2 = np.transpose(mlag(corcoef,kn))
     temp3 = np.zeros((kn,corcoef.shape[0]+1-kn))
 
     for iRow in range(kn):
@@ -131,6 +136,15 @@ def mlag(x: np.ndarray,n)-> np.ndarray:
     """
     Returns a numpy array in which the k-th column is the series x pushed down (lagged) by k places.
     
+    Parameters
+    ----------
+       x ... ndarray array for which the lagged matrix is calculated. np.array([1,2,3,4])
+       n ... integer specifying how many lags does the function consider
+
+    Returns
+    -------
+        xlag... ndarray contining the k-th lagged values in the k-th column of the matrix
+
     Example of use
      >>> import numpy as np
      >>> x = np.array([1,2,3,4])
@@ -141,11 +155,6 @@ def mlag(x: np.ndarray,n)-> np.ndarray:
                       [2, 1],
                       [3, 2]])   
    The function was tested passing a numpy array (ndarray) as input and requires numpy to run.
-   Args:
-       x ... ndarray array for which the lagged matrix is calculated. np.array([1,2,3,4])
-       n ... integer specifying how many lags does the function consider
-    Returns:
-        xlag... ndarray contining the k-th lagged values in the k-th column of the matrix
 
     Original Matlab version written by:
     James P. LeSage, Dept of Economics
@@ -163,7 +172,7 @@ def mlag(x: np.ndarray,n)-> np.ndarray:
     out = np.zeros((nobs,n))
     for iLag in range(1,n+1):
         for iCol in range(nobs-iLag):
-            out[iCol+iLag,iLag-1] = x[iCol];
+            out[iCol+iLag, iLag-1] = x[iCol]
     return out
 
 
@@ -172,17 +181,20 @@ def lam(x: np.ndarray)-> np.ndarray:
     Returns the value at points x of the Trapezoidal function. Trapezoidal funcion maps all numbers bigger than 1 or smaller than -1 to zero.
     Values between -1/2 to 1/2 to 1 and the rest either on the line connecting (-1,0) to (-1/2,1) or (1/2,1) to (1,0).
 
+    Parameters
+    ----------
+       x ... ndarray array of points on which we wish to apply the trapezoidal mapping. 
+           Ex. np.array([-1,0.2,0.3,0.7])
+
+    Returns
+    -------
+       out ... ndarray of mapped points Ex. array([0. , 1. , 1. , 0.6])
+
     Example of use:
     >>> import numpy as np
     >>> x = np.array([0.55])
     >>> lam(x)
       Out[0]:  array([0.9])
-
-    Args:
-       x ... ndarray array of points on which we wish to apply the trapezoidal mapping. 
-           Ex. np.array([-1,0.2,0.3,0.7])
-    Returns:
-       out ... ndarray of mapped points Ex. array([0. , 1. , 1. , 0.6])
 
     Original Matlab version written by:
     James P. LeSage, Dept of Economics
