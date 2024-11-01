@@ -1,36 +1,43 @@
 # Collection of tests that show how Stationary boostrap works. This will be written again in pytest
 import numpy as np
+import pytest
 from StationaryBootstrap import StationaryBootstrap
 
 
 # Normal behaviour
-data = np.array([0.4,0.2,0.1,0.4,0.3,0.1,0.3,0.4,0.2,0.5,0.1,0.2]) # Original time-series
-m = 4 # Average length of the block
-sampleLength = 12 # Length of output sample
-ans = StationaryBootstrap(data, m, sampleLength)
-print(ans)
+def test_normal():
+    data = np.array([0.4,0.2,0.1,0.4,0.3,0.1,0.3,0.4,0.2,0.5,0.1,0.2]) # Original time-series
+    m = 4 # Average length of the block
+    sampleLength = 12 # Length of output sample
+    ans = StationaryBootstrap(data, m, sampleLength)
+    assert(isinstance(ans, np.ndarray))
 
 
 # Is output same length as sampleLength
-data = np.array([0.4,0.2,0.1,0.4,0.3,0.1,0.3,0.4,0.2,0.5,0.1,0.2]) # Original time-series
-m = 4 # Average length of the block
-sampleLength = 12 # Length of output sample
-ans = StationaryBootstrap(data, m, sampleLength)
-print(len(ans)== sampleLength)
+def test_correct_length():
+    data = np.array([0.4,0.2,0.1,0.4,0.3,0.1,0.3,0.4,0.2,0.5,0.1,0.2]) # Original time-series
+    m = 4 # Average length of the block
+    sampleLength = 12 # Length of output sample
+    ans = StationaryBootstrap(data, m, sampleLength)
+    assert(len(ans)== sampleLength)
 
 
 # One element sampled always
-data = np.array([0.4])
-sampleLength = 4
-ans = StationaryBootstrap(data, m, sampleLength)
-print(ans == np.array([[0.4], [0.4], [0.4], [0.4]]))
+def test_one_element_always_sampled():
+    data = np.array([0.4])
+    sampleLength = 4
+    m = 4
+    ans = StationaryBootstrap(data, m, sampleLength)
+    assert(ans == np.array([[0.4], [0.4], [0.4], [0.4]]))
 
 
 # Sample of length 1
-data = np.array([0.5])
-sampleLength = 1
-ans = StationaryBootstrap(data, m, sampleLength)
-print(ans == np.array([0.5]))
+def test_sample_of_length_one():
+    data = np.array([0.5])
+    m = 4
+    sampleLength = 1
+    ans = StationaryBootstrap(data, m, sampleLength)
+    assert(ans == np.array([0.5]))
 
 # Sampling empty data
 #data = np.array([])
@@ -46,36 +53,42 @@ print(ans == np.array([0.5]))
 
 
 # negative average length 
-data = np.array([0.4,0.2,0.1,0.4,0.3,0.1,0.3,0.4,0.2,0.5,0.1,0.2]) # Original time-series
-m = -4 # Average length of the block
-sampleLength = 12 # Length of output sample
-ans = StationaryBootstrap(data, m, sampleLength)
-print(ans)
-print("Fix this")
+#def test_negative_average_length():
+#    data = np.array([0.4,0.2,0.1,0.4,0.3,0.1,0.3,0.4,0.2,0.5,0.1,0.2]) # Original time-series
+#    m = -4 # Average length of the block
+#    sampleLength = 12 # Length of output sample
+#    ans = StationaryBootstrap(data, m, sampleLength)
+#    print(ans)
+#print("Fix this")
 
 
 # Average length longer than sample 
-data = np.array([0.4,0.2,0.1,0.4,0.3,0.1,0.3,0.4,0.2,0.5,0.1,0.2]) # Original time-series
-m = 20 # Average length of the block
-sampleLength = 12 # Length of output sample
-ans = StationaryBootstrap(data, m, sampleLength)
-print(ans)
+def test_average_length_longer_than_sample():
+    data = np.array([0.4,0.2,0.1,0.4,0.3,0.1,0.3,0.4,0.2,0.5,0.1,0.2]) # Original time-series
+    m = 20 # Average length of the block
+    sampleLength = 12 # Length of output sample
+    ans = StationaryBootstrap(data, m, sampleLength)
+    assert(len(ans)== sampleLength)
 
 
 # Data in columns
-data = np.array([[0.4],[0.2],[0.1],[0.4],[0.3],[0.1],[0.3],[0.4],[0.2],[0.5],[0.1],[0.2]]) # Original time-series
-m = 4 # Average length of the block
-sampleLength = 12 # Length of output sample
-ans = StationaryBootstrap(data, m, sampleLength)
-print(ans)
+def test_data_passed_in_column():
+    data = np.array([[0.4],[0.2],[0.1],[0.4],[0.3],[0.1],[0.3],[0.4],[0.2],[0.5],[0.1],[0.2]]) # Original time-series
+    m = 4 # Average length of the block
+    sampleLength = 12 # Length of output sample
+    ans = StationaryBootstrap(data, m, sampleLength)
+    data2 = np.array([0.4,0.2,0.1,0.4,0.3,0.1,0.3,0.4,0.2,0.5,0.1,0.2]) 
+    ans2 = StationaryBootstrap(data2, m, sampleLength)
+    assert(ans.size == ans2.size)
 
 
 # Negative data
-data = np.array([-0.4,0.2,-0.1,0.4,-0.3,0.1,-0.3,0.4,-0.2,-0.5,0.1,-0.2]) # Original time-series
-m = 4 # Average length of the block
-sampleLength = 12 # Length of output sample
-ans = StationaryBootstrap(data, m, sampleLength)
-print(ans)
+def test_negative_input_data():
+    data = np.array([-0.4,0.2,-0.1,0.4,-0.3,0.1,-0.3,0.4,-0.2,-0.5,0.1,-0.2]) # Original time-series
+    m = 4 # Average length of the block
+    sampleLength = 12 # Length of output sample
+    ans = StationaryBootstrap(data, m, sampleLength)
+    assert(len(ans)== sampleLength)
 
 
 # Data not in numpy array
@@ -86,11 +99,12 @@ print(ans)
 #print(ans)
 
 # Data contains strings
-data = np.array(["-0.4","0.2","-0.1","0.4","-0.3","0.1","0.3","0.4","0.2","0.5","0.1","0.2"]) # Original time-series
-m = 4 # Average length of the block
-sampleLength = 12 # Length of output sample
-ans = StationaryBootstrap(data, m, sampleLength)
-print(ans)
+def test_string_number_input_data():
+    data = np.array(["-0.4","0.2","-0.1","0.4","-0.3","0.1","0.3","0.4","0.2","0.5","0.1","0.2"]) # Original time-series
+    m = 4 # Average length of the block
+    sampleLength = 12 # Length of output sample
+    ans = StationaryBootstrap(data, m, sampleLength)
+    assert(len(ans)== sampleLength)
 
 
 ## Test calibration
@@ -98,11 +112,6 @@ print(ans)
 from stationary_bootstrap_calibrate import OptimalLength, lam, mlag
 
 data = np.array([0.4, 0.2, 0.1, 0.4, 0.3, 0.1, 0.3, 0.4, 0.2, 0.5, 0.1, 0.2])
-
-m = OptimalLength(data)
-print(m)
-
-data = np.array([1.1,3,5.2,3,1,3.1,5,3,1.2,3,5,3.1,1,3,5,3,5,3,1,3,5,3,1,3,5,3,1,3,5,3,1])
 
 m = OptimalLength(data)
 print(m)
