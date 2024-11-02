@@ -39,10 +39,10 @@ data = np.array([0.4,0.2,0.1,0.4,0.3,0.1,0.3,0.4,0.2,0.5,0.1,0.2])
 m = 4
 
 # Length of output sample
-sampleLength = 12
+sample_length = 12
 
-ans = StationaryBootstrap(data, m, sampleLength)
+ans = stationary_bootstrap(data, m, sample_length)
 
 print(ans)
-# Out[0]:  4.0
+# Out[0]:  np.array([0.3, 0.4, 0.2, 0.2, 0.4, 0.1, 0.3, 0.4, 0.2, 0.5, 0.4, 0.1])
 ```
