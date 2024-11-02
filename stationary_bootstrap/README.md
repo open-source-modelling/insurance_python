@@ -26,7 +26,7 @@ The algorithm works by randomly selecting a starting point in the time-series an
 
 ## Getting started
 
-Given the time-series with observed values 0.4, 0.2, 0.1, 0.4, 0.3, 0.1, 0.3, 0.4, 0.2, 0.5, 0.1, and 0.2, the user is looking to bootstrap a new sample of length 9 where the average block is of size 4. 
+Given the time-series with observed values 0.4, 0.2, 0.1, 0.4, 0.3, 0.1, 0.3, 0.4, 0.2, 0.5, 0.1, and 0.2, the user is looking to bootstrap a new sample of length 12 where the average block is of size 4. 
 
 ```python
 import numpy as np
