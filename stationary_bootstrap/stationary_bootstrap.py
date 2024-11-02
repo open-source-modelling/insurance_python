@@ -19,6 +19,7 @@ def stationary_bootstrap(data: np.ndarray, m: float, sample_length: int)-> np.nd
         ValueError: If sampleLength is not positive.
         ValueError: If data is not an numpy array.
         ValueError: If data array is empty.
+        ValueError: If `data` is not a 1-dimensional numpy array.
       
     Example of use:
     >>> import numpy as np
@@ -44,6 +45,8 @@ def stationary_bootstrap(data: np.ndarray, m: float, sample_length: int)-> np.nd
         raise ValueError("data needs to be as a numpy array")
     if data.size == 0:
         raise ValueError("Data array cannot be empty")
+    if data.ndim != 1:
+        raise ValueError("data must be a 1-dimensional array")
     
 
     accept = 1/m 

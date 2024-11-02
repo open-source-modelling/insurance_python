@@ -7,18 +7,17 @@ from stationary_bootstrap import stationary_bootstrap
 def test_normal():
     data = np.array([0.4,0.2,0.1,0.4,0.3,0.1,0.3,0.4,0.2,0.5,0.1,0.2]) # Original time-series
     m = 4 # Average length of the block
-    sampleLength = 12 # Length of output sample
-    ans = stationary_bootstrap(data, m, sampleLength)
+    sample_length = 12 # Length of output sample
+    ans = stationary_bootstrap(data, m, sample_length)
     assert(isinstance(ans, np.ndarray), "Output is not a numpy ndarray.")
-
 
 # Is output same length as sampleLength
 def test_correct_length():
     data = np.array([0.4,0.2,0.1,0.4,0.3,0.1,0.3,0.4,0.2,0.5,0.1,0.2]) # Original time-series
     m = 4 # Average length of the block
-    sampleLength = 12 # Length of output sample
-    ans = stationary_bootstrap(data, m, sampleLength)
-    assert(len(ans)== sampleLength, "Sample length does not match the specified sample length.")
+    sample_length = 12 # Length of output sample
+    ans = stationary_bootstrap(data, m, sample_length)
+    assert(len(ans)== sample_length, "Sample length does not match the specified sample length.")
 
 # Is output same length as sampleLength
 def test_correct_shape():
@@ -80,46 +79,41 @@ def test_invalid_sample_length():
 def test_average_length_longer_than_sample():
     data = np.array([0.4,0.2,0.1,0.4,0.3,0.1,0.3,0.4,0.2,0.5,0.1,0.2]) # Original time-series
     m = 20 # Average length of the block
-    sampleLength = 12 # Length of output sample
-    ans = stationary_bootstrap(data, m, sampleLength)
-    assert(len(ans)== sampleLength)
+    sample_length = 12 # Length of output sample
+    ans = stationary_bootstrap(data, m, sample_length)
+    assert len(ans)== sample_length
 
 # Data in columns
 def test_data_passed_in_column():
     data = np.array([[0.4],[0.2],[0.1],[0.4],[0.3],[0.1],[0.3],[0.4],[0.2],[0.5],[0.1],[0.2]]) # Original time-series
     m = 4 # Average length of the block
-    sampleLength = 12 # Length of output sample
-    ans = stationary_bootstrap(data, m, sampleLength)
-    data2 = np.array([0.4,0.2,0.1,0.4,0.3,0.1,0.3,0.4,0.2,0.5,0.1,0.2]) 
-    ans2 = stationary_bootstrap(data2, m, sampleLength)
-    assert(ans.size == ans2.size)
-
+    sample_length = 12 # Length of output sample
+    with pytest.raises(ValueError, match="data must be a 1-dimensional array"):
+        stationary_bootstrap(data, m, sample_length)
 
 # Negative data
 def test_negative_input_data():
     data = np.array([-0.4,0.2,-0.1,0.4,-0.3,0.1,-0.3,0.4,-0.2,-0.5,0.1,-0.2]) # Original time-series
     m = 4 # Average length of the block
-    sampleLength = 12 # Length of output sample
-    ans = stationary_bootstrap(data, m, sampleLength)
-    assert(len(ans)== sampleLength)
-
+    sample_length = 12 # Length of output sample
+    ans = stationary_bootstrap(data, m, sample_length)
+    assert(len(ans)== sample_length)
 
 # Data not in numpy array
 def test_data_not_numpy():
     data = [0.4,0.2,0.1,0.4,0.3,0.1,0.3,0.4,0.2,0.5,0.1,0.2] # Original time-series
     m = 4 # Average length of the block
-    sampleLength = 12 # Length of output sample
+    sample_length = 12 # Length of output sample
     with pytest.raises(ValueError, match="data needs to be as a numpy array"):
-        stationary_bootstrap(data, m, sampleLength)
+        stationary_bootstrap(data, m, sample_length)
 
 # Data contains strings
 def test_string_number_input_data():
     data = np.array(["-0.4","0.2","-0.1","0.4","-0.3","0.1","0.3","0.4","0.2","0.5","0.1","0.2"]) # Original time-series
     m = 4 # Average length of the block
-    sampleLength = 12 # Length of output sample
-    ans = stationary_bootstrap(data, m, sampleLength)
-    assert(len(ans)== sampleLength)
-
+    sample_length = 12 # Length of output sample
+    ans = stationary_bootstrap(data, m, sample_length)
+    assert(len(ans)== sample_length)
 
 ## Test calibration
 
