@@ -21,7 +21,7 @@ def simulate_black_scholes(S0: float, mu: float, sigma: float, T: float, dt: flo
         import numpy as np
         simulate_Black_Scholes(100, 0.05, 0.3, 10, 0.5)
         Output:
-                Cumulative_Price
+                Simulation
             0.0         100.000000
             0.5         129.988711
             1.0         164.336273
