@@ -22,7 +22,6 @@ Black Sholes simulation:
  - `sigma` ... float, standard deviation of the underlying asset's return.
  - `T`     ... integer, specifying the maximum modelling time. ex. if T = 2 then modelling time will run from 0 to 2.
  - `dt`    ... float, specifying the length of each subinterval. ex. dt=10, then there will be 10 intervals of length 0.1 between two integers of modelling time.
- - `rho`   ... float, specifying the correlation coefficient of the Brownian motion. ex. rho = 0.4 means that two Brownian motions have a correlation coefficient of 0.4.
 
 ### Output
 
