@@ -33,34 +33,40 @@ Return:
 Model the price of a stock which is worth today 100. The market has a future annualized risk-free rate of 5% and an annualized volatility of 30%. The user is interested in a price projection for the next 10 years in increments of 6 months (0.5 years)
 
 ``` python
-import pandas as pd
 import numpy as np
-from typing import Any
-from Black_Sholes import simulate_Black_Scholes
-print(simulate_Black_Scholes(100, 0.05, 0.3, 10, 0.5))
+import pandas as pd
+from simulate_black_scholes import simulate_black_scholes
 
-    #   [out] = Time    Stock Price                
-    #       0.0    100.000000
-    #       0.5    131.721286
-    #       1.0    124.924654
-    #       1.5    209.302935
-    #       2.0    222.085955
-    #       2.5    208.085678
-    #       3.0    165.550253
-    #       3.5    239.512165
-    #       4.0    176.886669
-    #       4.5    148.687363
-    #       5.0    181.235262
-    #       5.5    164.280753
-    #       6.0    172.861576
-    #       6.5    170.698562
-    #       7.0    141.613940
-    #       7.5    121.070316
-    #       8.0    116.508183
-    #       8.5    104.524616
-    #       9.0    146.124924
-    #       9.5    202.368581
-    #       10.0   262.282989
+# Example usage
+S0 = 100       # Initial stock price
+mu = 0.05      # Expected return
+sigma = 0.3    # Volatility
+T = 10         # 10 years
+dt = 0.5       # 6-month intervals
+
+print(simulate_black_scholes(S0=S0, mu=mu, sigma=sigma, T=T, dt=dt))
+        Simulation
+  0.0   100.000000
+  0.5   102.844245
+  1.0   110.906953
+  1.5   144.208580
+  2.0   200.774653
+  2.5   209.315112
+  3.0   151.210005
+  3.5    96.068103
+  4.0    82.690847
+  4.5    86.983517
+  5.0   102.113069
+  5.5   119.007173
+  6.0   171.645169
+  6.5   202.591723
+  7.0   321.676284
+  7.5   401.060230
+  8.0   364.666643
+  8.5   514.189187
+  9.0   364.648269
+  9.5   499.020044
+  10.0  496.552723
 ```
 ## Risk neutral pricing
 When an ESG simulation output is presented, a standard test is applied to confirm that the scenarios are risk neutral. Black Sholes can be one such model. This test relies on the fact that in a risk-neutral framework, there is an explicit relationship between the price of a fixed income financial instrument and the expected discounted cash flows. 
@@ -69,23 +75,25 @@ Below is the Martingale test for the hypothetical example from above. To pass th
 
 ``` python
 import numpy as np
-from Black_Sholes import simulate_Black_Scholes
+import pandas as pd
+from simulate_black_scholes import simulate_black_scholes
 
-r = 0.05
-dt = 0.5
-t = 10
-S = 100
-sigma = 0.3
-bank_end = np.exp(t*r) # return of the risk-free asset
-nIter = 500000
+# Risk neutral pricing test
+S0 = 100       # Initial stock price
+mu = 0.05      # Expected return
+sigma = 0.3    # Volatility
+T = 10         # 10 years
+dt = 0.5       # 6-month intervals
+bank_end = np.exp(T*mu) # return of the risk-free asset
+
+nIter = 50000
 result = np.zeros(nIter)
 
 for iter in range(1,nIter):
-    out = simulate_Black_Scholes(S, r, sigma, t, dt)
-    martingale = out.values[-1] / bank_end
+    out = simulate_black_scholes(S0, mu, sigma, T, dt)
+    martingale = out.iloc[-1,:].values[0] / bank_end
     result[iter] = martingale
 
 print(np.mean(result))
-#   [out] = 99.8743118539787                
-
+#   [out] = 99.8743118539787
 ```
