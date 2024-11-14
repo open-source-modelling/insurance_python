@@ -1,3 +1,5 @@
+import numpy as np
+
 def SWHeart(u, v, alpha: float):
     """
         Calculate the heart of the Wilson function.
@@ -17,9 +19,7 @@ def SWHeart(u, v, alpha: float):
         For more information, see:
         https://www.eiopa.europa.eu/sites/default/files/risk_free_interest_rate/12092019-technical_documentation.pdf
         """
-    
-    import numpy as np
-   
+       
     u_Mat = np.tile(u, [v.size, 1]).transpose()
     v_Mat = np.tile(v, [u.size, 1])
     
