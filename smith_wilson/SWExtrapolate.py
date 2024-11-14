@@ -1,3 +1,5 @@
+import numpy as np 
+
 def SWExtrapolate(M_Target, M_Obs, b, ufr: float, alpha: float):
    """
     Interpolate or extrapolate rates for targeted maturities using the Smith-Wilson algorithm.
@@ -19,7 +21,7 @@ def SWExtrapolate(M_Target, M_Obs, b, ufr: float, alpha: float):
     For more information, refer to the documentation at:
     https://www.eiopa.europa.eu/sites/default/files/risk_free_interest_rate/12092019-technical_documentation.pdf
     """
-   import numpy as np 
+
    from SWHeart import SWHeart as SWHeart
    C = np.identity(M_Obs.size)
    d = np.exp(-np.log(1+ufr) * M_Obs)   # Calculate vector d described in paragraph 138
