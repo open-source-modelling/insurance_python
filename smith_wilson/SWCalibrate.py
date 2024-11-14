@@ -1,3 +1,5 @@
+import numpy as np
+
 def SWCalibrate(r, M, ufr: float, alpha: float):
     """
     Calculate the calibration vector using the Smith-Wilson algorithm.
@@ -17,7 +19,6 @@ def SWCalibrate(r, M, ufr: float, alpha: float):
     https://www.eiopa.europa.eu/sites/default/files/risk_free_interest_rate/12092019-technical_documentation.pdf
     """
 
-    import numpy as np
     from SWHeart import SWHeart as SWHeart
 
     C = np.identity(M.size)
