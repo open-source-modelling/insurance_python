@@ -47,39 +47,41 @@ def OptimalLength(data: np.ndarray) ->float:
     bmax = np.ceil(min(3*np.sqrt(n),n/3))
     c = 2
 
-    temp = mlag(data,mmax)
-    temp = np.delete(temp,range(mmax),0)
+    temp = mlag(data, mmax)
+    temp = np.delete(temp,range(mmax), 0) # Remove first rows where there are 0`s
     corcoef = np.zeros(mmax)
-    for iCor in range(0,mmax):
-       corcoef[iCor] = np.corrcoef(data[mmax:len(data)],temp[:,iCor])[0,1] 
+    # Calculate autocorelation R^hat (s)
+    for iCor in range(0, mmax):
+       corcoef[iCor] = np.corrcoef(data[mmax:],temp[:,iCor])[0,1] 
 
     temp2 = np.transpose(mlag(corcoef,kn))
     temp3 = np.zeros((kn,corcoef.shape[0]+1-kn))
-
-    for iRow in range(kn):
+    for iRow in range(kn): # Create a matrix of autocorrelations R^hat (s) each row starts one lag further
+        # To do this, take lagged correlations from mlag() and add to the last place the original corcoef 
         temp3[iRow,:] = np.append(temp2[iRow,kn:corcoef.shape[0]],corcoef[len(corcoef)-kn+iRow-1])
 
-    treshold = abs(temp3) < (c* np.sqrt(np.log10(n)/n)) #Test if coeff bigger than triger
+    treshold = abs(temp3) < (c* np.sqrt(np.log10(n)/n)) #Test if coeff bigger than triger. If true, then autocorrelation is "negligable"
     treshold = np.sum(treshold,axis = 0 )
 
-    count = 0 
-    mhat = None
-    for x in treshold:
+    # The first index where all insignificant covariants are insignificants
+    count = 0 # Counter of how many lags before you get to kn consecutive insignificant lags
+    mhat = None # Will contain integer mhat or None if there are no such lags.
+    for x in treshold: # if more than one collection is possible, choose the smallest m
         if (x==kn):
             mhat = count
             break    
         count +=1
 
-    if (mhat is None):
-    # largest lag that is still significant
+    if (mhat is None): # NO collection of KN autocorrels were all insignif, so pick largest significant lag
         seccrit = corcoef >(c* np.sqrt(np.log10(n)/n))
-        for iLag in range(seccrit.shape[0]-1,0,-1):
+        for iLag in range(seccrit.shape[0]-1,0,-1): # Find largest lag that is still significant
             if (seccrit[iLag]):
                 mhat = iLag+1
                 break
-    if(mhat is None):
+
+    if(mhat is None): # If no autocorrelation is significant, then use normal bootstrap 
         M = 0
-    elif (2*mhat > mmax):
+    elif (2*mhat > mmax): # Make sure that the mhat is not larger than the maximum number
         M = mmax
     else:
         M = 2*mhat
@@ -87,9 +89,9 @@ def OptimalLength(data: np.ndarray) ->float:
     # Computing the inputs to the function for Bstar
     kk = np.arange(-M, M+1, 1)
 
-    if (M>0):
+    if (M>0): # 
         temp = mlag(data,M)
-        temp = np.delete(temp,range(M),0)
+        temp = np.delete(temp,range(M),0) # Dropping the first mmax rows, as they're filled with zeros
         temp2 = np.zeros((temp.shape[0],temp.shape[1]+1))
         for iRow in range(len(data)-M):
             temp2[iRow,:] = np.hstack((data[M+iRow],temp[iRow,:]))
@@ -172,7 +174,7 @@ def mlag(x: np.ndarray,n)-> np.ndarray:
     out = np.zeros((nobs,n))
     for iLag in range(1,n+1):
         for iCol in range(nobs-iLag):
-            out[iCol+iLag,iLag-1] = x[iCol]
+            out[iCol+iLag, iLag-1] = x[iCol]
     return out
 
 
@@ -216,3 +218,6 @@ def lam(x: np.ndarray)-> np.ndarray:
     return out
 
 
+import numpy as np
+data = np.array([0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0, 1.1, 0.3, 0.5])
+print(OptimalLength(data))
