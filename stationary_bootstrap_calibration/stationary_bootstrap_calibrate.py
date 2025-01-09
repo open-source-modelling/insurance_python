@@ -63,8 +63,8 @@ def OptimalLength(data: np.ndarray) ->float:
     treshold = abs(temp3) < (c* np.sqrt(np.log10(n)/n)) #Test if coeff bigger than triger. If true, then autocorrelation is "negligable"
     treshold = np.sum(treshold,axis = 0 )
 
-    # The first index where all insignificant covariants are insignificants
-    count = 0 # Counter of how many lags before you get to kn consecutive insignificant lags
+    # The first lag where all insignificant covariants are insignificants
+    count = 1 # Counter of how many lags before you get to kn consecutive insignificant lags
     mhat = None # Will contain integer mhat or None if there are no such lags.
     for x in treshold: # if more than one collection is possible, choose the smallest m
         if (x==kn):
