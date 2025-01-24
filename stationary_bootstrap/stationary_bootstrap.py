@@ -52,15 +52,15 @@ def stationary_bootstrap(data: np.ndarray, m: float, sample_length: int)-> np.nd
     accept = 1/m 
     data_length = data.shape[0]
 
-    sample_index = np.random.randint(0,high =data_length,size=1)
+    sample_index = np.random.randint(0,high =data_length,size=1)[0]
     sample = np.zeros((sample_length,))
     for i_sample in range(sample_length):
         if np.random.uniform(0,1,1)>=accept:
             sample_index += 1
             if sample_index >= data_length:
-                sample_index=0        
+                sample_index=0
         else:
-            sample_index = np.random.randint(0,high = data_length,size=1)
+            sample_index = np.random.randint(0,high = data_length, size=1)[0]
 
         sample[i_sample] = data[sample_index]
     return sample
