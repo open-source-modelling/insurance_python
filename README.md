@@ -34,7 +34,11 @@
 | [Vasicek two factor]     | [Wiki Vasicek]                      | Vasicek model for modelling the evolution of a pair of interest rates.        |
 | [1F Hull White]          | [Wiki Hull White]                   | One factor Hull White model of short rates.                                   |
 | [Dothan one factor]      | [Quant Exchange]                    | One factor Dothan model of short rates.                                       |
+| [Singular Spectrum analysis]      | [Paper SSA]                | Non-parametric technique used for time series analysis and forecasting.       |
 
+
+[Singular Spectrum analysis]:https://github.com/open-source-modelling/singular_spectrum_analysis
+[Paper SSA]:https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5136637
 [Quant Exchange]:https://quant.stackexchange.com/questions/16017/for-the-dothan-model-eqbt-infty
 [Dothan one factor]:https://github.com/open-source-modelling/insurance_python/tree/main/dothan_one_factor
 [Wiki Hull White]:https://en.wikipedia.org/wiki/Hull%E2%80%93White_model
