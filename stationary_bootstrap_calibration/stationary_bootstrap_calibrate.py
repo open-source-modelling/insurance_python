@@ -57,8 +57,9 @@ def OptimalLength(data: np.ndarray) ->float:
     temp2 = np.transpose(mlag(corcoef,kn))
     temp3 = np.zeros((kn,corcoef.shape[0]+1-kn))
     for iRow in range(kn): # Create a matrix of autocorrelations R^hat (s) each row starts one lag further
-        # To do this, take lagged correlations from mlag() and add to the last place the original corcoef 
-        temp3[iRow,:] = np.append(temp2[iRow,kn:corcoef.shape[0]],corcoef[len(corcoef)-kn+iRow-1])
+        # To do this, take lagged correlations from mlag() and add to the last place the last kn corcoef (lags mmax-kn+1 to mmax),
+        # as in temp(end-KN+1:end) in Patton's code
+        temp3[iRow,:] = np.append(temp2[iRow,kn:corcoef.shape[0]],corcoef[len(corcoef)-kn+iRow])
 
     treshold = abs(temp3) < (c* np.sqrt(np.log10(n)/n)) #Test if coeff bigger than triger. If true, then autocorrelation is "negligable"
     treshold = np.sum(treshold,axis = 0 )
@@ -73,8 +74,8 @@ def OptimalLength(data: np.ndarray) ->float:
         count +=1
 
     if (mhat is None): # NO collection of KN autocorrels were all insignif, so pick largest significant lag
-        seccrit = corcoef >(c* np.sqrt(np.log10(n)/n))
-        for iLag in range(seccrit.shape[0]-1,0,-1): # Find largest lag that is still significant
+        seccrit = abs(corcoef) >(c* np.sqrt(np.log10(n)/n)) # Negative autocorrelations are significant too
+        for iLag in range(seccrit.shape[0]-1,-1,-1): # Find largest lag that is still significant (iLag = 0 is lag 1)
             if (seccrit[iLag]):
                 mhat = iLag+1
                 break
@@ -216,8 +217,3 @@ def lam(x: np.ndarray)-> np.ndarray:
     for row in range(nrow):
         out[row] = (abs(x[row])>=0) * (abs(x[row])<0.5) + 2 * (1-abs(x[row])) * (abs(x[row])>=0.5) * (abs(x[row])<=1)
     return out
-
-
-import numpy as np
-data = np.array([0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0, 1.1, 0.3, 0.5])
-print(OptimalLength(data))
