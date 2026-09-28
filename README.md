@@ -66,15 +66,6 @@ Each algorithm is in its own folder, with a README that explains the method and 
 
 The required packages are listed in [requirements.txt](requirements.txt) and can be installed with `pip install -r requirements.txt`. The tests are run with `pytest` from the root of the repository.
 
-## Algorithms planned
-
-| Algorithm              | Source                              | Description                                                            |
-| ---------------------- | ----------------------------------- | ---------------------------------------------------------------------- |
-| Matrix on fraction     | TBD                                 | Heuristics for calculating transition matrices on fractions of power   |
-| G2++ with piec cons vol| TBD                                 | Calibration of a G2++ model with piecewise constant volatility          |
-| Lee-Carter model       | TBD                                 | Simple stochastic mortality model                                      |
-| Metropolis-Hastings    | TBD                                 | Sampling of probability distributions                                  |
-
 <b> New suggestions for algorithms are welcome. </b>
 
 <b> If anybody is interested in publishing an algorithm they implemented, or help with the project, contact us and we will make it happen. </b>
