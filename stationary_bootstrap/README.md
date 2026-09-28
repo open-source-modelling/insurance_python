@@ -30,7 +30,7 @@ Given the time-series with observed values 0.4, 0.2, 0.1, 0.4, 0.3, 0.1, 0.3, 0.
 
 ```python
 import numpy as np
-from StationaryBootstrap import StationaryBootstrap
+from stationary_bootstrap import stationary_bootstrap
 
 # Original time-series
 data = np.array([0.4,0.2,0.1,0.4,0.3,0.1,0.3,0.4,0.2,0.5,0.1,0.2])

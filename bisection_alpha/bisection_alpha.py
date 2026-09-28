@@ -8,8 +8,8 @@ def Galfa(M_Obs: np.ndarray, r_Obs: np.ndarray, ufr: float, alpha: float, Tau: f
     interpolation and extrapolation of rates.
     
     Args:
-        M_Obs = n x 1 ndarray of maturities of bonds, that have rates provided in input (r). Ex. u=[[1], [3]]
-        r_Obs = n x 1 ndarray of rates, for which you wish to calibrate the algorithm. Each rate belongs to an observable Zero-Coupon Bond with a known maturity. Ex. r = [[0.0024], [0.0034]]
+        M_Obs = 1-dimensional ndarray of n maturities of bonds, that have rates provided in input (r). Ex. M_Obs = np.array([1, 3])
+        r_Obs = 1-dimensional ndarray of n rates, for which you wish to calibrate the algorithm. Each rate belongs to an observable Zero-Coupon Bond with a known maturity. Ex. r_Obs = np.array([0.0024, 0.0034])
         ufr =   1 x 1 floating number, representing the ultimate forward rate. Ex. ufr = 0.042
         alpha = 1 x 1 floating number representing the convergence speed parameter alpha. Ex. alpha = 0.05
         Tau =   1 x 1 floating number representing the allowed difference between ufr and actual curve. Ex. Tau = 0.00001
@@ -35,6 +35,8 @@ def Galfa(M_Obs: np.ndarray, r_Obs: np.ndarray, ufr: float, alpha: float, Tau: f
     Implemented by Gregor Fabjan from Qnity Consultants on 17/12/2021.
     """
     
+    M_Obs = np.ravel(M_Obs)                       # Accept column vectors as well as 1-dimensional arrays
+    r_Obs = np.ravel(r_Obs)
     U = max(M_Obs)                                # Find maximum liquid maturity from input
     T = max(U + 40, 60)                             # Define the convergence point as defined in paragraph 120 and again in 157
     C = np.identity(M_Obs.size)                   # Construct cash flow matrix described in paragraph 137 assuming the input is ZCB bonds with notional value of 1
@@ -51,15 +53,20 @@ def BisectionAlpha(xStart: float, xEnd: float, M_Obs: np.ndarray, r_Obs: np.ndar
     Args:
         xStart =    1 x 1 floating number representing the minimum allowed value of the convergence speed parameter alpha. Ex. alpha = 0.05
         xEnd =      1 x 1 floating number representing the maximum allowed value of the convergence speed parameter alpha. Ex. alpha = 0.8
-        M_Obs =     n x 1 ndarray of maturities of bonds, that have rates provided in input (r). Ex. u=[[1], [3]]
-        r_Obs =     n x 1 ndarray of rates, for which you wish to calibrate the algorithm. Each rate belongs to an observable Zero-Coupon Bond with a known maturity. Ex. r = [[0.0024], [0.0034]]
+        M_Obs =     1-dimensional ndarray of n maturities of bonds, that have rates provided in input (r). Ex. M_Obs = np.array([1, 3])
+        r_Obs =     1-dimensional ndarray of n rates, for which you wish to calibrate the algorithm. Each rate belongs to an observable Zero-Coupon Bond with a known maturity. Ex. r_Obs = np.array([0.0024, 0.0034])
         ufr  =      1 x 1 floating number, representing the ultimate forward rate. Ex. ufr = 0.042
         Tau =       1 x 1 floating number representing the allowed difference between ufr and actual curve. Ex. Tau = 0.00001
         Precision = 1 x 1 floating number representing the precision of the calculation. Higher the precision, more accurate the estimation of the root
         maxIter =   1 x 1 positive integer representing the maximum number of iterations allowed. This is to prevent an infinite loop in case the method does not converge to a solution         
     
     Returns:
-        1 x 1 floating number representing the optimal value of the parameter alpha 
+        1 x 1 floating number representing the optimal value of the parameter alpha. If the curve is already within Tau
+        of the ufr at xStart, xStart is returned.
+
+    Raises:
+        ValueError if the gap is larger than Tau for every alpha in [xStart, xEnd].
+        RuntimeError if the method does not converge within maxIter iterations.
 
     Example of use:
         >>> import numpy as np
@@ -70,7 +77,7 @@ def BisectionAlpha(xStart: float, xEnd: float, M_Obs: np.ndarray, r_Obs: np.ndar
         >>> xEnd = 0.5
         >>> maxIter = 1000
         >>> alfa = 0.15
-        >>> ufr = 0.042
+        >>> ufr = 0.04
         >>> Precision = 0.0000000001
         >>> Tau = 0.0001
         >>> BisectionAlpha(xStart, xEnd, M_Obs, r_Obs, ufr, Tau, Precision, maxIter)
@@ -87,6 +94,10 @@ def BisectionAlpha(xStart: float, xEnd: float, M_Obs: np.ndarray, r_Obs: np.ndar
         return xStart # If initial point already satisfies the conditions return start point
     if np.abs(yEnd) < Precision:
         return xEnd # If final point already satisfies the conditions return end point
+    if np.sign(yStart) == np.sign(yEnd): # The interval does not bracket a root
+        if yStart < 0:
+            return xStart # The curve is already within Tau of the ufr at the lowest allowed alpha. EIOPA uses the lowest alpha (at least 0.05) that meets the tolerance
+        raise ValueError("The gap to the ufr is larger than Tau for every alpha in [xStart, xEnd]; increase xEnd")
     iIter = 0
     while iIter <= maxIter:
         xMid = (xEnd+xStart)/2 # calculate mid-point 
@@ -100,4 +111,4 @@ def BisectionAlpha(xStart: float, xEnd: float, M_Obs: np.ndarray, r_Obs: np.ndar
                 xStart = xMid
             else: # If the start point and the middle point have a different sign than by mean value theorem the interval must contain at least one root
                 xEnd = xMid
-    print("Method failed to converge")
+    raise RuntimeError("Method failed to converge within maxIter iterations")

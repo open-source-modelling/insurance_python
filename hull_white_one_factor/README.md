@@ -20,7 +20,7 @@ The inputs to the Hull-White model are the following:
  - `f` (array of floats): representing the instantaneous forward rates at times from input t.
 
 ### Output
- -  N x 2 Pandas DataFrame where index is modelling time and values are a realisation of the spot rate increments.
+ -  N x 2 Pandas DataFrame where index is modelling time and values are a realisation of the short rate.
 
 ## Getting started
 

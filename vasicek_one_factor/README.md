@@ -24,7 +24,7 @@ The stochastic differential equation (SDE) of the Vasicek model is shown on the 
   - `lam` (float): long term mean level. All future trajectories of r will evolve around this mean level in the long run.
   - `sigma` (float): instantaneous volatility measures instant by instant the amplitude of randomness entering the system.
   - `T` (integer): end modelling time. From 0 to T the time series runs.
-  - `dt` (float): increment of time that the process runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,...
+  - `dt` (float): increment of time that the process runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,... T must be a multiple of dt.
 
 ### Output
 

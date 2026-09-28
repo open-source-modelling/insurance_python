@@ -10,7 +10,7 @@ def simulate_black_scholes(S0: float, mu: float, sigma: float, T: float, dt: flo
         mu (float): Drift rate of the underlying asset.
         sigma (float): Standard deviation of the underlying asset's return.
         T (float): Maximum modeling time.
-        dt (float): Length of each subinterval.
+        dt (float): Length of each subinterval. T must be a multiple of dt.
         
     Returns:
         pd.DataFrame: DataFrame with time as the index and a single column for the simulated stock price.
@@ -19,7 +19,7 @@ def simulate_black_scholes(S0: float, mu: float, sigma: float, T: float, dt: flo
         Model the price of a stock which is worth today 100. The market has a future annualized risk-free rate of 5% and an annualized volatility of 30%. The user is interested in a price projection for the next 10 years in increments of 6 months (0.5 years).
         import pandas as pd
         import numpy as np
-        simulate_Black_Scholes(100, 0.05, 0.3, 10, 0.5)
+        simulate_black_scholes(100, 0.05, 0.3, 10, 0.5)
         Output:
                 Simulation
             0.0         100.000000
@@ -48,7 +48,9 @@ def simulate_black_scholes(S0: float, mu: float, sigma: float, T: float, dt: flo
     For more information, see: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model 
     """
     
-    N = int(T / dt)  # number of steps
+    N = int(round(T / dt))  # number of steps. round() because e.g. 0.3 / 0.1 = 2.9999999999999996
+    if N < 1 or not np.isclose(N * dt, T):
+        raise ValueError("T must be a positive multiple of dt")
     time = np.linspace(0, T, N + 1)
     
     # Generate random shocks with standard deviation adjusted by sqrt(dt)

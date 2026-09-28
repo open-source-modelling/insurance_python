@@ -17,12 +17,12 @@ class BrownianMotion():
         # Arguments:   
         #   self = reference to the current instance of the class. This class includes the x0 parameter that specifies the starting value of the Brownian motion
         #   T    = integer, specifying the maximum modeling time. ex. if T = 2 then modelling time will run from 0 to 2
-        #   dt   = float, specifying the length of each subinterval. ex. dt=10, then there will be 10 intervals of length 0.1 between two integers of modeling time 
+        #   dt   = float, specifying the length of each subinterval. ex. dt=0.1, then the time grid is 0, 0.1, 0.2, ..., T. T must be a multiple of dt 
         #   rho  = float, specifying the correlation coefficient of the Brownian motion. ex. rho = 0.4 means that two 
         #          Brownian procesess on the same modeling time interval have a correlation coefficient of 0.4. SOURCE
         #
         # Returns:
-        #   W =  N x 1 or N x 2 ndarray, where N is the number of subintervals, and the second dimension is eiter 1 or 2 depending if the function is called 
+        #   W =  N x 1 or N x 2 ndarray, where N = T/dt + 1 is the number of points on the time grid 0, dt, ..., T, and the second dimension is eiter 1 or 2 depending if the function is called 
         #        to generate a one or two dimensional Brownian motion. Each column represents a sample path of a Brownian motion starting at x0 
         #
         # Example:
@@ -43,7 +43,10 @@ class BrownianMotion():
         # 
         # For more information see https://en.wikipedia.org/wiki/Brownian_motion
 
-        N = int(T / dt) # number of subintervals of length 1/dt between 0 and max modeling time T
+        steps = int(round(T / dt)) # number of subintervals of length dt. round() because e.g. 0.3 / 0.1 = 2.9999999999999996
+        if steps < 1 or not np.isclose(steps * dt, T):
+            raise ValueError("T must be a positive multiple of dt")
+        N = steps + 1 # number of points on the time grid 0, dt, 2*dt, ..., T
 
         if rho is None: # if rho is empty, generate a one-dimensional Brownian motion
 
@@ -84,7 +87,7 @@ class BrownianMotion():
         #   rho  = float, specifying the correlation coefficient of the Brownian motion. ex. rho = 0.4 means that two 
         #             Brownian procesess on the same modeling time interval have a correlation coefficient of 0.4. SOURCE
         #   T    = integer specifying the maximum modeling time. ex. if T = 2 then modelling time will run from 0 to 2
-        #   dt   = float specifying the length of each subinterval. ex. dt=10, then there will be 10 intervals of length 0.1 between two integers of modeling time 
+        #   dt   = float specifying the length of each subinterval. ex. dt=0.1, then the time grid is 0, 0.1, 0.2, ..., T. T must be a multiple of dt 
         #
         # Returns:
         #   interest_rate_simulation = pandas dataframe with 3 columns. First is modelling time, second is the Nominal interest rate and the third is the Real interest rate
@@ -95,13 +98,13 @@ class BrownianMotion():
         #   import pandas as pd
         #   from typing import any
         #   simulate_Vasicek_Two_Factor([0.1, 0.2], [1.0, 0.5],[0.1, 0.2], [0.2, 0.2], 0.5, 52,0.1)
-        #   [out]  pandas dataframes with 3 columns and 520 rows
+        #   [out]  pandas dataframe indexed by time with 2 columns and 521 rows (times 0, 0.1, ..., 52)
         #
         # For more information see SOURCE
         
-        N = int(T / dt)  # number of subintervals of length 1/dt between 0 and max modeling time T
+        N = int(round(T / dt)) + 1  # number of points on the time grid 0, dt, 2*dt, ..., T (generate_weiner_process checks that T is a multiple of dt)
 
-        time, delta_t = np.linspace(0, T, num = N, retstep = True) # time is a series from 0 to T
+        time, delta_t = np.linspace(0, T, num = N, retstep = True) # time is a series from 0 to T with step dt
 
         weiner_process = self.generate_weiner_process(T, dt, rho) # This method generates increments from a Weiner process (more commonly known as a Brownian Motion)
 

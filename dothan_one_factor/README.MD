@@ -15,15 +15,15 @@ When trying to simulate interest rates, there is a variety of models. The choice
 
 One of the simplest models, the [Dothan one factor model](https://quant.stackexchange.com/questions/16017/for-the-dothan-model-eqbt-infty) assumes that the short rate can be described by a simple stochastic process with one source of uncertainty coming from a [Brownian motion](https://en.wikipedia.org/wiki/Brownian_motion). 
 
-The stochastic differential equation (SDE) of the Dothan model is shown on the Wiki page https://en.wikipedia.org/wiki/Geometric_Brownian_motion but without drift#.
+The short rate follows the stochastic differential equation (SDE) dr = -a r dt + sigma r dW, a [geometric Brownian motion](https://en.wikipedia.org/wiki/Geometric_Brownian_motion). It is simulated with the exact lognormal transition, so the simulated rates are always positive.
 
 ### Input
 
   - `r0` (float): starting interest rate of the Vasicek process.
-  - `a` (float): market price of risk.
+  - `a` (float): market price of risk. It enters the SDE above as the drift coefficient -a.
   - `sigma` (float): instantaneous volatility measures instant by instant the amplitude of randomness entering the system.
   - `T` (integer): end modelling time. From 0 to T the time series runs.
-  - `dt` (float): increment of time that the process runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,...
+  - `dt` (float): increment of time that the process runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,... T must be a multiple of dt.
 
 ### Output
 

@@ -7,58 +7,64 @@ def simulate_Vasicek_One_Factor(r0: float = 0.1, a: float = 1.0, lam: float = 0.
     
      Arguments:
        r0    = float, starting interest rate of the vasicek process 
-       a     = float, speed of reversion" parameter that characterizes the velocity at which such trajectories will regroup around b in time
-       lam   = float, long term mean level that all future trajectories will evolve around  
+       a     = float, speed of reversion" parameter that characterizes the velocity at which such trajectories will regroup around lam in time
+       lam   = float, long term mean level that all future trajectories will evolve around
        sigma = float, instantaneous volatility measures instant by instant the amplitude of randomness entering the system
-       T     = integer, end modelling time. From 0 to T the time series runs. 
-       dt    = float, increment of time that the process runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,...
-    
+       T     = integer, end modelling time. From 0 to T the time series runs.
+       dt    = float, increment of time that the process runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,... T must be a multiple of dt.
+
      Returns:
-       interest_rate_simulation = N x 2 Pandas DataFrame where index is modelling time and values are a realisation of the underlying's price
-    
+       interest_rate_simulation = N x 1 Pandas DataFrame where index is modelling time and values are a realisation of the interest rate
+
      Example:
-       Model the interest rate which is 10% today. The annualized instant volatility is 20%. The external analysis points out that the mean reversion parameter is 1 and the long-term interest rate level is 10 % therefore the mean reversion correction is theta = 10% * 1 = 10%. The user is interested in an interest rate projection of the next 10 years in increments of 6 months (0.5 years)
-    
+       Model the interest rate which is 10% today. The annualized instant volatility is 20%. The external analysis points out that the mean reversion parameter is 1 and the long-term interest rate level is 10%. The user is interested in an interest rate projection of the next 10 years in increments of 6 months (0.5 years)
+
        import pandas as pd
        import numpy as np
-    
-       simulate_Vasicek_One_Factor(0.1, 1.0, 0.1, 0.2, 10, 0.5)   
-       [out] = Time    Stock Price                
-               0.000000        0.100000
-               0.526316        0.212055
-               1.052632        0.115934
-               1.578947        0.012870
-               2.105263        0.003295
-               2.631579        0.206635
-               3.157895        0.191319
-               3.684211        0.108299
-               4.210526        0.094983
-               4.736842        0.075903
-               5.263158        0.229143
-               5.789474       -0.111977
-               6.315789        0.120245
-               6.842105        0.116082
-               7.368421        0.230879
-               7.894737        0.266821
-               8.421053        0.229788
-               8.947368        0.304378
-               9.473684        0.217760
-               10.000000       0.217147
+
+       np.random.seed(1)
+       simulate_Vasicek_One_Factor(0.1, 1.0, 0.1, 0.2, 10, 0.5)
+       [out] =       Interest Rate
+               Time               
+               0.0        0.100000
+               0.5        0.282639
+               1.0        0.141991
+               1.5        0.066082
+               2.0       -0.041215
+               2.5        0.111654
+               3.0       -0.151713
+               3.5        0.143512
+               4.0        0.040803
+               4.5        0.099967
+               5.0        0.071941
+               5.5        0.247379
+               6.0       -0.042249
+               6.5       -0.022531
+               7.0       -0.017501
+               7.5        0.156211
+               8.0        0.010424
+               8.5        0.026282
+               9.0       -0.043417
+               9.5        0.017759
+               10.0       0.115649
      For more information see https://en.wikipedia.org/wiki/Vasicek_model
     """
     
-    N = int(T / dt) + 1 # number of end-points of subintervals of length 1/dt between 0 and max modelling time T
+    steps = int(round(T / dt)) # number of subintervals of length dt. round() because e.g. 0.3 / 0.1 = 2.9999999999999996
+    if steps < 1 or not np.isclose(steps * dt, T):
+        raise ValueError("T must be a positive multiple of dt")
+    N = steps + 1 # number of end-points of subintervals of length dt between 0 and max modelling time T
 
     time, delta_t = np.linspace(0, T, num = N, retstep = True)
 
     r = np.ones(N) * r0
 
     for t in range(1,N):
-        r[t] = r[t-1] * np.exp(-a*dt)+lam*(1-np.exp(-a*dt))+sigma*np.sqrt((1-np.exp(-2*a*dt))/(2*a))* np.random.normal(loc = 0,scale = 1)
+        r[t] = r[t-1] * np.exp(-a*delta_t)+lam*(1-np.exp(-a*delta_t))+sigma*np.sqrt((1-np.exp(-2*a*delta_t))/(2*a))* np.random.normal(loc = 0,scale = 1)
 
-    dict = {'Time' : time, 'Interest Rate' : r}
+    data = {'Time' : time, 'Interest Rate' : r}
 
-    interest_rate_simulation = pd.DataFrame.from_dict(data = dict)
+    interest_rate_simulation = pd.DataFrame.from_dict(data = data)
     interest_rate_simulation.set_index('Time', inplace = True)
 
     return interest_rate_simulation

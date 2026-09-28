@@ -21,7 +21,7 @@ Black Sholes simulation:
  - `mu`    ... float, specifying the drift rate of the underlying asset.
  - `sigma` ... float, standard deviation of the underlying asset's return.
  - `T`     ... integer, specifying the maximum modelling time. ex. if T = 2 then modelling time will run from 0 to 2.
- - `dt`    ... float, specifying the length of each subinterval. ex. dt=10, then there will be 10 intervals of length 0.1 between two integers of modelling time.
+ - `dt`    ... float, specifying the length of each subinterval. ex. dt = 0.5, then the time series is 0, 0.5, 1, ... T must be a multiple of dt.
 
 ### Output
 

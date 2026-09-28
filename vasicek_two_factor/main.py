@@ -7,13 +7,12 @@ from Pricing import Swaption
 from Pricing import ZeroCouponBond
 from Calibration import Calibrator
 
-from IPython.display import display
 import matplotlib.pyplot as plt
 
 brownian = BrownianMotion()
 interest_rate_simulation = brownian.simulate_Vasicek_Two_Factor()
 
-display(interest_rate_simulation)
+print(interest_rate_simulation)
 
 interest_rate_simulation.plot(figsize = (15,9), grid = True)
 plt.legend()
@@ -34,6 +33,7 @@ plt.xlabel('Date')
 plt.ylabel('Rate')
 plt.show()
 
+# Price of a zero coupon bond maturing in 1 year, with the default parameters of simulate_Vasicek_Two_Factor
 zero_coupon_bond = ZeroCouponBond(1)
-zero_coupon_bond.price()
+zero_coupon_bond.price(r0 = [0.1, 0.1], a = [1.0, 1.0], b = [0.1, 0.1], sigma = [0.2, 0.2], rho = 0.5, T = 1, dt = 0.1, nScen = 1000)
 print(zero_coupon_bond._price)

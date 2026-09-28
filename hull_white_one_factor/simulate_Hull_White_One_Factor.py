@@ -14,7 +14,7 @@ def simulate_Hull_White_One_Factor(r0: float , a: float, sigma: float, t, f) ->p
        f (array of floats): representing the instantaneous forward rates at times from input t.
     
      Returns:
-       N x 2 Pandas DataFrame where index is modeling time and values are a realisation of the spot rate increments.
+       N x 1 Pandas DataFrame where index is modeling time and values are a realisation of the short rate.
     
      Example:
        Model the interest rate which is 2% today. The annualized instant volatility is 20%. The external analysis points out that the parameter alpha is 0.04 and the forward rates are equal to 3% in all maturities. 
@@ -48,8 +48,9 @@ def simulate_Hull_White_One_Factor(r0: float , a: float, sigma: float, t, f) ->p
         e[el] = r[el-1] * np.exp(-a*deltat) + alpha[el] - alpha[el-1] * np.exp(-a*deltat)
         v[el] = sigma**2/(2*a) * (1 - np.exp(-2*a*deltat))
         r[el] = np.random.normal(e[el], np.sqrt(v[el]))
-        dict = {'Time' : t, 'Interest Rate' : r}
 
-    interest_rate_simulation = pd.DataFrame.from_dict(data = dict)
+    data = {'Time' : t, 'Interest Rate' : r}
+
+    interest_rate_simulation = pd.DataFrame.from_dict(data = data)
     interest_rate_simulation.set_index('Time', inplace = True)
     return interest_rate_simulation
