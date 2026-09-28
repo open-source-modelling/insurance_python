@@ -15,7 +15,7 @@ A popular choice of model in practice is the Hull-White model. This is an extens
 The inputs to the Hull-White model are the following:
  - `r0` (float): starting interest rate of the Hull-White process. 
  - `a` (float): speed of reversion parameter that is related to the velocity at which such trajectories will regroup around the forward rate theta.
- - `sigma` (float): instantaneous volatility measures instant by instant the amplitude of randomness entering the system.
+ - `sigma` (float): instantaneous volatility of the short rate. It is an absolute volatility in units of the rate: sigma = 0.01 means changes of about 1 percentage point per year.
  - `t` (array of floats): representing times at which the output is generated.
  - `f` (array of floats): representing the instantaneous forward rates at times from input t.
 
@@ -31,7 +31,7 @@ from simulate_Hull_White_One_Factor import simulate_Hull_White_One_Factor
 
 time = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 forwards = np.array([0.03, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03])
-sigma = 0.2
+sigma = 0.01 # absolute volatility of the short rate, about 1 percentage point per year
 alpha = 0.04
 r0 = 0.02
 

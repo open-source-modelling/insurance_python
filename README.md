@@ -28,8 +28,8 @@
 | [Stationary_bootstrap]   | [Politis-Romano-1994]               | Resampling procedure for weakly dependent stationary observations.            |
 | [Calibration_of_alpha]   | [Technical-documentation]           | Calibration of the Smith & Wilson's alpha parameter.                          |
 | [Correlated Brownian]    | [Wiki Brownian motion]              | Simple function to generate correlated Brownian motion in multiple dimensions.|
-| [Nel_Si_Svansson]        | [BIS whitepaper]                    | Nelson-Siegel-Svansson model for approximating the yield curve.               |
-| [Black_Scholes]          | [Wiki Black&Sholes]                 | Black&Scholes model for pricing option contracts.                             |
+| [Nel_Si_Svensson]        | [BIS whitepaper]                    | Nelson-Siegel-Svensson model for approximating the yield curve.               |
+| [Black_Scholes]          | [Wiki Black&Scholes]                | Black&Scholes model for simulating stock prices.                              |
 | [Vasicek one factor]     | [Wiki Vasicek]                      | Vasicek model for modelling the evolution of interest rates.                  |
 | [Vasicek two factor]     | [Wiki Vasicek]                      | Vasicek model for modelling the evolution of a pair of interest rates.        |
 | [1F Hull White]          | [Wiki Hull White]                   | One factor Hull White model of short rates.                                   |
@@ -37,14 +37,14 @@
 | [Singular Spectrum analysis]      | [Paper SSA]                | Non-parametric technique used for time series analysis and forecasting.       |
 
 
-[Singular Spectrum analysis]:https://github.com/open-source-modelling/singular_spectrum_analysis
+[Singular Spectrum analysis]:https://github.com/open-source-modelling/insurance_python/tree/main/singular_spectrum_analysis
 [Paper SSA]:https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5136637
 [Quant Exchange]:https://quant.stackexchange.com/questions/16017/for-the-dothan-model-eqbt-infty
 [Dothan one factor]:https://github.com/open-source-modelling/insurance_python/tree/main/dothan_one_factor
 [Wiki Hull White]:https://en.wikipedia.org/wiki/Hull%E2%80%93White_model
 [1F Hull White]:https://github.com/open-source-modelling/insurance_python/tree/main/hull_white_one_factor
 [Smith_Wilson]: https://github.com/open-source-modelling/insurance_python/tree/main/smith_wilson
-[Technical-documentation]: https://www.eiopa.europa.eu/sites/default/files/risk_free_interest_rate/12092019-technical_documentation.pdf
+[Technical-documentation]: https://www.eiopa.europa.eu/document/download/df541a50-a9e7-458b-86ae-6ad16c2d6a29_en?filename=16-09-2022%20Technical%20documentation
 [Stationary_boot_calib]: https://github.com/open-source-modelling/insurance_python/tree/main/stationary_bootstrap_calibration
 [Whitepaper-2004]: http://public.econ.duke.edu/~ap172/Politis_White_2004.pdf
 [Stationary_bootstrap]: https://github.com/open-source-modelling/insurance_python/tree/main/stationary_bootstrap
@@ -52,13 +52,19 @@
 [Calibration_of_alpha]: https://github.com/open-source-modelling/insurance_python/tree/main/bisection_alpha
 [Correlated Brownian]: https://github.com/open-source-modelling/insurance_python/tree/main/correlated_brownian_motion
 [Wiki Brownian motion]: https://en.wikipedia.org/wiki/Brownian_motion
-[Nel_Si_Svansson]: https://github.com/open-source-modelling/insurance_python/tree/main/nelson_siegel_svansson
+[Nel_Si_Svensson]: https://github.com/open-source-modelling/insurance_python/tree/main/nelson_siegel_svensson
 [BIS whitepaper]: https://www.bis.org/publ/bppdf/bispap25l.pdf
-[Black_Scholes]: https://github.com/open-source-modelling/insurance_python/tree/main/black_sholes
-[Wiki Black&Sholes]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model
+[Black_Scholes]: https://github.com/open-source-modelling/insurance_python/tree/main/black_scholes
+[Wiki Black&Scholes]: https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model
 [Vasicek one factor]: https://github.com/open-source-modelling/insurance_python/tree/main/vasicek_one_factor
 [Wiki Vasicek]: https://en.wikipedia.org/wiki/Vasicek_model
 [Vasicek two factor]: https://github.com/open-source-modelling/insurance_python/tree/main/vasicek_two_factor
+
+## Getting started
+
+Each algorithm is in its own folder, with a README that explains the method and shows an example. The examples import the code from the same folder, so run them from inside that folder, for example `cd smith_wilson` followed by `python main.py`.
+
+The required packages are listed in [requirements.txt](requirements.txt) and can be installed with `pip install -r requirements.txt`. The tests are run with `pytest` from the root of the repository.
 
 ## Algorithms planned
 
@@ -66,7 +72,7 @@
 | ---------------------- | ----------------------------------- | ---------------------------------------------------------------------- |
 | Matrix on fraction     | TBD                                 | Heuristics for calculating transition matrices on fractions of power   |
 | G2++ with piec cons vol| TBD                                 | Calibration of a G2++ model with piecewise constant volatility          |
-| Carter-Lee model       | TBD                                 | Simple stochastic mortality model                                      |
+| Lee-Carter model       | TBD                                 | Simple stochastic mortality model                                      |
 | Metropolis-Hastings    | TBD                                 | Sampling of probability distributions                                  |
 
 <b> New suggestions for algorithms are welcome. </b>

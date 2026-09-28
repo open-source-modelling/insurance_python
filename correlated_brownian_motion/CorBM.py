@@ -18,15 +18,17 @@ def CorBrownian(mu:np.ndarray, E: np.ndarray, sampleSize: int) ->np.ndarray:
     The algorithm is not optimized for speed and no testing of inputs is implemented. If this would be useful to you, let us know and we can extend the code.
     
     Example of use:
-        import numpy as np 
+        import numpy as np
+        np.random.seed(1)
         mu = [1, 2]
         VarCovar = np.matrix('1, 0.8; 0.8, 3')
         sampleSize = 5
         out = CorBrownian(mu, VarCovar, sampleSize)
-        > [[ 2.83211068  4.50021193]
-           [ 0.26392619  1.56450446]
-           [-0.25928109  0.97167124]
-           [ 1.52038489  1.76274556]]
+        > [[ 2.62434536  2.35967826]
+          [ 0.47182825 -0.07086308]
+          [ 1.86540763 -0.84336473]
+          [ 2.74481176  2.22646118]
+          [ 1.3190391   1.87214124]]
     """
  
     def Cholesky(X:np.ndarray) ->np.ndarray:
@@ -58,7 +60,7 @@ def CorBrownian(mu:np.ndarray, E: np.ndarray, sampleSize: int) ->np.ndarray:
         return L
 
     dim = E.shape[0]                                         # Guess the number of Brownian motions (dimension) from the size of the Var-Covar matrix
-    Z = np.random.default_rng().normal(0,1,(sampleSize, dim)) # Generate independent increments of a simpleSize dimensional Brownian motion
+    Z = np.random.normal(0,1,(sampleSize, dim)) # Generate independent increments of a dim dimensional Brownian motion. np.random.seed() makes them reproducible
     Y = np.zeros((sampleSize, dim))                          # Predefine the final output
     L = Cholesky(E)                                          # Calculate the square root of the Var-Covar matrix
 

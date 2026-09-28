@@ -75,7 +75,8 @@ class BrownianMotion():
             return [W_1, W_2]
 
     def simulate_Vasicek_Two_Factor(self, r0: List[float] = [0.1, 0.1], a: List[float] = [1.0, 1.0], b: List[float] = [0.1, 0.1], sigma: List[float] = [0.2, 0.2], rho: float = 0.5, T: int = 52, dt: float = 0.1) -> pd.DataFrame:
-        # SIMULATE_VASICEK_TWO_FACTOR calculates a posible sample path of the nominal interest rate by simulating the real rate and inflation. Both are assumed to follow a mean-reverting vasicek process
+        # SIMULATE_VASICEK_TWO_FACTOR calculates a posible sample path of the nominal interest rate by simulating the real rate and inflation. Both are assumed to follow a mean-reverting vasicek process,
+        # simulated with its exact transition distribution
         # interest_rate_simulation = simulate_Vasicek_Two_Factor(self, r0, a, b, sigma, rho, T, dt)
         #
         # Arguments:
@@ -90,14 +91,13 @@ class BrownianMotion():
         #   dt   = float specifying the length of each subinterval. ex. dt=0.1, then the time grid is 0, 0.1, 0.2, ..., T. T must be a multiple of dt 
         #
         # Returns:
-        #   interest_rate_simulation = pandas dataframe with 3 columns. First is modelling time, second is the Nominal interest rate and the third is the Real interest rate
+        #   interest_rate_simulation = pandas dataframe indexed by modelling time with 2 columns: the real interest rate and the nominal interest rate (real rate + inflation)
         #
         # Example:
         #
         #   import numpy as np       
         #   import pandas as pd
-        #   from typing import any
-        #   simulate_Vasicek_Two_Factor([0.1, 0.2], [1.0, 0.5],[0.1, 0.2], [0.2, 0.2], 0.5, 52,0.1)
+        #   BrownianMotion().simulate_Vasicek_Two_Factor([0.1, 0.2], [1.0, 0.5],[0.1, 0.2], [0.2, 0.2], 0.5, 52,0.1)
         #   [out]  pandas dataframe indexed by time with 2 columns and 521 rows (times 0, 0.1, ..., 52)
         #
         # For more information see SOURCE
@@ -106,28 +106,40 @@ class BrownianMotion():
 
         time, delta_t = np.linspace(0, T, num = N, retstep = True) # time is a series from 0 to T with step dt
 
-        weiner_process = self.generate_weiner_process(T, dt, rho) # This method generates increments from a Weiner process (more commonly known as a Brownian Motion)
-
-        weiner_process_e = weiner_process[0]
-        weiner_process_s = weiner_process[1]
-
-        r_e, s = np.ones(N) * r0[0], np.ones(N) * r0[1]
-
         a_e, a_s = a[0], a[1]
 
         b_e, b_s = b[0], b[1]
 
         sigma_e, sigma_s = sigma[0], sigma[1]
 
+        # Exact discretisation of the two Vasicek processes, as in the one factor model. Over a step delta_t each process
+        # decays towards its mean by exp(-a*delta_t) and receives normal noise with variance sigma^2 * (1 - exp(-2*a*delta_t)) / (2*a).
+        # The noise of the two processes has covariance rho * sigma_e * sigma_s * (1 - exp(-(a_e+a_s)*delta_t)) / (a_e+a_s).
+        def integral_of_exp(k): # integral of exp(-k*u) du from 0 to delta_t
+            return delta_t if k == 0 else (1 - np.exp(-k * delta_t)) / k
+
+        var_e, var_s = integral_of_exp(2 * a_e), integral_of_exp(2 * a_s) # variance of the noise of each process divided by sigma^2
+        rho_noise = rho * integral_of_exp(a_e + a_s) / np.sqrt(var_e * var_s) # correlation of the noise of the two processes, equal to rho if a_e = a_s
+
+        weiner_process = self.generate_weiner_process(T, dt, rho_noise) # This method generates increments from a Weiner process (more commonly known as a Brownian Motion)
+
+        # The increments of the Brownian motions have variance delta_t; rescaling them gives the exact noise of each process
+        noise_e = sigma_e * np.sqrt(var_e / delta_t) * np.diff(weiner_process[0])
+        noise_s = sigma_s * np.sqrt(var_s / delta_t) * np.diff(weiner_process[1])
+
+        r_e, s = np.ones(N) * r0[0], np.ones(N) * r0[1]
+
+        decay_e, decay_s = np.exp(-a_e * delta_t), np.exp(-a_s * delta_t)
+
         for t in range(1,N):
-            r_e[t] = r_e[t-1] + a_e * (b_e - r_e[t-1]) * dt + sigma_e * (weiner_process_e[t] - weiner_process_e[t-1]) # Real interest rate
-            s[t] = s[t-1] + a_s * (b_s - s[t-1]) * dt + sigma_s * (weiner_process_s[t] - weiner_process_s[t-1]) # Inflation rate
+            r_e[t] = r_e[t-1] * decay_e + b_e * (1 - decay_e) + noise_e[t-1] # Real interest rate
+            s[t] = s[t-1] * decay_s + b_s * (1 - decay_s) + noise_s[t-1] # Inflation rate
 
         r_s = r_e + s # Nominal interest rate as real interest rate plus inflation
 
-        dict = {'Time' : time, 'Real Interest Rate' : r_e, 'Nominal Interest Rate' : r_s}
+        data = {'Time' : time, 'Real Interest Rate' : r_e, 'Nominal Interest Rate' : r_s}
 
-        interest_rate_simulation = pd.DataFrame.from_dict(data = dict)
+        interest_rate_simulation = pd.DataFrame.from_dict(data = data)
         interest_rate_simulation.set_index('Time', inplace = True)
 
         return interest_rate_simulation

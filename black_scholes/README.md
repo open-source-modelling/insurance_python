@@ -1,10 +1,10 @@
 <h1 align="center" style="border-botom: none">
   <b>
-    🐍 Black-Sholes model for simulating the price of a stock🐍     
+    🐍 Black-Scholes model for simulating the price of a stock🐍     
   </b>
 </h1>
 
-Black Sholes model is one of oldest models for simulating the stock market.
+Black Scholes model is one of oldest models for simulating the stock market.
 
 ## Problem
 
@@ -12,21 +12,21 @@ Modelling the stock market is a well-researched field. There are numerous models
 
 ## Solution
 
-One of the oldest and simplest models developed is the [Black-Sholes-Merton](https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model) model which assumes that the asset prices can be described by the [Black-Sholes equation](https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_equation). This implementation simulates the price of a stock in time.
+One of the oldest and simplest models developed is the [Black-Scholes-Merton](https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model) model which assumes that the asset prices can be described by the [Black-Scholes equation](https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_equation). This implementation simulates the price of a stock in time.
 
 ### Input
 
-Black Sholes simulation:
- - `S0`    ... integer, specifying the initial value of the underlying asset.
+Black Scholes simulation:
+ - `S0`    ... float, specifying the initial value of the underlying asset.
  - `mu`    ... float, specifying the drift rate of the underlying asset.
  - `sigma` ... float, standard deviation of the underlying asset's return.
- - `T`     ... integer, specifying the maximum modelling time. ex. if T = 2 then modelling time will run from 0 to 2.
+ - `T`     ... float, specifying the maximum modelling time. ex. if T = 2 then modelling time will run from 0 to 2.
  - `dt`    ... float, specifying the length of each subinterval. ex. dt = 0.5, then the time series is 0, 0.5, 1, ... T must be a multiple of dt.
 
 ### Output
 
 Return:
- - `stock_price_simulation` ... N x 2 pandas DataFrame where index is modelling time and values are a realisation of the underlying’s price.
+ - pandas DataFrame indexed by modelling time (0, dt, 2*dt, ..., T) with one column, `Simulation`, containing a realisation of the underlying’s price.
 
 ## Getting started
 
@@ -45,6 +45,11 @@ T = 10         # 10 years
 dt = 0.5       # 6-month intervals
 
 print(simulate_black_scholes(S0=S0, mu=mu, sigma=sigma, T=T, dt=dt))
+```
+
+The simulation is random, so every run gives a different path. One realisation:
+
+```text
         Simulation
   0.0   100.000000
   0.5   102.844245
@@ -69,7 +74,7 @@ print(simulate_black_scholes(S0=S0, mu=mu, sigma=sigma, T=T, dt=dt))
   10.0  496.552723
 ```
 ## Risk neutral pricing
-When an ESG simulation output is presented, a standard test is applied to confirm that the scenarios are risk neutral. Black Sholes can be one such model. This test relies on the fact that in a risk-neutral framework, there is an explicit relationship between the price of a fixed income financial instrument and the expected discounted cash flows. 
+When an ESG simulation output is presented, a standard test is applied to confirm that the scenarios are risk neutral. Black Scholes can be one such model. This test relies on the fact that in a risk-neutral framework, there is an explicit relationship between the price of a fixed income financial instrument and the expected discounted cash flows. 
 
 Below is the Martingale test for the hypothetical example from above. To pass the test, the expected discounted cash flows should equal the initial stock price of 100.
 
@@ -89,7 +94,7 @@ bank_end = np.exp(T*mu) # return of the risk-free asset
 nIter = 50000
 result = np.zeros(nIter)
 
-for iter in range(1,nIter):
+for iter in range(nIter):
     out = simulate_black_scholes(S0, mu, sigma, T, dt)
     martingale = out.iloc[-1,:].values[0] / bank_end
     result[iter] = martingale

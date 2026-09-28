@@ -30,7 +30,7 @@ def Galfa(M_Obs: np.ndarray, r_Obs: np.ndarray, ufr: float, alpha: float, Tau: f
         >>> Galfa(M_Obs, r_Obs, ufr, alfa, Tau)
         [Out] -8.544212205612438e-05
 
-    For more information see https://www.eiopa.europa.eu/sites/default/files/risk_free_interest_rate/12092019-technical_documentation.pdf
+    For more information see https://www.eiopa.europa.eu/document/download/df541a50-a9e7-458b-86ae-6ad16c2d6a29_en?filename=16-09-2022%20Technical%20documentation
     
     Implemented by Gregor Fabjan from Qnity Consultants on 17/12/2021.
     """
@@ -38,13 +38,13 @@ def Galfa(M_Obs: np.ndarray, r_Obs: np.ndarray, ufr: float, alpha: float, Tau: f
     M_Obs = np.ravel(M_Obs)                       # Accept column vectors as well as 1-dimensional arrays
     r_Obs = np.ravel(r_Obs)
     U = max(M_Obs)                                # Find maximum liquid maturity from input
-    T = max(U + 40, 60)                             # Define the convergence point as defined in paragraph 120 and again in 157
-    C = np.identity(M_Obs.size)                   # Construct cash flow matrix described in paragraph 137 assuming the input is ZCB bonds with notional value of 1
-    d = np.exp(-np.log(1 + ufr) * M_Obs)            # Calculate vector d described in paragraph 138
-    Q = np.diag(d) @ C                            # Matrix Q described in paragraph 139
-    b = SWCalibrate(r_Obs, M_Obs, ufr, alpha)     # Calculate the calibration vector b using the equation from paragraph 149
-    K = (1+alpha * M_Obs @ Q@ b) / (np.sinh(alpha * M_Obs.transpose())@ Q@ b) # Calculate kappa as defined in the paragraph 155
-    return( alpha/np.abs(1 - K*np.exp(alpha*T))-Tau) # Size of the gap at the convergence point between the allowable tolerance Tau and the actual curve. Defined in paragraph 158
+    T = max(U + 40, 60)                             # Define the convergence point as defined in paragraph 122 and again in 159
+    C = np.identity(M_Obs.size)                   # Construct cash flow matrix described in paragraph 139 assuming the input is ZCB bonds with notional value of 1
+    d = np.exp(-np.log(1 + ufr) * M_Obs)            # Calculate vector d described in paragraph 140
+    Q = np.diag(d) @ C                            # Matrix Q described in paragraph 141
+    b = SWCalibrate(r_Obs, M_Obs, ufr, alpha)     # Calculate the calibration vector b using the equation from paragraph 151
+    K = (1+alpha * M_Obs @ Q@ b) / (np.sinh(alpha * M_Obs.transpose())@ Q@ b) # Calculate kappa as defined in the paragraph 157
+    return( alpha/np.abs(1 - K*np.exp(alpha*T))-Tau) # Size of the gap at the convergence point between the allowable tolerance Tau and the actual curve. Defined in paragraph 160
 
 def BisectionAlpha(xStart: float, xEnd: float, M_Obs: np.ndarray, r_Obs: np.ndarray, ufr: float, Tau: float, Precision: float, maxIter: int)->float:
     """
@@ -83,7 +83,7 @@ def BisectionAlpha(xStart: float, xEnd: float, M_Obs: np.ndarray, r_Obs: np.ndar
         >>> BisectionAlpha(xStart, xEnd, M_Obs, r_Obs, ufr, Tau, Precision, maxIter)
         [Out] 0.11549789285636511
 
-    For more information see https://www.eiopa.europa.eu/sites/default/files/risk_free_interest_rate/12092019-technical_documentation.pdf and https://en.wikipedia.org/wiki/Bisection_method
+    For more information see https://www.eiopa.europa.eu/document/download/df541a50-a9e7-458b-86ae-6ad16c2d6a29_en?filename=16-09-2022%20Technical%20documentation and https://en.wikipedia.org/wiki/Bisection_method
      
     Implemented by Gregor Fabjan from Qnity Consultants on 17/12/2021.
     """   
@@ -96,7 +96,7 @@ def BisectionAlpha(xStart: float, xEnd: float, M_Obs: np.ndarray, r_Obs: np.ndar
         return xEnd # If final point already satisfies the conditions return end point
     if np.sign(yStart) == np.sign(yEnd): # The interval does not bracket a root
         if yStart < 0:
-            return xStart # The curve is already within Tau of the ufr at the lowest allowed alpha. EIOPA uses the lowest alpha (at least 0.05) that meets the tolerance
+            return xStart # The curve is already within Tau of the ufr at the lowest allowed alpha. EIOPA uses the lowest alpha (at least 0.05) that meets the tolerance (paragraphs 123 and 161)
         raise ValueError("The gap to the ufr is larger than Tau for every alpha in [xStart, xEnd]; increase xEnd")
     iIter = 0
     while iIter <= maxIter:

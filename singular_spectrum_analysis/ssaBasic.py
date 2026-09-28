@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from numpy.matlib import repmat
 import warnings
 
 class ssaBasic:
@@ -188,6 +187,9 @@ class ssaBasic:
 
         # Array: 0-based indices of the eigen-triples
         self.checkMaxSingularValues(r0_arr)
+        # There are only U.shape[1] eigen-triples, which is L (not L + 1) when N - L = L
+        if np.max(r0_arr) >= self.U.shape[1]:
+            raise ValueError(f"r0 contains index {int(np.max(r0_arr))}, but the eigen-triples are numbered 0 to {self.U.shape[1] - 1}")
         return r0_arr.astype(int).reshape(1, -1)
         
     def checkMaxSingularValues(self, r0=None):
@@ -216,6 +218,8 @@ class ssaBasic:
         (e.g. if G = np.array([1, 1, 2, 0, 0, 0, 0, 0]) the first
         two eigen-triples are summed together and the third is
         considered in a separate group).
+        The components are those of the series after subtracting its mean (self.mX):
+        if every eigen-triple belongs to a group, y.sum(axis=0) + self.mX is the original series.
         """
         G = self.validateG0(G)
         m = int(np.max(G))
@@ -225,9 +229,9 @@ class ssaBasic:
         for ii in range(1, m+1):
             tmp_pos = allPos[G == ii] 
             tmp_d = np.diag(self.S)[np.newaxis,]
-            tmp_u = self.U[:, tmp_pos] * repmat(tmp_d[0,tmp_pos],self.L+1,1)
-            tmp_y = tmp_u @ self.V[:,tmp_pos].transpose() # ToDo
-            y[ii-1, :] = self.hankelization(tmp_y) + self.mX  # Assuming obj has hankelization and mX
+            tmp_u = self.U[:, tmp_pos] * tmp_d[0,tmp_pos] # scale each column of U by its singular value
+            tmp_y = tmp_u @ self.V[:,tmp_pos].transpose()
+            y[ii-1, :] = self.hankelization(tmp_y) # the mean is not added, so that the components add up to the centred series
 
 
         if display == 'on':
@@ -721,6 +725,10 @@ class ssaBasic:
 
         self.checkMaxSingularValues(G0)
         self.noGaps(G0)
+
+        # G0 has L + 1 elements, but there are only U.shape[1] eigen-triples when N - L < L + 1
+        if np.any(np.ravel(G0)[self.U.shape[1]:] != 0):
+            raise ValueError(f"G0 assigns eigen-triples beyond the {self.U.shape[1]} that exist to a group")
 
         if np.max(G0.shape) == self.L+1:
             return G0

@@ -7,9 +7,9 @@ def simulate_Vasicek_One_Factor(r0: float = 0.1, a: float = 1.0, lam: float = 0.
     
      Arguments:
        r0    = float, starting interest rate of the vasicek process 
-       a     = float, speed of reversion" parameter that characterizes the velocity at which such trajectories will regroup around lam in time
+       a     = float, speed of reversion parameter that characterizes the velocity at which such trajectories will regroup around lam in time
        lam   = float, long term mean level that all future trajectories will evolve around
-       sigma = float, instantaneous volatility measures instant by instant the amplitude of randomness entering the system
+       sigma = float, instantaneous volatility of the rate. It is an absolute volatility in units of the rate: sigma = 0.01 means changes of about 1 percentage point per year.
        T     = integer, end modelling time. From 0 to T the time series runs.
        dt    = float, increment of time that the process runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,... T must be a multiple of dt.
 
@@ -17,36 +17,36 @@ def simulate_Vasicek_One_Factor(r0: float = 0.1, a: float = 1.0, lam: float = 0.
        interest_rate_simulation = N x 1 Pandas DataFrame where index is modelling time and values are a realisation of the interest rate
 
      Example:
-       Model the interest rate which is 10% today. The annualized instant volatility is 20%. The external analysis points out that the mean reversion parameter is 1 and the long-term interest rate level is 10%. The user is interested in an interest rate projection of the next 10 years in increments of 6 months (0.5 years)
+       Model the interest rate which is 10% today. The absolute volatility of the rate is 2 percentage points per year (sigma = 0.02). The external analysis points out that the mean reversion parameter is 1 and the long-term interest rate level is 10%. The user is interested in an interest rate projection of the next 10 years in increments of 6 months (0.5 years)
 
        import pandas as pd
        import numpy as np
 
        np.random.seed(1)
-       simulate_Vasicek_One_Factor(0.1, 1.0, 0.1, 0.2, 10, 0.5)
+       simulate_Vasicek_One_Factor(0.1, 1.0, 0.1, 0.02, 10, 0.5)
        [out] =       Interest Rate
                Time               
                0.0        0.100000
-               0.5        0.282639
-               1.0        0.141991
-               1.5        0.066082
-               2.0       -0.041215
-               2.5        0.111654
-               3.0       -0.151713
-               3.5        0.143512
-               4.0        0.040803
-               4.5        0.099967
-               5.0        0.071941
-               5.5        0.247379
-               6.0       -0.042249
-               6.5       -0.022531
-               7.0       -0.017501
-               7.5        0.156211
-               8.0        0.010424
-               8.5        0.026282
-               9.0       -0.043417
-               9.5        0.017759
-               10.0       0.115649
+               0.5        0.118264
+               1.0        0.104199
+               1.5        0.096608
+               2.0        0.085878
+               2.5        0.101165
+               3.0        0.074829
+               3.5        0.104351
+               4.0        0.094080
+               4.5        0.099997
+               5.0        0.097194
+               5.5        0.114738
+               6.0        0.085775
+               6.5        0.087747
+               7.0        0.088250
+               7.5        0.105621
+               8.0        0.091042
+               8.5        0.092628
+               9.0        0.085658
+               9.5        0.091776
+               10.0       0.101565
      For more information see https://en.wikipedia.org/wiki/Vasicek_model
     """
     

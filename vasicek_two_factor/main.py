@@ -1,11 +1,8 @@
 import numpy as np
-import pandas as pd
 import datetime as dt
 
 from Vasicek import BrownianMotion
-from Pricing import Swaption
 from Pricing import ZeroCouponBond
-from Calibration import Calibrator
 
 import matplotlib.pyplot as plt
 

@@ -21,7 +21,7 @@ def SWExtrapolate(M_Target: np.ndarray, M_Obs: np.ndarray, b: np.ndarray, ufr: f
     Column vectors (n x 1 ndarrays) are also accepted; they are flattened.
 
     For more information, refer to the documentation at:
-    https://www.eiopa.europa.eu/sites/default/files/risk_free_interest_rate/12092019-technical_documentation.pdf
+    https://www.eiopa.europa.eu/document/download/df541a50-a9e7-458b-86ae-6ad16c2d6a29_en?filename=16-09-2022%20Technical%20documentation
     """
 
     from SWHeart import SWHeart as SWHeart
@@ -30,8 +30,8 @@ def SWExtrapolate(M_Target: np.ndarray, M_Obs: np.ndarray, b: np.ndarray, ufr: f
     M_Obs = np.ravel(M_Obs)
     b = np.ravel(b)
     C = np.identity(M_Obs.size)
-    d = np.exp(-np.log(1+ufr) * M_Obs)   # Calculate vector d described in paragraph 138
-    Q = np.diag(d) @ C                   # Matrix Q described in paragraph 139
-    H = SWHeart(M_Target, M_Obs, alpha)  # Heart of the Wilson function from paragraph 132
-    p = np.exp(-np.log(1+ufr)* M_Target) + np.diag(np.exp(-np.log(1+ufr) * M_Target)) @ H @ Q @ b # Discount pricing function for targeted maturities from paragraph 147
+    d = np.exp(-np.log(1+ufr) * M_Obs)   # Calculate vector d described in paragraph 140
+    Q = np.diag(d) @ C                   # Matrix Q described in paragraph 141
+    H = SWHeart(M_Target, M_Obs, alpha)  # Heart of the Wilson function from paragraph 134
+    p = np.exp(-np.log(1+ufr)* M_Target) + np.diag(np.exp(-np.log(1+ufr) * M_Target)) @ H @ Q @ b # Discount pricing function for targeted maturities from paragraph 149
     return p ** (-1/ M_Target) -1 # Convert obtained prices to rates and return rates

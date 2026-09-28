@@ -20,9 +20,9 @@ The stochastic differential equation (SDE) of the Vasicek model is shown on the 
 ### Input
 
   - `r0` (float): starting interest rate of the Vasicek process.
-  - `a` (float): speed of reversion" parameter that characterizes the velocity at which such trajectories will regroup around b in time.
+  - `a` (float): speed of reversion parameter that characterizes the velocity at which such trajectories will regroup around lam in time.
   - `lam` (float): long term mean level. All future trajectories of r will evolve around this mean level in the long run.
-  - `sigma` (float): instantaneous volatility measures instant by instant the amplitude of randomness entering the system.
+  - `sigma` (float): instantaneous volatility of the rate. It is an absolute volatility in units of the rate: sigma = 0.01 means changes of about 1 percentage point per year.
   - `T` (integer): end modelling time. From 0 to T the time series runs.
   - `dt` (float): increment of time that the process runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,... T must be a multiple of dt.
 
@@ -39,8 +39,8 @@ from Vasicek_one_factor import simulate_Vasicek_One_Factor
 
 r0 = 0.1 # The starting interest rate
 a = 1.0 # Speed of reversion parameter
-lam = 0.1 # Long-term mean interest rate level correction
-sigma = 0.2 # Instantaneous volatility
+lam = 0.1 # Long-term mean interest rate level
+sigma = 0.02 # Instantaneous volatility, about 2 percentage points per year
 T = 52 # End modelling time
 dt = 0.1 # Increments of time
 

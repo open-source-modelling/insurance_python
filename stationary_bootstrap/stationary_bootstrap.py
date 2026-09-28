@@ -16,7 +16,7 @@ def stationary_bootstrap(data: np.ndarray, m: float, sample_length: int)-> np.nd
 
     Raises:
         ValueError: If m is not positive.
-        ValueError: If sampleLength is not positive.
+        ValueError: If sample_length is not positive.
         ValueError: If data is not an numpy array.
         ValueError: If data array is empty.
         ValueError: If `data` is not a 1-dimensional numpy array.

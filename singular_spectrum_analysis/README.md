@@ -8,6 +8,10 @@ Singular Spectrum Analysis (SSA) is a non-parametric technique of time series an
 
 SSA allows for an automated time-series analysis and forecasting with minimal assumptions on the model form. It aims at a decomposition of the original series into a sum of a small number of interpretable components such as a slowly varying trend, oscillatory components and a structureless noise.
 Basic SSA analysis consists of four steps:
+1) Embedding: the series is arranged into a trajectory (Hankel) matrix of lagged copies of itself.
+2) Singular value decomposition of the trajectory matrix into eigen-triples.
+3) Grouping of the eigen-triples into components such as trend, oscillations and noise.
+4) Diagonal averaging (hankelization), which turns each group back into a time series.
 
 ________________________________________
 ## Getting Started
@@ -36,7 +40,7 @@ Contributions are welcome! If you have any ideas, bug reports, or suggestions:
 2.	Create a new branch.
 3.	Make your changes and commit them: git commit -m "Add some feature".
 
-A similar code (written for Matlab) is available at [GithHub](https://github.com/NiemandN/SSABASIC) and [Mathworks Exchange](https://www.mathworks.com/matlabcentral/fileexchange/180188-singular-spectrum-analysis). The original paper is available at SSRN: https://ssrn.com/abstract=5136637 or http://dx.doi.org/10.2139/ssrn.5136637. Feel free to contribute also to the Matlab version of SSA.
+A similar code (written for Matlab) is available at [GitHub](https://github.com/NiemandN/SSABASIC) and [Mathworks Exchange](https://www.mathworks.com/matlabcentral/fileexchange/180188-singular-spectrum-analysis). The original paper is available at SSRN: https://ssrn.com/abstract=5136637 or http://dx.doi.org/10.2139/ssrn.5136637. Feel free to contribute also to the Matlab version of SSA.
 
 ________________________________________
 ## Licence

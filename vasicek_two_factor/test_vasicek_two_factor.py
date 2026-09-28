@@ -58,3 +58,25 @@ def test_zero_coupon_bond_maturity_checks():
         ZeroCouponBond(2).price([0.01, 0.02], [1.0, 1.0], [0.01, 0.02], [0.0, 0.0], 0.5, 1, 0.1, 1)
     with pytest.raises(ValueError, match="multiple of dt"):
         ZeroCouponBond(1.25).price([0.01, 0.02], [1.0, 1.0], [0.01, 0.02], [0.0, 0.0], 0.5, 2, 0.5, 1)
+
+# The rates are simulated with the exact transition, so large time steps do not distort the distribution.
+# The Euler scheme used before overstated the long-run variances by 24% and 32% for these parameters.
+def test_long_run_moments_with_large_time_step():
+    np.random.seed(0)
+    a, b, sigma, rho, dt = [0.8, 1.0], [0.01, 0.015], [0.05, 0.04], 0.6, 0.5
+    out = BrownianMotion().simulate_Vasicek_Two_Factor(b, a, b, sigma, rho, 50000, dt)
+    real = out["Real Interest Rate"].values
+    inflation = out["Nominal Interest Rate"].values - real
+    assert np.var(real) == pytest.approx(sigma[0]**2 / (2 * a[0]), rel=0.05)
+    assert np.var(inflation) == pytest.approx(sigma[1]**2 / (2 * a[1]), rel=0.05)
+    assert np.corrcoef(real, inflation)[0, 1] == pytest.approx(2 * rho * np.sqrt(a[0] * a[1]) / (a[0] + a[1]), abs=0.02)
+
+# Without noise each rate follows b + (r0 - b) * exp(-a * t) exactly at the grid times
+def test_deterministic_path_matches_exact_solution():
+    r0, a, b = [0.05, 0.03], [0.8, 1.0], [0.01, 0.015]
+    out = BrownianMotion().simulate_Vasicek_Two_Factor(r0, a, b, [0.0, 0.0], 0.6, 5, 0.5)
+    t = out.index.values
+    real = b[0] + (r0[0] - b[0]) * np.exp(-a[0] * t)
+    inflation = b[1] + (r0[1] - b[1]) * np.exp(-a[1] * t)
+    assert np.allclose(out["Real Interest Rate"].values, real)
+    assert np.allclose(out["Nominal Interest Rate"].values, real + inflation)

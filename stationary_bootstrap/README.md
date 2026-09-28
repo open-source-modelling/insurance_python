@@ -13,7 +13,7 @@ An example of this is interest rate modelling when business cycles need to be co
 
 ## Solution
 
-Stationary bootstrap is a block-resampling technique that relaxes the assumption in a classical bootstrap where the sampling block has a fixed-length. The user still needs to specify an average length, but because this is than applied as a statistical average, shorter/longer blocks are also present in the final sample.
+Stationary bootstrap is a block-resampling technique that relaxes the assumption in a classical bootstrap where the sampling block has a fixed-length. The user still needs to specify an average length, but because this is then applied as a statistical average, shorter/longer blocks are also present in the final sample.
 The algorithm works by randomly selecting a starting point in the time-series and at each step it either increases the block size by one or selects a new block with a new starting point. This choice happens with a fixed probability governed by the parametrisation.
 
 ### Input

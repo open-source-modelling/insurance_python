@@ -8,9 +8,9 @@
 
 Popular algorithm for interpolating and extrapolating various curves such as bond yields and risk-free rates. 
 
-This implementation is based on the [Technical documentation of the Methodology to derive EIOPA's risk-free interest rate term structure](https://www.eiopa.europa.eu/sites/default/files/risk_free_interest_rate/12092019-technical_documentation.pdf).
+This implementation is based on the [Technical documentation of the Methodology to derive EIOPA's risk-free interest rate term structure](https://www.eiopa.europa.eu/document/download/df541a50-a9e7-458b-86ae-6ad16c2d6a29_en?filename=16-09-2022%20Technical%20documentation).
 
-The link is for version published on 12/09/2019. See Section 7.
+The link is for the version published in September 2022 (EIOPA-BoS-22-409). See Section 7.
 
 ## Problem
 
@@ -27,7 +27,7 @@ This implementation takes as input the <b>available market information</b>, <b>p
 
 ### Parameters
 
-- Ultimate froward rate `ufr` represents the rate to which the rate curve will converge as time increases.
+- Ultimate forward rate `ufr` represents the rate to which the rate curve will converge as time increases.
 - Convergence speed parameter α controls the speed at which the curve converges towards the ufr parameter from the last liquid point (last data point available in the market information input).
 
 ### Desired output
@@ -46,7 +46,7 @@ The syntax in the functions tries to be consistent with EIOPA technical specific
 
 Given the data on 6 ZCB with maturities of 1, 2, 4, 5, 6, and 7 years with observed yields 1%, 2%, 3%, 3.2%, 3.5%, and 4% respectively. The user is interested in yields for ZCB at maturities 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, and 20 years. The given calibration for the parameter alpha is 0.15 and the ultimate forward rate is 4%. 
 
-```bash
+```python
 import numpy as np
 from SWCalibrate import SWCalibrate as SWCalibrate
 from SWExtrapolate import SWExtrapolate as SWExtrapolate
@@ -79,10 +79,10 @@ print(r_Target)
 
 ## About the example in main.py
 
-Example.py contains a script with an example from EIOPA's own Excel implementation tool (Smith-Wilson Risk-Free Interest Rate Extrapolation Tool 27102015.xlsb ). In this example, the yields are available for ZCB maturing in 1 year, 2 years, ..., 20 years. The output is the curve for up to 65 years.
+main.py contains a script with an example from EIOPA's own Excel implementation tool (Smith-Wilson Risk-Free Interest Rate Extrapolation Tool 27102015.xlsb ). In this example, the yields are available for ZCB maturing in 1 year, 2 years, ..., 20 years. The output is the curve for up to 65 years.
 
-###Note:
-To extrapolate the curve, it is enough to know the additional parameters (alpha and ufr), the maturities used for calibration and the vector b*Q. If this is the case, it is not difficult to modify the function `SWExtrapolate()` to take as input Qb instead of b. To see an example of this, see the Jupyter Notebook at https://github.com/open-source-modelling/insurance_python/tree/main/EIOPA_smith_wilson_test .
+### Note
+To extrapolate the curve, it is enough to know the additional parameters (alpha and ufr), the maturities used for calibration and the vector b*Q. If this is the case, it is not difficult to modify the function `SWExtrapolate()` to take as input Qb instead of b. To see an example of this, see the Jupyter Notebook at https://github.com/open-source-modelling/EIOPA_Smith_Wilson_test .
 
 An example of this format is the monthly risk-free rate published by the European Insurance and Occupational Pensions Authority (https://www.eiopa.europa.eu/tools-and-data/).
 

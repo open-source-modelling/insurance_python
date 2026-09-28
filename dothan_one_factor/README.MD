@@ -19,7 +19,7 @@ The short rate follows the stochastic differential equation (SDE) dr = -a r dt +
 
 ### Input
 
-  - `r0` (float): starting interest rate of the Vasicek process.
+  - `r0` (float): starting interest rate of the Dothan process.
   - `a` (float): market price of risk. It enters the SDE above as the drift coefficient -a.
   - `sigma` (float): instantaneous volatility measures instant by instant the amplitude of randomness entering the system.
   - `T` (integer): end modelling time. From 0 to T the time series runs.

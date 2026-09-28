@@ -106,3 +106,22 @@ def test_crossval_plot_titles(series):
     assert plt.gca().get_title() == "Cross-validation of L with r0 = 3"
     s.crossval_L0(np.array([0, 2]), 0.9, 5, "on")
     assert plt.gca().get_title() == "Cross-validation of L with eigen-triples [0, 2]"
+
+# grouping() used to add the mean to every component, so the components did not add up to the series
+def test_grouped_components_add_up_to_the_series(series):
+    s = ssaBasic(series, 24)
+    G = np.array([1, 1, 2, 2] + [3] * (s.L + 1 - 4))
+    components = s.grouping(G, "off")
+    assert np.allclose(components.sum(axis=0) + s.mX, series)
+
+# When L0 = N / 2 there are only L eigen-triples; index L used to raise an IndexError
+def test_eigen_triple_index_out_of_range_raises_value_error():
+    t = np.arange(120)
+    s = ssaBasic(np.sin(t / 5.0) + t / 50, 60)
+    assert s.U.shape[1] == 60
+    with pytest.raises(ValueError, match="numbered 0 to 59"):
+        s.reconstruction(np.array([60]))
+    G = np.zeros(s.L + 1, dtype=int)
+    G[0], G[60] = 1, 1
+    with pytest.raises(ValueError, match="beyond the 60 that exist"):
+        s.grouping(G, "off")

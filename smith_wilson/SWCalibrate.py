@@ -18,7 +18,7 @@ def SWCalibrate(r: np.ndarray, M: np.ndarray, ufr: float, alpha: float) -> np.nd
     Column vectors (n x 1 ndarrays) are also accepted; they are flattened.
 
     For more information, refer to the documentation at:
-    https://www.eiopa.europa.eu/sites/default/files/risk_free_interest_rate/12092019-technical_documentation.pdf
+    https://www.eiopa.europa.eu/document/download/df541a50-a9e7-458b-86ae-6ad16c2d6a29_en?filename=16-09-2022%20Technical%20documentation
     """
 
     from SWHeart import SWHeart as SWHeart
@@ -27,9 +27,9 @@ def SWCalibrate(r: np.ndarray, M: np.ndarray, ufr: float, alpha: float) -> np.nd
     M = np.ravel(M)
     C = np.identity(M.size)
     p = (1+r) **(-M)                  # Transform rates to implied market prices of a ZCB bond
-    d = np.exp(-np.log(1+ufr) * M)    # Calculate vector d described in paragraph 138
-    Q = np.diag(d) @ C                # Matrix Q described in paragraph 139
-    q = C.transpose() @ d             # Vector q described in paragraph 139
-    H = SWHeart(M, M, alpha)          # Heart of the Wilson function from paragraph 132
+    d = np.exp(-np.log(1+ufr) * M)    # Calculate vector d described in paragraph 140
+    Q = np.diag(d) @ C                # Matrix Q described in paragraph 141
+    q = C.transpose() @ d             # Vector q described in paragraph 141
+    H = SWHeart(M, M, alpha)          # Heart of the Wilson function from paragraph 134
 
-    return np.linalg.solve(Q.transpose() @ H @ Q, p-q) # Calibration vector b from paragraph 149, solving the linear system rather than inverting the matrix
+    return np.linalg.solve(Q.transpose() @ H @ Q, p-q) # Calibration vector b from paragraph 151, solving the linear system rather than inverting the matrix

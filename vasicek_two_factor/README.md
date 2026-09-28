@@ -10,15 +10,15 @@ A simple model for calculating the nominal interest rates. Used to add inflation
 When modelling the nominal rate, both the real rate of return and the inflation should be considered. The correlation between them means that one should use a multifactor model as opposed to two independent models. Additionally, there is a robust body of literature showing that both real rates and the inflation are mean-reverting
 
 ## Solution
-The simplest model for modelling real rates and inflation together is the multifactor Vasicek model https://en.wikipedia.org/wiki/Vasicek_model. The Vasicek model is a short rate model describing the evolution of rates. Both the real rate process and the inflation rate process are assumed to follow a Vasicek model. The movement of the two curves is given by a two-dimensional correlated Brownian motion
+The simplest model for modelling real rates and inflation together is the multifactor Vasicek model https://en.wikipedia.org/wiki/Vasicek_model. The Vasicek model is a short rate model describing the evolution of rates. Both the real rate process and the inflation rate process are assumed to follow a Vasicek model. The movement of the two curves is given by a two-dimensional correlated Brownian motion. Both processes are simulated with their exact transition distribution, so the simulated rates at the grid times have the correct distribution whatever the size of the time step dt
 
 ### Input
 Vasicek model simulator:
  - `r0` ... Starting annualized real rate and inflation rate. ex. if the annualized real rate is 1.4% and inflation is 6%, then r0 = [0.014, 0.06]   
  - `a` ... mean reversion speed for the real and inflation process. ex. if the reversion factor is 0.8 for real rates and 1 for inflation, a = [0.8, 1]         
  - `b` ... long term mean level for the real and inflation process. ex. if the long-term real rate is 1% and long term inflation is 1.5%, b = [0.01, 0.015]    
- - `sigma` ... instantaneous volatility of the real and inflation process. ex. volatility of the real rate process is 5% and inflation process is 4%, sigma = [0.05, 0.04] 
- - `rho` ... correlation between the stochastic noise that generates the two processess. ex. if the calculated correlation coefficient is 0.t, rho = 0.6            
+ - `sigma` ... instantaneous volatility of the real and inflation process. It is an absolute volatility in units of the rate. ex. if the real rate moves by about 5 percentage points per year and inflation by about 4, sigma = [0.05, 0.04] 
+ - `rho` ... correlation between the stochastic noise that generates the two processess. ex. if the calculated correlation coefficient is 0.6, rho = 0.6            
  - `T` ... modelling time horizon. ex. if time horizon is 25 years, T = 25               
  - `dt` ... time increments. ex. time increments are 6 months, dt = 0.5. T must be a multiple of dt             
 
