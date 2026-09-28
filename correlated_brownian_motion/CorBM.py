@@ -42,6 +42,7 @@ def CorBrownian(mu:np.ndarray, E: np.ndarray, sampleSize: int) ->np.ndarray:
         More info on: https://en.wikipedia.org/wiki/Cholesky_decomposition#The_Cholesky.E2.80.93Banachiewicz_and_Cholesky.E2.80.93Crout_algorithms
         """
 
+        X = np.asarray(X, dtype=float) # An integer input would otherwise make L an integer array and truncate the square roots
         L = np.zeros_like(X)
         n = X.shape[0]
 
