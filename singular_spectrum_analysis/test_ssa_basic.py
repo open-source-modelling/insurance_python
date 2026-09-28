@@ -95,3 +95,14 @@ def test_backtest(series, q):
     inX = series[:96]
     xM, _, _ = ssaBasic(inX, 24).forecast(3, 24, num_samp=None)
     assert np.allclose(xF[:, 0], xM[0, 96:])
+
+# Plot labels describe what is plotted: the in-sample L actually used, and which eigen-triples were used
+def test_crossval_plot_titles(series):
+    s = ssaBasic(series, 60) # the 90% in-sample part has 108 observations, so its L is reduced to 54
+    s.crossval_r0(0.9, 5, "on")
+    assert plt.gca().get_title() == "Cross-validation of r with L = 54"
+    assert plt.gca().get_xlabel() == "r (number of eigen-triples)"
+    s.crossval_L0(3, 0.9, 5, "on")
+    assert plt.gca().get_title() == "Cross-validation of L with r0 = 3"
+    s.crossval_L0(np.array([0, 2]), 0.9, 5, "on")
+    assert plt.gca().get_title() == "Cross-validation of L with eigen-triples [0, 2]"

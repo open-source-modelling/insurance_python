@@ -422,30 +422,32 @@ class ssaBasic:
         # make plot
         plt.figure()
         display_lower = display.lower()
+        components = np.arange(1, num_values + 1) # number components from 1 in both plots
 
         if display_lower == 'double':
             # plot singular values
             plt.subplot(2, 1, 1)
-            plt.stem(D[:num_values])
+            plt.stem(components, D[:num_values])
             plt.title(f'First {num_values} Singular Values')
-            plt.xlabel('Lags')
-            plt.ylabel('singular values')
+            plt.xlabel('Component')
+            plt.ylabel('singular value')
             # plot relative singular values
             plt.subplot(2, 1, 2)
-            plt.bar(np.arange(1, num_values + 1), Drel[:num_values])
-            plt.xlabel('Lags')
-            plt.ylabel('relative contribution')
-            plt.title('Relative contribution to signal variance')
+            plt.bar(components, Drel[:num_values])
+            plt.xlabel('Number of components')
+            plt.ylabel('share of variance')
+            plt.title('Cumulative contribution to variance')
+            plt.tight_layout()
         elif display_lower == 'cm':
-            plt.bar(np.arange(1, num_values + 1), Drel[:num_values])
-            plt.xlabel('Lags')
-            plt.ylabel('relative contribution')
-            plt.title('Cumulated Singular Values:\n Relative contribution to signal variance')
+            plt.bar(components, Drel[:num_values])
+            plt.xlabel('Number of components')
+            plt.ylabel('share of variance')
+            plt.title('Cumulative contribution to variance')
         elif display_lower == 'scree':
-            plt.stem(D[:num_values])
+            plt.stem(components, D[:num_values])
             plt.title(f'First {num_values} Singular Values')
-            plt.xlabel('Lags')
-            plt.ylabel('singular values')
+            plt.xlabel('Component')
+            plt.ylabel('singular value')
         else:
             raise ValueError('Available display options are: double, scree, cm')
 
@@ -573,9 +575,9 @@ class ssaBasic:
             plt.plot(array_test, np.log(outErr), 'd', label='outError', markersize=7)
             plt.plot(array_test, np.log(inErr), 's', label='inError', markersize=7)
             plt.plot(array_test, np.log(totErr), '-', linewidth=1.5, label='total')
-            plt.title(f'Cross-validation r with L = {L0}')
-            plt.xlabel('L')
-            plt.ylabel('RMSE (log-scale)')
+            plt.title(f'Cross-validation of r with L = {tmpSSA.L}') # L of the in-sample model, which may be lower than L0
+            plt.xlabel('r (number of eigen-triples)')
+            plt.ylabel('log(RMSE)')
             plt.legend(loc='upper right')
             plt.grid(True)
             plt.xlim([array_test[0], array_test[-1]])
@@ -634,9 +636,14 @@ class ssaBasic:
             plt.plot(array_test, np.log(outErr), 'd', label='outError', markersize=7)
             plt.plot(array_test, np.log(inErr), 's', label='inError', markersize=7)
             plt.plot(array_test, np.log(totErr), '-', linewidth=1.5, label='total')
-            plt.title(f'Cross-validation r with r_prior = {max(r0)}')
+            indices = r0.flatten()
+            if np.array_equal(indices, np.arange(indices.size)):
+                r0_label = f'r0 = {indices.size}'
+            else:
+                r0_label = f'eigen-triples {indices.tolist()}'
+            plt.title(f'Cross-validation of L with {r0_label}')
             plt.xlabel('L')
-            plt.ylabel('RMSE (log-scale)')
+            plt.ylabel('log(RMSE)')
             plt.legend(loc='upper right')
             plt.grid(True)
             plt.xlim([array_test[0], array_test[-1]])
