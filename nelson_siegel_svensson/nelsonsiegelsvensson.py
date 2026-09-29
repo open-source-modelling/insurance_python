@@ -35,9 +35,6 @@ def NelsonSiegelSvensson(T, beta0: float, beta1: float, beta2: float, beta3: flo
 
     return beta0 + beta1*alpha1 + beta2*alpha2 + beta3*alpha3
 
-# Previous, misspelled name of NelsonSiegelSvensson, kept so that existing code keeps working
-NelsonSiegelSvansson = NelsonSiegelSvensson
-
 def NSSGoodFit(params: list, TimeVec, YieldVec):
     """
     NSSGoodFit calculates the residuals between the yield predicted by the NSS algorithm with the specified parameterization and the market observed ones.
