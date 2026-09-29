@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 import nelsonsiegelsvensson
-from nelsonsiegelsvensson import NelsonSiegelSvensson, NelsonSiegelSvansson, NSSMinimize
+from nelsonsiegelsvensson import NelsonSiegelSvensson, NSSMinimize
 
 TimeVec = np.array([1, 2, 5, 10, 25])
 YieldVec = np.array([0.0039, 0.0061, 0.0166, 0.0258, 0.0332])
