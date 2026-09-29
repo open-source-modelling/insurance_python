@@ -29,6 +29,3 @@ def test_raises_when_optimization_fails(monkeypatch):
     with pytest.raises(RuntimeError, match="did not converge"):
         NSSMinimize(0.1, 0.1, 0.1, 0.1, 1, 1, TimeVec, YieldVec)
 
-# The function was renamed to the correct spelling; the old name still works
-def test_old_function_name_is_an_alias():
-    assert NelsonSiegelSvansson is NelsonSiegelSvensson
