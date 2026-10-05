@@ -15,7 +15,7 @@ def stationary_bootstrap(data: np.ndarray, m: float, sample_length: int)-> np.nd
         np.ndarray: An array of length `sample_length` containing the bootstrapped sample.
 
     Raises:
-        ValueError: If m is not positive.
+        ValueError: If m is not positive (or is NaN).
         ValueError: If sample_length is not positive.
         ValueError: If data is not an numpy array.
         ValueError: If data array is empty.
@@ -37,7 +37,7 @@ def stationary_bootstrap(data: np.ndarray, m: float, sample_length: int)-> np.nd
     """
 
     # Input validation
-    if m <= 0:
+    if not m > 0: # also rejects NaN, which would start a new block at every step
         raise ValueError("Block length 'm' must be positive")
     if sample_length <= 0:
         raise ValueError("Sample length must be positive")

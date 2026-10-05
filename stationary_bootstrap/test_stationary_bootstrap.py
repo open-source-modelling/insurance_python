@@ -60,6 +60,11 @@ def test_invalid_block_length():
     with pytest.raises(ValueError, match="Block length 'm' must be positive"):
         stationary_bootstrap(data, m, sample_length)
 
+# m = NaN used to be accepted and silently started a new block at every step (the ordinary bootstrap)
+def test_nan_block_length_raises():
+    with pytest.raises(ValueError, match="Block length 'm' must be positive"):
+        stationary_bootstrap(np.array([1.0, 2.0, 3.0]), np.nan, 5)
+
 # Test if an error is raised when data array is empty
 def test_empty_data_array():
     data = np.array([])

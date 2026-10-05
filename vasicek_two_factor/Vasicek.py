@@ -18,8 +18,8 @@ class BrownianMotion():
         #   self = reference to the current instance of the class. This class includes the x0 parameter that specifies the starting value of the Brownian motion
         #   T    = integer, specifying the maximum modeling time. ex. if T = 2 then modelling time will run from 0 to 2
         #   dt   = float, specifying the length of each subinterval. ex. dt=0.1, then the time grid is 0, 0.1, 0.2, ..., T. T must be a multiple of dt 
-        #   rho  = float, specifying the correlation coefficient of the Brownian motion. ex. rho = 0.4 means that two 
-        #          Brownian procesess on the same modeling time interval have a correlation coefficient of 0.4.
+        #   rho  = float between -1 and 1, specifying the correlation coefficient of the Brownian motion. ex. rho = 0.4 means that two
+        #          Brownian procesess on the same modeling time interval have a correlation coefficient of 0.4. Without rho (None) the output is one Brownian motion
         #
         # Returns:
         #   W =  N x 1 or N x 2 ndarray, where N = T/dt + 1 is the number of points on the time grid 0, dt, ..., T, and the second dimension is eiter 1 or 2 depending if the function is called 
@@ -46,6 +46,8 @@ class BrownianMotion():
         steps = int(round(T / dt)) # number of subintervals of length dt. round() because e.g. 0.3 / 0.1 = 2.9999999999999996
         if steps < 1 or not np.isclose(steps * dt, T):
             raise ValueError("T must be a positive multiple of dt")
+        if rho is not None and not -1 <= rho <= 1: # a correlation lies between -1 and 1; this also rejects NaN
+            raise ValueError("rho must be a number between -1 and 1")
         N = steps + 1 # number of points on the time grid 0, dt, 2*dt, ..., T
 
         if rho is None: # if rho is empty, generate a one-dimensional Brownian motion
@@ -85,7 +87,7 @@ class BrownianMotion():
         #   a     = list with 2 floats, speed of reversion of each process that characterizes the velocity at which such trajectories will regroup around each b
         #   b     = list with 2 floats, long term mean level of each process. All future trajectories of r will evolve around a mean level b in the long run 
         #   sigma = list with 2 floats, instantaneous volatility, amplitude of randomness of each process
-        #   rho  = float, specifying the correlation coefficient of the Brownian motion. ex. rho = 0.4 means that two 
+        #   rho  = float between -1 and 1, specifying the correlation coefficient of the Brownian motion. ex. rho = 0.4 means that two
         #             Brownian procesess on the same modeling time interval have a correlation coefficient of 0.4.
         #   T    = integer specifying the maximum modeling time. ex. if T = 2 then modelling time will run from 0 to 2
         #   dt   = float specifying the length of each subinterval. ex. dt=0.1, then the time grid is 0, 0.1, 0.2, ..., T. T must be a multiple of dt 
@@ -100,7 +102,13 @@ class BrownianMotion():
         #   BrownianMotion().simulate_Vasicek_Two_Factor([0.1, 0.2], [1.0, 0.5],[0.1, 0.2], [0.2, 0.2], 0.5, 52,0.1)
         #   [out]  pandas dataframe indexed by time with 2 columns and 521 rows (times 0, 0.1, ..., 52)
         #
-        
+
+        for name, value in [("r0", r0), ("a", a), ("b", b), ("sigma", sigma)]: # a third element would be ignored without an error
+            if np.size(value) != 2:
+                raise ValueError(f"{name} must have 2 elements, one for the real rate and one for inflation")
+        if rho is None or not -1 <= rho <= 1: # the two processes need a correlation between -1 and 1; this also rejects NaN
+            raise ValueError("rho must be a number between -1 and 1")
+
         N = int(round(T / dt)) + 1  # number of points on the time grid 0, dt, 2*dt, ..., T (generate_weiner_process checks that T is a multiple of dt)
 
         time, delta_t = np.linspace(0, T, num = N, retstep = True) # time is a series from 0 to T with step dt

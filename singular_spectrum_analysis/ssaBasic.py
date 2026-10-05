@@ -94,20 +94,22 @@ class ssaBasic:
     
     def validateL0(self, L0: int):
         """
-        Ensure L0 is a scalar
+        Ensure L0 is a positive integer. If it is larger than half the number of observations, it is reduced to N/2 with a warning
         """
 
-        # Check if L0 is an integer
-        if not isinstance(L0, int):
+        # Check if L0 is an integer. Numpy integers, such as the best_L0 returned by crossval_L0, are integers too
+        if isinstance(L0, bool) or not isinstance(L0, (int, np.integer)):
             raise TypeError("L0 is not an integer")
 
         # Make sure L0 is positive
-        L = int(abs(L0))
+        if L0 < 1:
+            raise ValueError("L0 must be at least 1")
+        L = int(L0)
 
         # Check if L0 is less than N/2
         N2 = np.floor(self.N /2)
 
-        if L0>N2:
+        if L>N2:
             warnings.warn("L0 is too high (L/2). Reducing it to L/2")
             L = int(N2)
 

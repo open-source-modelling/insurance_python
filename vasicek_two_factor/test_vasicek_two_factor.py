@@ -42,6 +42,30 @@ def test_T_not_multiple_of_dt_raises():
     with pytest.raises(ValueError, match="multiple of dt"):
         BrownianMotion().simulate_Vasicek_Two_Factor(T=10, dt=0.3)
 
+# A correlation outside [-1, 1] used to give NaN nominal rates (with only a NumPy warning, or none for NaN),
+# and rho = None an unrelated TypeError
+@pytest.mark.parametrize("rho", [1.5, -2, np.nan, None])
+def test_invalid_rho_raises(rho):
+    with pytest.raises(ValueError, match="between -1 and 1"):
+        BrownianMotion().simulate_Vasicek_Two_Factor(rho=rho, T=1, dt=0.1)
+    if rho is not None: # None is valid here: it asks for one Brownian motion
+        with pytest.raises(ValueError, match="between -1 and 1"):
+            BrownianMotion().generate_weiner_process(1, 0.1, rho)
+
+# rho = -1 and 1 are valid: the two Brownian motions are perfectly correlated
+@pytest.mark.parametrize("rho", [-1, 1])
+def test_perfect_correlation_is_valid(rho):
+    out = BrownianMotion().simulate_Vasicek_Two_Factor(rho=rho, T=1, dt=0.1)
+    assert np.isfinite(out.values).all()
+
+# Each parameter list needs one value for the real rate and one for inflation. A third value used to be ignored
+# without an error, and a single value raised an IndexError
+@pytest.mark.parametrize("argument", ["r0", "a", "b", "sigma"])
+@pytest.mark.parametrize("value", [[0.1], [0.1, 0.1, 0.1]])
+def test_parameter_lists_need_two_elements(argument, value):
+    with pytest.raises(ValueError, match=f"{argument} must have 2 elements"):
+        BrownianMotion().simulate_Vasicek_Two_Factor(**{argument: value}, T=1, dt=0.1)
+
 # Without noise and starting at the long-term means, the nominal rate is constant at b[0] + b[1],
 # so the bond price is exp(-(b[0] + b[1]) * maturity). The old code integrated with a step of 1 instead of dt,
 # over the whole simulation horizon instead of up to maturity, and used the real rate

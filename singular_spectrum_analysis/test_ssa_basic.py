@@ -125,3 +125,16 @@ def test_eigen_triple_index_out_of_range_raises_value_error():
     G[0], G[60] = 1, 1
     with pytest.raises(ValueError, match="beyond the 60 that exist"):
         s.grouping(G, "off")
+
+# L0 = 0 used to be accepted (a window of one observation) and a negative L0 silently made positive
+@pytest.mark.parametrize("L0", [0, -10])
+def test_non_positive_L0_raises(series, L0):
+    with pytest.raises(ValueError, match="at least 1"):
+        ssaBasic(series, L0)
+
+# NumPy integers used to raise "L0 is not an integer", also the best_L0 returned by crossval_L0
+def test_numpy_integer_L0(series):
+    s = ssaBasic(series, np.int64(24))
+    assert s.L == 24
+    best_L0, _ = s.crossval_L0(2, 0.9, 5, "off")
+    assert ssaBasic(series, best_L0).L == best_L0
