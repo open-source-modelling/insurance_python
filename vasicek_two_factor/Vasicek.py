@@ -19,7 +19,7 @@ class BrownianMotion():
         #   T    = integer, specifying the maximum modeling time. ex. if T = 2 then modelling time will run from 0 to 2
         #   dt   = float, specifying the length of each subinterval. ex. dt=0.1, then the time grid is 0, 0.1, 0.2, ..., T. T must be a multiple of dt 
         #   rho  = float, specifying the correlation coefficient of the Brownian motion. ex. rho = 0.4 means that two 
-        #          Brownian procesess on the same modeling time interval have a correlation coefficient of 0.4. SOURCE
+        #          Brownian procesess on the same modeling time interval have a correlation coefficient of 0.4.
         #
         # Returns:
         #   W =  N x 1 or N x 2 ndarray, where N = T/dt + 1 is the number of points on the time grid 0, dt, ..., T, and the second dimension is eiter 1 or 2 depending if the function is called 
@@ -63,7 +63,7 @@ class BrownianMotion():
             W_1 = np.ones(N) * self.x0 # preallocate the output array holding the sample paths with the inital point
             W_2 = np.ones(N) * self.x0 # preallocate the output array holding the sample paths with the inital point
 
-            for iter in range(1, N): # generate two independent BMs and entangle them with the formula from SOURCE
+            for iter in range(1, N): # generate two independent BMs and entangle them with the formula
 
                 Z1 = np.random.normal(scale = np.sqrt(dt)) # Increments of a BM have variance dt
                 Z2 = np.random.normal(scale = np.sqrt(dt))
@@ -86,7 +86,7 @@ class BrownianMotion():
         #   b     = list with 2 floats, long term mean level of each process. All future trajectories of r will evolve around a mean level b in the long run 
         #   sigma = list with 2 floats, instantaneous volatility, amplitude of randomness of each process
         #   rho  = float, specifying the correlation coefficient of the Brownian motion. ex. rho = 0.4 means that two 
-        #             Brownian procesess on the same modeling time interval have a correlation coefficient of 0.4. SOURCE
+        #             Brownian procesess on the same modeling time interval have a correlation coefficient of 0.4.
         #   T    = integer specifying the maximum modeling time. ex. if T = 2 then modelling time will run from 0 to 2
         #   dt   = float specifying the length of each subinterval. ex. dt=0.1, then the time grid is 0, 0.1, 0.2, ..., T. T must be a multiple of dt 
         #
@@ -100,7 +100,6 @@ class BrownianMotion():
         #   BrownianMotion().simulate_Vasicek_Two_Factor([0.1, 0.2], [1.0, 0.5],[0.1, 0.2], [0.2, 0.2], 0.5, 52,0.1)
         #   [out]  pandas dataframe indexed by time with 2 columns and 521 rows (times 0, 0.1, ..., 52)
         #
-        # For more information see SOURCE
         
         N = int(round(T / dt)) + 1  # number of points on the time grid 0, dt, 2*dt, ..., T (generate_weiner_process checks that T is a multiple of dt)
 

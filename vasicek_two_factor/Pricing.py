@@ -44,7 +44,7 @@ class ZeroCouponBond():
         #   b     = list with 2 floats, long term mean level of each process. All future trajectories of r will evolve around a mean level b in the long run
         #   sigma = list with 2 floats, instantaneous volatility, amplitude of randomness of each process
         #   rho   = float, specifying the correlation coefficient of the Brownian motion. ex. rho = 0.4 means that two
-        #             Brownian procesess on the same modeling time interval have a correlation coefficient of 0.4. SOURCE
+        #             Brownian procesess on the same modeling time interval have a correlation coefficient of 0.4.
         #   T     = float specifying the maximum modeling time of the simulation. Must be at least the maturity of the bond.
         #   dt    = float specifying the length of each subinterval. ex. dt=0.1, then the time grid is 0, 0.1, 0.2, ..., T.
         #             T and the maturity of the bond must be multiples of dt.
