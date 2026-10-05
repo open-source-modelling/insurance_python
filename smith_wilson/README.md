@@ -31,7 +31,7 @@ This implementation takes as input the <b>available market information</b>, <b>p
 - Convergence speed parameter α controls the speed at which the curve converges towards the ufr parameter from the last liquid point (last data point available in the market information input).
 
 ### Desired output
-- List of maturities for which the SW algorithm will calculate the yields.
+- List of maturities for which the SW algorithm will calculate the yields. The maturities must be non-negative; for maturity 0 the algorithm returns the limit of the yields as the maturity goes to 0.
 
 Note that this implementation assumes that the yields were calculated on ZCB. This assumption can be easily relaxed in future releases.
 

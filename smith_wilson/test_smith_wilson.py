@@ -1,4 +1,5 @@
 import numpy as np
+import pytest
 from pathlib import Path
 from SWCalibrate import SWCalibrate
 from SWExtrapolate import SWExtrapolate
@@ -23,6 +24,29 @@ def test_column_vectors_give_same_result():
     assert np.allclose(b_col, b_1d)
     r_col = SWExtrapolate(M_Target[:, np.newaxis], M_Obs[:, np.newaxis], b_col[:, np.newaxis], ufr, alpha)
     assert np.allclose(r_col, SWExtrapolate(M_Target, M_Obs, b_1d, ufr, alpha))
+
+# Maturity 0 used to give -100% or +inf, depending on how the price p(0) = 1 was rounded, with a divide-by-zero warning.
+# Now it gives the limit of the rates as the maturity goes to 0. Data from main.py and from the README example
+@pytest.mark.filterwarnings("error")
+@pytest.mark.parametrize("M, r, u, a", [(M_Obs, r_Obs, ufr, alpha),
+                                        (np.array([1, 2, 4, 5, 6, 7]), np.array([0.01, 0.02, 0.03, 0.032, 0.035, 0.04]), 0.04, 0.15)])
+def test_maturity_zero_is_the_limit_of_short_maturities(M, r, u, a):
+    b = SWCalibrate(r, M, u, a)
+    r_zero, r_short = SWExtrapolate(np.array([0, 1e-5]), M, b, u, a)
+    assert r_zero == pytest.approx(r_short, abs=1e-7)
+
+# A grid that starts at maturity 0 gives the same rates as before for the other maturities
+def test_grid_starting_at_maturity_zero():
+    b = SWCalibrate(r_Obs, M_Obs, ufr, alpha)
+    r_Target = SWExtrapolate(np.arange(0, 66), M_Obs, b, ufr, alpha)
+    assert np.linalg.norm(r_Target[1:] - expected) < 1e-12
+
+# Negative maturities used to return meaningless rates without an error
+@pytest.mark.parametrize("M_Target", [np.array([-1, 1]), np.array([1, np.nan])])
+def test_negative_or_nan_maturity_raises(M_Target):
+    b = SWCalibrate(r_Obs, M_Obs, ufr, alpha)
+    with pytest.raises(ValueError, match="non-negative"):
+        SWExtrapolate(M_Target, M_Obs, b, ufr, alpha)
 
 # bisection_alpha uses copies of these files. The copies have the same module names, so in one pytest session
 # both folders use whichever copy is imported first; keep them identical
