@@ -95,10 +95,17 @@ def test_optimal_length_docstring_example():
 
 # The optimal block length is capped at ceil(min(3*sqrt(n), n/3))
 def test_optimal_length_bounded():
-    data = np.array([1, 0.2, 17, 0.4, 0.3, 2, 0.3, 12, 0.2, 11, 0.1])
+    data = np.array([1, 0.2, 17, 0.4, 0.3, 2, 0.3, 12, 0.2, 11, 0.1, 0.4])
     n = data.shape[0]
     out = OptimalLength(data)
     assert 0 < out <= np.ceil(min(3*np.sqrt(n), n/3))
+
+# Below 12 elements the autocorrelations of the first step use fewer than 3 observations. n = 8 to 10 used to give
+# divide-by-zero warnings and an accidental 1, n = 11 a meaningless value without a warning, and n <= 7 an IndexError
+@pytest.mark.parametrize("n", [5, 9, 10, 11])
+def test_short_series_raise(n):
+    with pytest.raises(ValueError, match="at least 12"):
+        OptimalLength(np.random.default_rng(0).normal(size=n))
 
 def ar1(phi, n, seed):
     rng = np.random.default_rng(seed)

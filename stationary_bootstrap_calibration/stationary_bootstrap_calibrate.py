@@ -10,17 +10,20 @@ def OptimalLength(data: np.ndarray) ->float:
     The code was modified compared to Patton's implementation in that it takes as input a one dimensional time-series 
     and returns the optimalblock size only for the stationary bootstrap algorithm.
     
-    Warning! The minimal size of the time series is 9 elements.
+    The time series must have at least 12 elements, otherwise a ValueError is raised. The first step estimates each
+    autocorrelation from the n - mmax observations after the first mmax = ceil(sqrt(n)) + 5, and below 12 elements
+    there are fewer than 3 of them.
 
 
     Parameters
     ----------
-        data ... ndarray array containing the time-series that we wish to bootstrap. 
-            Ex. np.array([-1,0.2,0.3,0.7,0.5,0.1,0.4,0.3,0.5])
+        data ... ndarray array containing the time-series that we wish to bootstrap.
+            Ex. np.array([0.4,0.2,0.1,0.4,0.3,0.1,0.3,0.4,0.2,0.5,0.1,0.2])
 
     Returns
     -------
-       Bstar ... optimal value of the parameter m Ex. 1
+       Bstar ... optimal value of the parameter m, the mean block length. It is at most ceil(min(3*sqrt(n), n/3)) and can be below 1
+                 for weakly dependent data (stationary_bootstrap treats values below 1 like 1). Ex. 1
 
     Example of use:
     >>> import numpy as np
@@ -42,6 +45,10 @@ def OptimalLength(data: np.ndarray) ->float:
     """
     
     n = data.shape[0]
+    # The first step estimates each autocorrelation from the n - mmax observations after the first mmax = ceil(sqrt(n)) + 5.
+    # Below 12 elements there are fewer than 3, so the autocorrelations are undefined (0 or 1 observations) or always +1 or -1 (2)
+    if n < 12:
+        raise ValueError("The time series must have at least 12 elements")
     kn = max(5,np.sqrt(np.log10(n)))
     mmax = int(np.ceil(np.sqrt(n))+kn)
     bmax = np.ceil(min(3*np.sqrt(n),n/3))
