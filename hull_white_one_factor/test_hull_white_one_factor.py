@@ -53,3 +53,10 @@ def test_bond_price_matches_market_curve():
 def test_invalid_time_grid_raises(t, f):
     with pytest.raises(ValueError):
         simulate_Hull_White_One_Factor(0.04, 0.01, t, f)
+
+# The speed of mean reversion must be positive. a = 0 used to raise ZeroDivisionError or give NaNs,
+# and a negative a raised an unclear "scale < 0" error
+@pytest.mark.parametrize("a", [0, np.float64(0.0), -0.04, np.nan])
+def test_non_positive_mean_reversion_raises(a):
+    with pytest.raises(ValueError, match="a must be positive"):
+        simulate_Hull_White_One_Factor(a, 0.01, np.arange(0, 4.0), np.full(4, 0.03))

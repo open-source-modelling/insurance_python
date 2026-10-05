@@ -13,10 +13,11 @@ def simulate_Hull_White_One_Factor(a: float, sigma: float, t, f) ->pd.DataFrame:
      x(t) is simulated exactly from today (t = 0) to each time in t.
 
      Args:
-       a (float): speed of reversion parameter that is related to the velocity at which such trajectories will regroup around the forward rate theta.
+       a (float): speed of mean reversion; it must be positive. The short rate reverts towards its mean path alpha(t),
+                  and deviations from it die out like exp(-a * t).
        sigma (float): instantaneous volatility of the short rate. It is an absolute volatility in units of the rate: sigma = 0.01 means changes of about 1 percentage point per year.
-       t (array of floats): times at which the output is generated, in years from today. They must be non-negative and increasing.
-                            With t[0] = 0 the first value is today's short rate f(0,0).
+       t (array of floats): times at which the output is generated, in years from today. They must be non-negative and strictly increasing.
+                            With t[0] = 0 the first value is today's short rate f(0,0); if the grid starts later, the first value is already random.
        f (array of floats): today's instantaneous forward rates f(0,t) for the times in t.
 
      Returns:
@@ -47,6 +48,8 @@ def simulate_Hull_White_One_Factor(a: float, sigma: float, t, f) ->pd.DataFrame:
      For more information see https://en.wikipedia.org/wiki/Hull-White_model
     """
 
+    if not a > 0:
+        raise ValueError("a must be positive") # a = 0 is a different model (Ho-Lee) that needs other formulas
     t = np.asarray(t, dtype=float)
     f = np.asarray(f, dtype=float)
     if t.ndim != 1 or t.size == 0 or t.shape != f.shape:
