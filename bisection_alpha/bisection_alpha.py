@@ -4,31 +4,36 @@ from SWExtrapolate import SWExtrapolate as SWExtrapolate
 
 def Galfa(M_Obs: np.ndarray, r_Obs: np.ndarray, ufr: float, alpha: float, Tau: float)->float:
     """
-    Calculates the gap at the convergence point between the allowable tolerance Tau and the curve extrapolated using the Smith-Wilson algorithm.
-    interpolation and extrapolation of rates.
-    
+    Calculates the convergence gap of the Smith-Wilson curve minus the tolerance Tau.
+
+    The convergence gap g(alpha) is the distance at the convergence point between the forward rate of the curve extrapolated
+    with the Smith-Wilson algorithm and the ufr, both continuously compounded (paragraph 160). The convergence point is
+    max(U + 40, 60) years, where U is the longest observed maturity (paragraphs 122 and 159).
+    The function returns g(alpha) - Tau; BisectionAlpha finds the alpha at which it is zero.
+
     Args:
-        M_Obs = 1-dimensional ndarray of n maturities of bonds, that have rates provided in input (r). Ex. M_Obs = np.array([1, 3])
+        M_Obs = 1-dimensional ndarray of n maturities of bonds, that have rates provided in input (r_Obs). Ex. M_Obs = np.array([1, 3])
         r_Obs = 1-dimensional ndarray of n rates, for which you wish to calibrate the algorithm. Each rate belongs to an observable Zero-Coupon Bond with a known maturity. Ex. r_Obs = np.array([0.0024, 0.0034])
         ufr =   1 x 1 floating number, representing the ultimate forward rate. Ex. ufr = 0.042
         alpha = 1 x 1 floating number representing the convergence speed parameter alpha. Ex. alpha = 0.05
-        Tau =   1 x 1 floating number representing the allowed difference between ufr and actual curve. Ex. Tau = 0.00001
-    
+        Tau =   1 x 1 floating number representing the allowed gap between the forward rate at the convergence point and the ufr. Ex. Tau = 0.0001 (1 basis point, as used by EIOPA)
+
     Returns:
-        1 x 1 floating number representing the distance between ufr input and the maximum allowed discrepancy Tau 
+        1 x 1 floating number g(alpha) - Tau. A value of zero or below means that alpha meets the tolerance Tau;
+        a positive value means that it does not.
 
     Example of use:
         >>> import numpy as np
-        >>> from SWCalibrate import SWCalibrate as SWCalibrate
-        >>> from SWExtrapolate import SWExtrapolate as SWExtrapolate
+        >>> from bisection_alpha import Galfa as Galfa
         >>> M_Obs = np.transpose(np.array([1, 2, 4, 5, 6, 7]))
         >>> r_Obs =  np.transpose(np.array([0.01, 0.02, 0.03, 0.032, 0.035, 0.04]))
         >>> alfa = 0.15
         >>> ufr = 0.04
-        >>> Precision = 0.0000000001
         >>> Tau = 0.0001
         >>> Galfa(M_Obs, r_Obs, ufr, alfa, Tau)
-        [Out] -8.544212205612438e-05
+        [Out] -8.544212205612415e-05
+        The last digits can differ slightly between computers. The gap is 0.0001 - 0.0000854 = 0.0000146 (0.15 basis points),
+        so alpha = 0.15 meets the tolerance of 1 basis point.
 
     For more information see https://www.eiopa.europa.eu/document/download/df541a50-a9e7-458b-86ae-6ad16c2d6a29_en?filename=16-09-2022%20Technical%20documentation
     
@@ -44,7 +49,7 @@ def Galfa(M_Obs: np.ndarray, r_Obs: np.ndarray, ufr: float, alpha: float, Tau: f
     Q = np.diag(d) @ C                            # Matrix Q described in paragraph 141
     b = SWCalibrate(r_Obs, M_Obs, ufr, alpha)     # Calculate the calibration vector b using the equation from paragraph 151
     K = (1+alpha * M_Obs @ Q@ b) / (np.sinh(alpha * M_Obs.transpose())@ Q@ b) # Calculate kappa as defined in the paragraph 157
-    return( alpha/np.abs(1 - K*np.exp(alpha*T))-Tau) # Size of the gap at the convergence point between the allowable tolerance Tau and the actual curve. Defined in paragraph 160
+    return( alpha/np.abs(1 - K*np.exp(alpha*T))-Tau) # Gap g(alpha) at the convergence point from paragraph 160, minus the tolerance Tau
 
 def BisectionAlpha(xStart: float, xEnd: float, M_Obs: np.ndarray, r_Obs: np.ndarray, ufr: float, Tau: float, Precision: float, maxIter: int)->float:
     """
