@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "insurance_python: Actuarial models in Python"
+type: software
+authors:
+  - given-names: Gregor
+    family-names: Fabjan
+    email: gregor@osmodelling.com
+  - name: "Open-Source Modelling"
+    website: "https://github.com/open-source-modelling"
+repository-code: "https://github.com/open-source-modelling/insurance_python"
+url: "https://qnityconsultants.com"
+abstract: >-
+  Open-source Python implementations of algorithms for actuaries and
+  risk managers, including Smith-Wilson, Nelson-Siegel-Svensson,
+  Vasicek, Hull-White and the stationary bootstrap.
+keywords:
+  - actuarial
+  - insurance
+  - solvency-ii
+  - yield-curve
+  - python
+license: MIT
+version: "1.0.0"
+date-released: "2026-10-20"
