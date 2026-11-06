@@ -30,8 +30,9 @@ def Galfa(M_Obs: np.ndarray, r_Obs: np.ndarray, ufr: float, alpha: float, Tau: f
         >>> alfa = 0.15
         >>> ufr = 0.04
         >>> Tau = 0.0001
-        >>> Galfa(M_Obs, r_Obs, ufr, alfa, Tau)
-        [Out] -8.544212205612415e-05
+        >>> print(f"{Galfa(M_Obs, r_Obs, ufr, alfa, Tau):.6e}")
+        -8.544212e-05
+
         The last digits can differ slightly between computers. The gap is 0.0001 - 0.0000854 = 0.0000146 (0.15 basis points),
         so alpha = 0.15 meets the tolerance of 1 basis point.
 
@@ -75,18 +76,17 @@ def BisectionAlpha(xStart: float, xEnd: float, M_Obs: np.ndarray, r_Obs: np.ndar
 
     Example of use:
         >>> import numpy as np
-        >>> from SWCalibrate import SWCalibrate as SWCalibrate
+        >>> from bisection_alpha import BisectionAlpha
         >>> M_Obs = np.transpose(np.array([1, 2, 4, 5, 6, 7]))
         >>> r_Obs =  np.transpose(np.array([0.01, 0.02, 0.03, 0.032, 0.035, 0.04]))
         >>> xStart = 0.05
         >>> xEnd = 0.5
         >>> maxIter = 1000
-        >>> alfa = 0.15
         >>> ufr = 0.04
         >>> Precision = 0.0000000001
         >>> Tau = 0.0001
-        >>> BisectionAlpha(xStart, xEnd, M_Obs, r_Obs, ufr, Tau, Precision, maxIter)
-        [Out] 0.11549789285636511
+        >>> print(f"{BisectionAlpha(xStart, xEnd, M_Obs, r_Obs, ufr, Tau, Precision, maxIter):.8f}")
+        0.11549789
 
     For more information see https://www.eiopa.europa.eu/document/download/df541a50-a9e7-458b-86ae-6ad16c2d6a29_en?filename=16-09-2022%20Technical%20documentation and https://en.wikipedia.org/wiki/Bisection_method
      

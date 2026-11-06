@@ -8,12 +8,15 @@ def SWCalibrate(r: np.ndarray, M: np.ndarray, ufr: float, alpha: float) -> np.nd
 
     Arguments:
         r: 1-dimensional ndarray of n rates for which you wish to calibrate the algorithm. Each rate belongs to an observable zero-coupon bond with a known maturity. Example: r = np.array([0.0024, 0.0034])
-        M: 1-dimensional ndarray of the n maturities of bonds that have rates provided in the input `r`. Example: M = np.array([1, 3])
+        M: 1-dimensional ndarray of the n maturities of bonds that have rates provided in the input `r`. They must be positive. Example: M = np.array([1, 3])
         ufr: Floating number representing the ultimate forward rate. Example: ufr = 0.042
         alpha: Floating number representing the convergence speed parameter alpha. Example: alpha = 0.05
 
     Returns:
         1-dimensional ndarray of n elements representing the calibration vector needed for interpolation and extrapolation. Example: b = np.array([14, -21])
+
+    Raises:
+        ValueError if an observed maturity is zero, negative or NaN.
 
     Column vectors (n x 1 ndarrays) are also accepted; they are flattened.
 
@@ -25,6 +28,10 @@ def SWCalibrate(r: np.ndarray, M: np.ndarray, ufr: float, alpha: float) -> np.nd
 
     r = np.ravel(r)
     M = np.ravel(M)
+    # A bond maturing at 0 is priced at 1 whatever its rate, so it carries no information: its row of H is zero and the
+    # system below is singular, which used to give a meaningless b of the order of 1e14 instead of an error
+    if not np.all(M > 0): # also rejects NaN
+        raise ValueError("The observed maturities must be positive")
     C = np.identity(M.size)
     p = (1+r) **(-M)                  # Transform rates to implied market prices of a ZCB bond
     d = np.exp(-np.log(1+ufr) * M)    # Calculate vector d described in paragraph 140
