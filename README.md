@@ -18,6 +18,10 @@
   Collection of useful models that actuaries can use to speed up their tasks. 
 </p>
 
+<p align="center">
+  <a href="https://github.com/open-source-modelling/insurance_python/actions/workflows/tests.yml"><img src="https://github.com/open-source-modelling/insurance_python/actions/workflows/tests.yml/badge.svg" alt="Tests"/></a>
+</p>
+
 
 ## Algorithms available
 
