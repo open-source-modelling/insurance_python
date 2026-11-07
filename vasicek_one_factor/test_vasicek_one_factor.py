@@ -1,5 +1,6 @@
 import numpy as np
 import pytest
+from scipy import stats
 from Vasicek_one_factor import simulate_Vasicek_One_Factor
 
 
@@ -52,3 +53,22 @@ def test_negative_rates_and_zero_volatility_are_accepted(r0, lam, sigma):
     out = simulate_Vasicek_One_Factor(r0, 1.0, lam, sigma, 1, 0.5)
     assert out["Interest Rate"].iloc[0] == r0
     assert np.all(np.isfinite(out["Interest Rate"].values))
+
+# Over a step dt, the exact solution of dr = a (lam - r) dt + sigma dW is
+#   r(t + dt) = r(t) e^(-a dt) + lam (1 - e^(-a dt)) + sigma sqrt((1 - e^(-2 a dt)) / (2 a)) Z,   Z ~ N(0, 1),
+# with Z independent of everything before t. Standardising every step therefore gives independent N(0, 1) residuals.
+# a * dt = 1 is large on purpose: an Euler step r(t) + a (lam - r(t)) dt + sigma sqrt(dt) Z would give residuals with a
+# standard deviation of about 1.6 and a lag-1 autocorrelation of about -0.3, so the test also checks that the step is exact
+def test_each_step_has_the_exact_transition_distribution():
+    r0, a, lam, sigma, dt, n = 0.05, 2.0, 0.03, 0.01, 0.5, 20000
+    np.random.seed(0)
+    r = simulate_Vasicek_One_Factor(r0, a, lam, sigma, n * dt, dt)["Interest Rate"].values
+    decay = np.exp(-a * dt)
+    z = (r[1:] - r[:-1] * decay - lam * (1 - decay)) / (sigma * np.sqrt((1 - decay**2) / (2 * a)))
+    # The tolerances are 4 standard errors, so the test does not depend on the seed: 1 / sqrt(n) for the mean and
+    # the autocorrelation, 1 / sqrt(2 n) for the standard deviation
+    assert z.size == n
+    assert abs(z.mean()) < 4 / np.sqrt(n)
+    assert abs(z.std() - 1) < 4 / np.sqrt(2 * n)
+    assert abs(np.corrcoef(z[:-1], z[1:])[0, 1]) < 4 / np.sqrt(n)
+    assert stats.kstest(z, "norm").pvalue > 0.01
