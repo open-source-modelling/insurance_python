@@ -149,7 +149,6 @@ class BrownianMotion():
 
         data = {'Time' : time, 'Real Interest Rate' : r_e, 'Nominal Interest Rate' : r_s}
 
-        interest_rate_simulation = pd.DataFrame.from_dict(data = data)
-        interest_rate_simulation.set_index('Time', inplace = True)
+        interest_rate_simulation = pd.DataFrame.from_dict(data = data).set_index('Time') # pandas 3.1 deprecates inplace = True
 
         return interest_rate_simulation

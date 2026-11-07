@@ -75,7 +75,6 @@ def simulate_Vasicek_One_Factor(r0: float = 0.1, a: float = 1.0, lam: float = 0.
 
     data = {'Time' : time, 'Interest Rate' : r}
 
-    interest_rate_simulation = pd.DataFrame.from_dict(data = data)
-    interest_rate_simulation.set_index('Time', inplace = True)
+    interest_rate_simulation = pd.DataFrame.from_dict(data = data).set_index('Time') # pandas 3.1 deprecates inplace = True
 
     return interest_rate_simulation
