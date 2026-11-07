@@ -88,3 +88,21 @@ def test_path_settles_into_the_stationary_distribution():
     assert abs(x.mean() - lam) < 4 * np.sqrt(v / n * (1 + rho) / (1 - rho))
     assert abs(x.var() / v - 1) < 4 * np.sqrt(2 / n * (1 + rho**2) / (1 - rho**2))
     assert abs(np.corrcoef(x[:-1], x[1:])[0, 1] - rho) < 4 * np.sqrt((1 - rho**2) / n)
+
+# Starting from a fixed r0, the rate at time t is normal with
+#   mean      m(t) = lam + (r0 - lam) e^(-a t)
+#   variance  v(t) = sigma^2 (1 - e^(-2 a t)) / (2 a)
+# Simulating many paths with repeated calls checks these at every grid time, including the early times where the rate
+# has not settled yet. Each call must also give a new path, independent of the previous one
+def test_many_paths_have_the_exact_mean_and_variance_at_every_time():
+    r0, a, lam, sigma, T, dt, n_paths = 0.08, 0.5, 0.03, 0.02, 2, 0.5, 2000
+    np.random.seed(0)
+    paths = np.array([simulate_Vasicek_One_Factor(r0, a, lam, sigma, T, dt)["Interest Rate"].values for _ in range(n_paths)])
+    t = np.arange(0, T + dt / 2, dt)
+    m = lam + (r0 - lam) * np.exp(-a * t)
+    v = sigma**2 * (1 - np.exp(-2 * a * t)) / (2 * a)
+    assert np.all(paths[:, 0] == r0)
+    # Tolerances are 4 standard errors: sqrt(v / n) for a mean, sqrt(2 / (n - 1)) for a variance ratio, 1 / sqrt(n) for a correlation
+    assert np.all(np.abs(paths[:, 1:].mean(axis=0) - m[1:]) < 4 * np.sqrt(v[1:] / n_paths))
+    assert np.all(np.abs(paths[:, 1:].var(axis=0, ddof=1) / v[1:] - 1) < 4 * np.sqrt(2 / (n_paths - 1)))
+    assert abs(np.corrcoef(paths[:-1, -1], paths[1:, -1])[0, 1]) < 4 / np.sqrt(n_paths - 1)
