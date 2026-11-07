@@ -19,12 +19,14 @@ The stochastic differential equation (SDE) of the Vasicek model is shown on the 
 
 ### Input
 
-  - `r0` (float): starting interest rate of the Vasicek process.
-  - `a` (float): speed of reversion parameter that characterizes the velocity at which such trajectories will regroup around lam in time.
-  - `lam` (float): long term mean level. All future trajectories of r will evolve around this mean level in the long run.
-  - `sigma` (float): instantaneous volatility of the rate. It is an absolute volatility in units of the rate: sigma = 0.01 means changes of about 1 percentage point per year.
-  - `T` (integer): end modelling time. From 0 to T the time series runs.
-  - `dt` (float): increment of time that the process runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,... T must be a multiple of dt.
+  - `r0` (float): starting interest rate of the Vasicek process. Can be negative.
+  - `a` (float): speed of reversion parameter that characterizes the velocity at which such trajectories will regroup around lam in time. Must be positive.
+  - `lam` (float): long term mean level. All future trajectories of r will evolve around this mean level in the long run. Can be negative.
+  - `sigma` (float): instantaneous volatility of the rate. It is an absolute volatility in units of the rate: sigma = 0.01 means changes of about 1 percentage point per year. Must be non-negative; sigma = 0 gives the deterministic path.
+  - `T` (float): end modelling time. From 0 to T the time series runs. Must be positive.
+  - `dt` (float): increment of time that the process runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,... Must be positive, and T must be a multiple of dt.
+
+Inputs that break these rules, or that are NaN or infinite, raise a `ValueError`.
 
 ### Output
 

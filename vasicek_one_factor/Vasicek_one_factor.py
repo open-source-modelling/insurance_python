@@ -1,20 +1,23 @@
 import numpy as np
 import pandas as pd
 
-def simulate_Vasicek_One_Factor(r0: float = 0.1, a: float = 1.0, lam: float = 0.1, sigma: float = 0.2, T: int = 52, dt = 0.1) -> pd.DataFrame:
+def simulate_Vasicek_One_Factor(r0: float = 0.1, a: float = 1.0, lam: float = 0.1, sigma: float = 0.2, T: float = 52, dt: float = 0.1) -> pd.DataFrame:
     """ Simulates a temporal series of interest rates using the One Factor Vasicek model
      interest_rate_simulation = simulate_Vasicek_One_Factor(r0, a, lam, sigma, T, dt)
     
      Arguments:
-       r0    = float, starting interest rate of the vasicek process 
-       a     = float, speed of reversion parameter that characterizes the velocity at which such trajectories will regroup around lam in time
-       lam   = float, long term mean level that all future trajectories will evolve around
-       sigma = float, instantaneous volatility of the rate. It is an absolute volatility in units of the rate: sigma = 0.01 means changes of about 1 percentage point per year.
-       T     = integer, end modelling time. From 0 to T the time series runs.
-       dt    = float, increment of time that the process runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,... T must be a multiple of dt.
+       r0    = float, starting interest rate of the vasicek process. Can be negative.
+       a     = float, speed of reversion parameter that characterizes the velocity at which such trajectories will regroup around lam in time. Must be positive.
+       lam   = float, long term mean level that all future trajectories will evolve around. Can be negative.
+       sigma = float, instantaneous volatility of the rate. It is an absolute volatility in units of the rate: sigma = 0.01 means changes of about 1 percentage point per year. Must be non-negative; sigma = 0 gives the deterministic path.
+       T     = float, end modelling time. From 0 to T the time series runs. Must be positive.
+       dt    = float, increment of time that the process runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,... Must be positive, and T must be a multiple of dt.
 
      Returns:
        interest_rate_simulation = N x 1 Pandas DataFrame where index is modelling time and values are a realisation of the interest rate
+
+     Raises:
+       ValueError if a, T or dt is not positive, sigma is negative, T is not a multiple of dt, or any input is NaN or infinite.
 
      Example:
        Model the interest rate which is 10% today. The absolute volatility of the rate is 2 percentage points per year (sigma = 0.02). The external analysis points out that the mean reversion parameter is 1 and the long-term interest rate level is 10%. The user is interested in an interest rate projection of the next 10 years in increments of 6 months (0.5 years)
@@ -50,6 +53,14 @@ def simulate_Vasicek_One_Factor(r0: float = 0.1, a: float = 1.0, lam: float = 0.
      For more information see https://en.wikipedia.org/wiki/Vasicek_model
     """
     
+    if not (np.isfinite(r0) and np.isfinite(lam)):
+        raise ValueError("r0 and lam must be finite numbers")
+    if not 0 < a < np.inf: # also rejects NaN
+        raise ValueError("a must be positive") # a = 0 is a Brownian motion without mean reversion, which needs other formulas
+    if not 0 <= sigma < np.inf: # also rejects NaN
+        raise ValueError("sigma must be non-negative")
+    if not (0 < T < np.inf and 0 < dt < np.inf): # also rejects NaN. A negative T with a negative dt would pass the check below
+        raise ValueError("T and dt must be positive numbers")
     steps = int(round(T / dt)) # number of subintervals of length dt. round() because e.g. 0.3 / 0.1 = 2.9999999999999996
     if steps < 1 or not np.isclose(steps * dt, T):
         raise ValueError("T must be a positive multiple of dt")
