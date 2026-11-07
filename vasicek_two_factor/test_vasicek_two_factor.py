@@ -22,6 +22,23 @@ def test_correlated_wiener_increments():
     assert np.var(dW_2) == pytest.approx(dt, rel=0.05)
     assert np.corrcoef(dW_1, dW_2)[0, 1] == pytest.approx(rho, abs=0.03)
 
+# The example in the comments of generate_weiner_process used to call it with x0 as the first argument,
+# which is T, and showed paths one point short of the time grid 0, 0.5, ..., 3
+def test_generate_weiner_process_documented_example():
+    np.random.seed(0)
+    W_1, W_2 = BrownianMotion(0).generate_weiner_process(3, 0.5, 0.4)
+    assert np.allclose(W_1, [0., 1.24737338, 1.93944564, 3.26000856, 3.93182252, 3.85883577, 3.96068996])
+    assert np.allclose(W_2, [0., 0.75828086, 2.48737454, 2.38225126, 2.55288616, 2.7897897, 3.77300833])
+
+# Each path starts at x0, with T/dt + 1 points
+@pytest.mark.parametrize("rho", [None, 0.4])
+def test_wiener_paths_start_at_x0(rho):
+    W = BrownianMotion(2.5).generate_weiner_process(3, 0.5, rho)
+    paths = [W] if rho is None else W
+    for path in paths:
+        assert path.shape == (7,)
+        assert path[0] == 2.5
+
 # rho = 0 means two uncorrelated Brownian motions, not a one-dimensional one
 def test_zero_correlation_gives_two_paths():
     np.random.seed(0)
@@ -82,6 +99,22 @@ def test_zero_coupon_bond_maturity_checks():
         ZeroCouponBond(2).price([0.01, 0.02], [1.0, 1.0], [0.01, 0.02], [0.0, 0.0], 0.5, 1, 0.1, 1)
     with pytest.raises(ValueError, match="multiple of dt"):
         ZeroCouponBond(1.25).price([0.01, 0.02], [1.0, 1.0], [0.01, 0.02], [0.0, 0.0], 0.5, 2, 0.5, 1)
+
+# No scenarios used to give a NaN price with only a NumPy warning
+@pytest.mark.parametrize("nScen", [0, -5])
+def test_zero_coupon_bond_needs_at_least_one_scenario(nScen):
+    with pytest.raises(ValueError, match="at least 1"):
+        ZeroCouponBond(1).price([0.01, 0.02], [1.0, 1.0], [0.01, 0.02], [0.0, 0.0], 0.5, 1, 0.1, nScen)
+
+@pytest.mark.parametrize("nScen", [2.5, 10.0, None, True, "10"])
+def test_zero_coupon_bond_number_of_scenarios_must_be_an_integer(nScen):
+    with pytest.raises(TypeError, match="nScen must be an integer"):
+        ZeroCouponBond(1).price([0.01, 0.02], [1.0, 1.0], [0.01, 0.02], [0.0, 0.0], 0.5, 1, 0.1, nScen)
+
+# NumPy integers are valid numbers of scenarios
+def test_zero_coupon_bond_accepts_numpy_integer_scenarios():
+    price = ZeroCouponBond(1).price([0.01, 0.02], [1.0, 1.0], [0.01, 0.02], [0.0, 0.0], 0.5, 1, 0.1, np.int64(2))
+    assert price == pytest.approx(np.exp(-0.03))
 
 # The rates are simulated with the exact transition, so large time steps do not distort the distribution.
 # The Euler scheme used before overstated the long-run variances by 24% and 32% for these parameters.

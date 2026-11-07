@@ -22,21 +22,24 @@ class BrownianMotion():
         #          Brownian procesess on the same modeling time interval have a correlation coefficient of 0.4. Without rho (None) the output is one Brownian motion
         #
         # Returns:
-        #   W =  N x 1 or N x 2 ndarray, where N = T/dt + 1 is the number of points on the time grid 0, dt, ..., T, and the second dimension is eiter 1 or 2 depending if the function is called 
-        #        to generate a one or two dimensional Brownian motion. Each column represents a sample path of a Brownian motion starting at x0 
+        #   W = if rho is None, a 1-D ndarray with N = T/dt + 1 points, one for each time on the grid 0, dt, ..., T.
+        #       Otherwise a list of two such ndarrays, one for each of the two correlated Brownian motions.
+        #       Each path starts at x0
         #
         # Example:
-        # The user wants to generate discreete sample paths of two Brownian motions with a correlation coefficient of 0.4. 
-        #    The Brownian motions needs to start at 0 at time 0 and on for 3 units of time with an increment of 0.5.
+        # The user wants to generate discrete sample paths of two Brownian motions with a correlation coefficient of 0.4.
+        #    The Brownian motions need to start at 0 at time 0 and run for 3 units of time with an increment of 0.5.
+        #    The starting value x0 is set when creating the BrownianMotion object.
         #
         #   import numpy as np
-        #   from typing import Any
-        #   generate_weiner_process(0, 3, 0.5, 0.4)
-        #   [out] = [array([ 0.        , -0.07839855,  0.26515158,  1.15447737,  1.04653442,
-        #           0.81159737]),
-        #           array([ 0.        , -0.78942881, -0.84976461, -1.06830757, -1.21829101,
-        #           -0.61179385])]
-        #       
+        #   from Vasicek import BrownianMotion
+        #   np.random.seed(0)
+        #   BrownianMotion(0).generate_weiner_process(3, 0.5, 0.4)
+        #   [out] = [array([0.        , 1.24737338, 1.93944564, 3.26000856, 3.93182252,
+        #           3.85883577, 3.96068996]),
+        #           array([0.        , 0.75828086, 2.48737454, 2.38225126, 2.55288616,
+        #           2.7897897 , 3.77300833])]
+        #
         # Ideas for improvement:
         # Remove x0 as a necessary argument
         # Generate increments directly

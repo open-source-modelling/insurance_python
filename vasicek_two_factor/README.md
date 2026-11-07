@@ -23,7 +23,7 @@ Vasicek model simulator:
  - `dt` ... time increments. ex. time increments are 6 months, dt = 0.5. T must be a multiple of dt             
 
 Vasicek model pricing:
- - `nScen` ... integer, number of simulations of the Monte Carlo method
+ - `nScen` ... positive integer, number of simulations of the Monte Carlo method. ex. for 1000 scenarios, nScen = 1000
 
 Vasicek model calibration:
 TBD

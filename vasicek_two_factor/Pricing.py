@@ -48,7 +48,7 @@ class ZeroCouponBond():
         #   T     = float specifying the maximum modeling time of the simulation. Must be at least the maturity of the bond.
         #   dt    = float specifying the length of each subinterval. ex. dt=0.1, then the time grid is 0, 0.1, 0.2, ..., T.
         #             T and the maturity of the bond must be multiples of dt.
-        #   nScen = number of simulated scenarios of which the mean is the price estimation
+        #   nScen = positive integer, number of simulated scenarios of which the mean is the price estimation
         #
         # Returns:
         #   The price of the zero cupon bond, which is also stored in the property _price
@@ -57,6 +57,10 @@ class ZeroCouponBond():
         #   zero_coupon_bond = ZeroCouponBond(1)
         #   zero_coupon_bond.price([0.014, 0.06], [0.8, 1], [0.01, 0.015], [0.05, 0.04], 0.6, 1, 0.1, 1000)
 
+        if isinstance(nScen, bool) or not isinstance(nScen, (int, np.integer)): # the number of scenarios sizes an array
+            raise TypeError("nScen must be an integer")
+        if nScen < 1: # the mean of no scenarios would be NaN, returned with only a NumPy warning
+            raise ValueError("nScen must be at least 1")
         if T < self._T and not np.isclose(T, self._T):
             raise ValueError("The simulation horizon T must be at least the maturity of the bond")
         steps_to_maturity = int(round(self._T / dt))
